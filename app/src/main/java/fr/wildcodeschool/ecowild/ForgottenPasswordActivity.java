@@ -7,19 +7,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
+
 public class ForgottenPasswordActivity extends AppCompatActivity {
 
-    int i = 1;
 
+    int mPasswordVisibility = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotten_password);
 
-        final EditText editTextForgottenPassword = findViewById(R.id.editText_forgotten_password);
-        final EditText editTextValidatedPassword = findViewById(R.id.editText_validated_password);
-        final ImageView imageViewForgottenPassword = findViewById(R.id.imageView_forgotten_password);
-        final ImageView imageViewValidatedPassword = findViewById(R.id.imageView_validated_password);
+        final EditText editTextForgottenPassword = findViewById(R.id.edit_text_forgotten_password);
+        final EditText editTextValidatedPassword = findViewById(R.id.edit_text_validated_password);
+        final ImageView imageViewForgottenPassword = findViewById(R.id.image_view_forgotten_password);
+        final ImageView imageViewValidatedPassword = findViewById(R.id.image_view_validated_password);
 
         setTitle("Modifier mot de passe");
 
@@ -27,14 +30,14 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (i == 1) {
+                if ( mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextForgottenPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    i = 2;
+                    mPasswordVisibility = PASSWORD_VISIBLE;
                 }
 
                 else {
                     editTextForgottenPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    i = 1;
+                    mPasswordVisibility = PASSWORD_HIDDEN;
                 }
             }
         });
@@ -43,14 +46,14 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (i == 1) {
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextValidatedPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    i = 2;
+                    mPasswordVisibility = PASSWORD_VISIBLE;
                 }
 
                 else {
                     editTextValidatedPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    i = 1;
+                    mPasswordVisibility = PASSWORD_HIDDEN;
                 }
             }
         });

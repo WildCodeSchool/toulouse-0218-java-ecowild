@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int PERMS_CALL_ID = 1234;
-    private LocationManager lm;
+    private LocationManager mLocation;
 
     //Pour recup la carte utiliser ses 2 attributs
     //1er name ds layout=instance

@@ -3,11 +3,11 @@ package fr.wildcodeschool.ecowild;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Listactivity extends AppCompatActivity {
+public class ListLocationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listactivity);
+        setContentView(R.layout.activity_listlocationactivity);
     }
 }

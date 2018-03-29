@@ -7,14 +7,14 @@
     tools:context="fr.wildcodeschool.ecowild.MainActivity">
 
     <TextView
-    android:id="@+id/textView_title"
+    android:id="@+id/text_view_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginTop="80dp"
     android:text="@string/ecowild"
-    android:textColor="#439DBB"
+    android:textColor="@color/colorEcoWild"
     android:textSize="40sp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +27,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="245dp"
-        android:background="#439DBB"
+        android:background="@color/colorEcoWild"
         android:text="@string/se_connecter"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_title" />
 
     <Button
         android:id="@+id/button_become_member"
@@ -43,8 +43,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:text="@string/devenir_membre"
-        android:background="#439DBB"
-        android:textColor="#ffffff"
+        android:background="@color/colorEcoWild"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"

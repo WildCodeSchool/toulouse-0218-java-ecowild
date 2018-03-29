@@ -10,20 +10,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
+
 public class MemberActivity extends AppCompatActivity {
 
-    int i = 1;
+    int mPasswordVisibility = PASSWORD_HIDDEN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member);
 
-        final EditText editTextCompte = findViewById(R.id.editText_Compte);
-        final EditText editTextPassword = findViewById(R.id.editText_password);
-        final EditText editTextPassword2 = findViewById(R.id.editText_password2);
-        final ImageView imageViewPassword = findViewById(R.id.imageView_password);
-        final ImageView imageViewPassword2 = findViewById(R.id.imageView_password2);
+        final EditText editTextCompte = findViewById(R.id.edit_text_Compte);
+        final EditText editTextPassword = findViewById(R.id.edit_text_password);
+        final EditText editTextPassword2 = findViewById(R.id.edit_text_Password2);
+        final ImageView imageViewPassword = findViewById(R.id.image_view_Password);
+        final ImageView imageViewPassword2 = findViewById(R.id.image_view_Password2);
 
         Button buttonMember = findViewById(R.id.button_become_member);
         buttonMember.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +38,7 @@ public class MemberActivity extends AppCompatActivity {
                 String editPassword2 = editTextPassword2.getText().toString();
 
                 if (editCompte.isEmpty() ||(editPassword.isEmpty() || (editPassword2.isEmpty()))) {
-                    Toast.makeText(MemberActivity.this, "Remplissez tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MemberActivity.this, fr.wildcodeschool.ecowild.R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
                 }
 
                 else {
@@ -49,14 +52,14 @@ public class MemberActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (i == 1){
+                if (mPasswordVisibility == PASSWORD_HIDDEN){
                     editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    i = 2;
+                    mPasswordVisibility = PASSWORD_VISIBLE;
                 }
 
                 else {
                     editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    i = 1;
+                    mPasswordVisibility = PASSWORD_HIDDEN;
                 }
             }
         });
@@ -65,14 +68,14 @@ public class MemberActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (i == 1) {
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextPassword2.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    i = 2;
+                    mPasswordVisibility = PASSWORD_VISIBLE;
                 }
 
                 else {
                     editTextPassword2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    i = 1;
+                    mPasswordVisibility = PASSWORD_HIDDEN;
                 }
             }
         });

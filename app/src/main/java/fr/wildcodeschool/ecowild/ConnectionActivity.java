@@ -15,40 +15,45 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ConnectionActivity extends AppCompatActivity {
-    int i = 1;
+
+    public static final int PASSWORD_HIDDEN = 1;
+    public static final int PASSWORD_VISIBLE = 2;
+    int mPasswordVisibility = PASSWORD_HIDDEN;
+    public static final String CACHE_USERNAME = "username";
+    public static final String CACHE_PASSWORD = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-        final EditText editTextProfil = findViewById(R.id.editText_profil_connection);
-        final EditText editTextPassword = findViewById(R.id.editText_password_connection);
-        final ImageView imageViewPassword = findViewById(R.id.imageView_password_connection);
-        final TextView textViewForgottenPassword = findViewById(R.id.textView_forgotten_password);
+        final EditText editTextProfil = findViewById(R.id.edit_text_profil_connection);
+        final EditText editTextPassword = findViewById(R.id.edit_text_password_connection);
+        final ImageView imageViewPassword = findViewById(R.id.image_view_password_connection);
+        final TextView textViewForgottenPassword = findViewById(R.id.text_view_forgotten_password);
         final Button buttonToLogIn = findViewById(R.id.button_log_in);
-        final CheckBox checkBoxToLogIn = findViewById(R.id.checkBox_connection);
+        final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
 
         final SharedPreferences sharedPrefProfil = this.getPreferences(Context.MODE_PRIVATE);
-        String usernameCache = sharedPrefProfil.getString("username", "");
-        editTextProfil.setText(usernameCache);
+        final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
+        editTextProfil.setText(username);
 
         final SharedPreferences sharedPreferencesPassword = this.getPreferences(Context.MODE_PRIVATE);
-        String passwordCache = sharedPreferencesPassword.getString("password", "");
-        editTextPassword.setText(passwordCache);
+        final String password = sharedPreferencesPassword.getString(CACHE_PASSWORD, "");
+        editTextPassword.setText(password);
 
         imageViewPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (i == 1) {
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    i = 2;
+                    mPasswordVisibility = PASSWORD_VISIBLE;
                 }
 
                 else {
                     editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    i = 1;
+                    mPasswordVisibility = PASSWORD_HIDDEN;
                 }
             }
         });
@@ -69,7 +74,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 String editPassword = editTextPassword.getText().toString();
 
                 if (editProfil.isEmpty() || editPassword.isEmpty()) {
-                    Toast.makeText(ConnectionActivity.this, "Remplissez tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConnectionActivity.this, getString(R.string.remplissez_tout_les_champs), Toast.LENGTH_SHORT).show();
                 }
 
                 else {
@@ -79,12 +84,9 @@ public class ConnectionActivity extends AppCompatActivity {
 
                 if (checkBoxToLogIn.isChecked()) {
                     SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                    editorProfil.putString("username", editProfil);
+                    editorProfil.putString(CACHE_USERNAME, editProfil);
+                    editorProfil.putString(CACHE_PASSWORD, editPassword);
                     editorProfil.commit();
-
-                    SharedPreferences.Editor editorPassword = sharedPrefProfil.edit();
-                    editorPassword.putString("password", editPassword);
-                    editorPassword.commit();
                 }
             }
         });
