@@ -22,11 +22,11 @@ public class MemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member);
 
-        final EditText editTextCompte = findViewById(R.id.edit_text_Compte);
+        final EditText editTextCompte = findViewById(R.id.edit_text_compte);
         final EditText editTextPassword = findViewById(R.id.edit_text_password);
-        final EditText editTextPassword2 = findViewById(R.id.edit_text_Password2);
-        final ImageView imageViewPassword = findViewById(R.id.image_view_Password);
-        final ImageView imageViewPassword2 = findViewById(R.id.image_view_Password2);
+        final EditText editTextPassword2 = findViewById(R.id.edit_text_password2);
+        final ImageView imageViewPassword = findViewById(R.id.image_view_password);
+        final ImageView imageViewPassword2 = findViewById(R.id.image_view_password2);
 
         Button buttonMember = findViewById(R.id.button_become_member);
         buttonMember.setOnClickListener(new View.OnClickListener() {

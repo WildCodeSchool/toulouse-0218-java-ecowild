@@ -24,7 +24,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
         final ImageView imageViewForgottenPassword = findViewById(R.id.image_view_forgotten_password);
         final ImageView imageViewValidatedPassword = findViewById(R.id.image_view_validated_password);
 
-        setTitle("Modifier mot de passe");
+        setTitle(getString(R.string.password));
 
         imageViewForgottenPassword.setOnClickListener(new View.OnClickListener() {
             @Override

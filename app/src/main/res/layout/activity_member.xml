@@ -7,7 +7,7 @@
     tools:context="fr.wildcodeschool.ecowild.MemberActivity">
 
     <TextView
-        android:id="@+id/text_view_Title2"
+        android:id="@+id/text_view_title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_text_Compte"
+        android:id="@+id/edit_text_compte"
         android:layout_width="269dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_Title2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_title2" />
 
     <EditText
         android:id="@+id/edit_text_password"
@@ -47,10 +47,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_Compte" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_compte" />
 
     <EditText
-        android:id="@+id/edit_text_Password2"
+        android:id="@+id/edit_text_password2"
         android:layout_width="269dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -75,10 +75,10 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_Password2" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_password2" />
 
     <ImageView
-        android:id="@+id/image_view_Password"
+        android:id="@+id/image_view_password"
         android:layout_width="28dp"
         android:layout_height="25dp"
         android:layout_marginEnd="7dp"
@@ -87,12 +87,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_Compte"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_compte"
         app:srcCompat="@drawable/icon_password"
         android:layout_marginRight="7dp" />
 
     <ImageView
-        android:id="@+id/image_view_Password2"
+        android:id="@+id/image_view_password2"
         android:layout_width="28dp"
         android:layout_height="25dp"
         android:layout_marginEnd="7dp"
@@ -101,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_view_Password"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_password"
         app:srcCompat="@drawable/icon_password" />
 
 </android.support.constraint.ConstraintLayout>

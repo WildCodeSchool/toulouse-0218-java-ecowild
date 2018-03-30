@@ -51,8 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(depart, 10));
 
         // filtre afin de n'afficher que certaines données, en lien avec le json dans raw (créé).
-        MapStyleOptions carte = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
-        googleMap.setMapStyle(carte);
+        MapStyleOptions mapFilter = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
+        googleMap.setMapStyle(mapFilter);
 
         // Add a marker in Sydney and move the camera
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
