@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">toulouse-0218-java-ecowild</string>
+    <string name="app_name">TestEcoWild</string>
+    <string name="ecowild">ECOWILD</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="nom_de_compte">Nom de compte</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="validez_votre_mot_de_passe">Validez votre mot de passe</string>
+    <string name="devenir_membre">Devenir membre</string>
+    <string name="devenir_membreActivity">Devenir membre</string>
+    <string name="conserver_mes_identifiants">Conserver mes identifiants</string>
+    <string name="se_connecter_connection">Se connecter</string>
+    <string name="nom_de_compte_connection">Nom de compte</string>
+    <string name="mot_de_passe_connection">Mot de passe</string>
+    <string name="mot_de_passe_oubli">Mot de passe oublié ?</string>
+    <string name="ancien_mot_de_passe">Ancien mot de passe</string>
+    <string name="nouveau_mot_de_passe">Nouveau mot de passe</string>
+    <string name="modifier_mot_de_passe2">Modifier mot de passe</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="remplissez_tout_les_champs">Remplissez tous les champs</string>
+    <string name="password">Modifier mot de passe</string>
 </resources>
