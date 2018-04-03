@@ -64,24 +64,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.map_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch ( item.getItemId()){
-            case R.id.hamburgerMenu:
-                drawerLayout.openDrawer(Gravity.LEFT);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-
-    }
 
     @SuppressWarnings("MissingPermission")
     @Override
