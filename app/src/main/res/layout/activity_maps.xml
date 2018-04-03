@@ -1,8 +1,264 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.wildcodeschool.ecowild.MapsActivity" />
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true">
+
+<!--Volet Gauche -->
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            android:background="#FFFFFFFF"
+            android:id="@+id/relativeLayoutLeft">
+
+
+            <TextView
+                android:id="@+id/textView_background"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="#439dbb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                map:layout_constraintHorizontal_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView_pseudo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="Pseudo"
+                android:textColor="#f8dc81"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                map:layout_constraintStart_toEndOf="@+id/img_profil"
+                map:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_profil"
+                android:layout_width="109dp"
+                android:layout_height="93dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/profil"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_rang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
+                android:text="Rang et Level"
+                android:textColor="#f8dc81"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                map:layout_constraintStart_toEndOf="@+id/img_profil"
+                map:layout_constraintTop_toBottomOf="@+id/textView_pseudo" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="105dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@+id/img_profil" />
+
+            <TextView
+                android:id="@+id/textView_parametres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="Parametres"
+                android:textColor="#439dbb"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@+id/textView_favoris" />
+
+            <TextView
+                android:id="@+id/textView_infosUtilees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="Infos utiles"
+                android:textColor="#439dbb"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@+id/textView_background" />
+
+            <TextView
+                android:id="@+id/textView_favoris"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="Favoris"
+                android:textColor="#439dbb"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@+id/textView_infosUtilees"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/imageButton_deconnexion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:src="@android:drawable/ic_lock_power_off"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_deconnexion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="8dp"
+                android:text="Deconnexion"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintStart_toEndOf="@+id/imageButton_deconnexion" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    <!--Page centre -->
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toStartOf="@+id/buttonright"
+                map:layout_constraintStart_toEndOf="@+id/button_left"
+                map:layout_constraintTop_toTopOf="parent"
+                map:layout_constraintVertical_bias="1.0"
+                tools:context="fr.wildcodeschool.ecowild.MapsActivity" />
+
+            <Button
+                android:id="@+id/buttonright"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toEndOf="parent"
+                android:alpha="0.7"/>
+
+            <Button
+                android:id="@+id/button_left"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintStart_toStartOf="parent"
+                android:alpha="0.7"/>
+
+            <ImageView
+                android:id="@+id/imageView_profil"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/profil"
+                map:layout_constraintBottom_toBottomOf="@+id/button_left"
+                map:layout_constraintEnd_toEndOf="@+id/button_left"
+                map:layout_constraintStart_toStartOf="@+id/button_left"
+                map:layout_constraintTop_toTopOf="@+id/button_left" />
+
+        </android.support.constraint.ConstraintLayout>
+        <!--Volet Droite -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:background="#FFFFFFFF"
+        android:id="@+id/relativeLayoutRight">
+
+
+        <TextView
+            android:id="@+id/textView_recherche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Recherche"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_km"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="32dp"
+            android:text="Kilometres"
+            android:textColor="#439dbb"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/textView_recherche" />
+
+        <TextView
+            android:id="@+id/textView_filtre_plastique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Filtres Plastique"
+            android:textColor="#439dbb"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/textView_filtre_verre" />
+
+        <TextView
+            android:id="@+id/textView_filtre_verre"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Filtres verre"
+            android:textColor="#439dbb"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/textView_km" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v4.widget.DrawerLayout>
