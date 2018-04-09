@@ -1,9 +1,14 @@
 package fr.wildcodeschool.ecowild;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -28,6 +33,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int PERMS_CALL_ID = 1234;
     private LocationManager mLocation;
@@ -38,12 +44,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private DrawerLayout drawerLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        LayoutInflater inflater = getLayoutInflater();
+        //Snack
+       Snackbar snackbar= Snackbar.make(this.findViewById(R.id.map), "N'oublier pas de vous connecter pour plus de fonctionnalités", Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this,ConnectionActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        View snackbarView = snackbar.getView();
+        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(3);
+        snackbar.show();
+
+
+        //Toast
+        /**LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.toast,
                 (ViewGroup) findViewById(R.id.custom_toast_container));
 
@@ -56,12 +80,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
         toast.show();
-
-
+        **/
+        //Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // slide droite et gauche
         drawerLayout = findViewById(R.id.drawerLayout);
         Button buttonLeft = findViewById(R.id.button_left);
 
