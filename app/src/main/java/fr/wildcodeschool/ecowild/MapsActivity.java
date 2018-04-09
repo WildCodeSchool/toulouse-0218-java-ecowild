@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -31,6 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     //Pour recup la carte utiliser ses 2 attributs
@@ -38,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //2eme: objet a linterieur pour pouvoir modif les données
     private GoogleMap mMap;
     DrawerLayout drawerLayout;
+    final ArrayList<ElemntModel> gps = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         //Snack
-        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(4000).setAction("Connexion", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
@@ -149,6 +155,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 double valueAbs = Double.parseDouble(abs);
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Verre";
+                                String id = "v" + c;
+
+                                gps.add(new ElemntModel(address,type,id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
@@ -203,6 +212,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 double valueAbs = Double.parseDouble(abs);
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Papier/Plastique";
+                                String id = "p" + c;
+
+                                gps.add(new ElemntModel(address,type,id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
@@ -226,6 +238,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // On ajoute la requête à la file d'attente
         requestQueueTwo.add(jsonObjectRequestTwo);
+
+        Switch goList = findViewById(R.id.golist);
+        goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
+                goList.putExtra("CLEF", gps);
+                startActivity(goList);
+
+            }
+        });
     }
 }
 
