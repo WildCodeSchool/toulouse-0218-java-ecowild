@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
 

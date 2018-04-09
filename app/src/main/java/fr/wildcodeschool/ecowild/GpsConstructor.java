@@ -1,35 +1,31 @@
 package fr.wildcodeschool.ecowild;
 
-/**
- * Created by wilder on 09/04/18.
- */
-
 public class GpsConstructor {
 
-    double ValueAbs;
-    double ValueOrdo;
+    double valueAbs;
+    double valueOrdo;
     String adress;
 
     public GpsConstructor(double valueAbs, double valueOrdo, String adress) {
-        ValueAbs = valueAbs;
-        ValueOrdo = valueOrdo;
+        this.valueAbs = valueAbs;
+        this.valueOrdo = valueOrdo;
         this.adress = adress;
     }
 
     public double getValueAbs() {
-        return ValueAbs;
+        return valueAbs;
     }
 
     public void setValueAbs(double valueAbs) {
-        ValueAbs = valueAbs;
+        this.valueAbs = valueAbs;
     }
 
     public double getValueOrdo() {
-        return ValueOrdo;
+        return valueOrdo;
     }
 
     public void setValueOrdo(double valueOrdo) {
-        ValueOrdo = valueOrdo;
+        this.valueOrdo = valueOrdo;
     }
 
     public String getAdress() {

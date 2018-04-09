@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import java.util.List;
-
 public class ListLocationActivity extends AppCompatActivity {
 
     @Override
