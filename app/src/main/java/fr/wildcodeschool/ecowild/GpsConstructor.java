@@ -4,12 +4,12 @@ public class GpsConstructor {
 
     double valueAbs;
     double valueOrdo;
-    String adress;
+    String address;
 
-    public GpsConstructor(double valueAbs, double valueOrdo, String adress) {
+    public GpsConstructor(double valueAbs, double valueOrdo, String address) {
         this.valueAbs = valueAbs;
         this.valueOrdo = valueOrdo;
-        this.adress = adress;
+        this.address = address;
     }
 
     public double getValueAbs() {
@@ -28,11 +28,11 @@ public class GpsConstructor {
         this.valueOrdo = valueOrdo;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

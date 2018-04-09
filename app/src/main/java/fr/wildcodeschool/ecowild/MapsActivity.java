@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,10 +45,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         //Snack
-        Snackbar snackbar= Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this,ConnectionActivity.class);
+                Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
                 startActivity(intent);
 
             }
@@ -58,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         snackbar.show();
 
 
-        //Toast
+        //Toast réutilisable plus tard
         /**LayoutInflater inflater = getLayoutInflater();
          View layout = inflater.inflate(R.layout.toast,
          (ViewGroup) findViewById(R.id.custom_toast_container));
@@ -73,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          toast.setView(layout);
          toast.show();
          **/
+
         //Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -89,8 +92,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        Button buttonRigth = findViewById(R.id.button_right);
-        buttonRigth.setOnClickListener(new View.OnClickListener() {
+        Button buttonRight = findViewById(R.id.button_right);
+        buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.RIGHT);
@@ -106,17 +109,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         googleMap.setMyLocationEnabled(true);
 
-        LatLng depart = new LatLng(43.6043896, 1.4433718000000226);
+        LatLng departure = new LatLng(43.6043896, 1.4433718000000226);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(depart, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(departure, 10));
 
         // filtre afin de n'afficher que certaines données, en lien avec le json dans raw (créé).
         MapStyleOptions mapFilter = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
         googleMap.setMapStyle(mapFilter);
-
-        // Add a marker in Sydney and move the camera
-        //mMap.addMarker(new MarkerOptions().position(depart).title("Marker in Sydney"));
-
 
         /** Partie Json Verre**/
 
@@ -139,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             JSONArray records = response.getJSONArray("records");
 
-                            for (int c =0; c < records.length(); c++) {
+                            for (int c = 0; c < records.length(); c++) {
                                 JSONObject recordslist = records.getJSONObject(c);
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
@@ -151,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Verre";
 
-                                // testPosition.append(valueAbs + " " + valueOrdo + adress+ " \n ");
+                                // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress)
                                         .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
@@ -193,21 +192,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             JSONArray records = response.getJSONArray("records");
 
-                            for (int c =0; c < records.length(); c++) {
+                            for (int c = 0; c < records.length(); c++) {
                                 JSONObject recordslist = records.getJSONObject(c);
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
-                                String adress = location.getString("adresse");
-                                JSONArray coordonates = geometry.getJSONArray("coordinates");
-                                String abs = coordonates.getString(0);
-                                String ordo = coordonates.getString(1);
+                                String address = location.getString("adresse");
+                                JSONArray coordinate = geometry.getJSONArray("coordinates");
+                                String abs = coordinate.getString(0);
+                                String ordo = coordinate.getString(1);
                                 double valueAbs = Double.parseDouble(abs);
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Papier/Plastique";
 
-                                // testPosition.append(valueAbs + " " + valueOrdo + adress+ " \n ");
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress)
-                                .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
+                                        .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             }
 
                         } catch (JSONException e) {

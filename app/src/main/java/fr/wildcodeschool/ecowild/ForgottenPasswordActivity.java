@@ -14,6 +14,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
 
 
     int mPasswordVisibility = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +31,10 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if ( mPasswordVisibility == PASSWORD_HIDDEN) {
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextForgottenPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     mPasswordVisibility = PASSWORD_VISIBLE;
-                }
-
-                else {
+                } else {
                     editTextForgottenPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     mPasswordVisibility = PASSWORD_HIDDEN;
                 }
@@ -49,9 +48,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                 if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextValidatedPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     mPasswordVisibility = PASSWORD_VISIBLE;
-                }
-
-                else {
+                } else {
                     editTextValidatedPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     mPasswordVisibility = PASSWORD_HIDDEN;
                 }
