@@ -33,10 +33,6 @@ import org.json.JSONObject;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
-
-    private static final int PERMS_CALL_ID = 1234;
-    private LocationManager mLocation;
-
     //Pour recup la carte utiliser ses 2 attributs
     //1er name ds layout=instance
     //2eme: objet a linterieur pour pouvoir modif les données
