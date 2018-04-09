@@ -37,11 +37,9 @@ public class MemberActivity extends AppCompatActivity {
                 String editPassword = editTextPassword.getText().toString();
                 String editPassword2 = editTextPassword2.getText().toString();
 
-                if (editCompte.isEmpty() ||(editPassword.isEmpty() || (editPassword2.isEmpty()))) {
+                if (editCompte.isEmpty() || (editPassword.isEmpty() || (editPassword2.isEmpty()))) {
                     Toast.makeText(MemberActivity.this, fr.wildcodeschool.ecowild.R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
-                }
-
-                else {
+                } else {
                     Intent intentConnect = new Intent(MemberActivity.this, ConnectionActivity.class);
                     startActivity(intentConnect);
                 }
@@ -52,12 +50,10 @@ public class MemberActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (mPasswordVisibility == PASSWORD_HIDDEN){
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     mPasswordVisibility = PASSWORD_VISIBLE;
-                }
-
-                else {
+                } else {
                     editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     mPasswordVisibility = PASSWORD_HIDDEN;
                 }
@@ -71,9 +67,7 @@ public class MemberActivity extends AppCompatActivity {
                 if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextPassword2.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     mPasswordVisibility = PASSWORD_VISIBLE;
-                }
-
-                else {
+                } else {
                     editTextPassword2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     mPasswordVisibility = PASSWORD_HIDDEN;
                 }

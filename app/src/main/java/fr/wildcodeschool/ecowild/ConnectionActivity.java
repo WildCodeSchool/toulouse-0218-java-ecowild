@@ -49,9 +49,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 if (mPasswordVisibility == PASSWORD_HIDDEN) {
                     editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     mPasswordVisibility = PASSWORD_VISIBLE;
-                }
-
-                else {
+                } else {
                     editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     mPasswordVisibility = PASSWORD_HIDDEN;
                 }
@@ -75,9 +73,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
                 if (editProfil.isEmpty() || editPassword.isEmpty()) {
                     Toast.makeText(ConnectionActivity.this, getString(R.string.remplissez_tout_les_champs), Toast.LENGTH_SHORT).show();
-                }
-
-                else {
+                } else {
                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                     ConnectionActivity.this.startActivity(intentMap);
                 }
