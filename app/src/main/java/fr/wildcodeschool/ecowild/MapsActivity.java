@@ -1,12 +1,16 @@
 package fr.wildcodeschool.ecowild;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.sax.StartElementListener;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,10 +35,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Switch goList = findViewById(R.id.golist);
+        goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Intent goToList = new Intent(MapsActivity.this, ListLocationActivity.class);
+                startActivity(goToList);
+            }
+        });
     }
 
 
@@ -42,7 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
 
         LatLng depart = new LatLng(43.6043896, 1.4433718000000226);
 
