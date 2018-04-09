@@ -21,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -82,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.addMarker(new MarkerOptions().position(depart).title("Marker in Sydney"));
 
 
-        /** Partie Json **/
+        /** Partie Json Verre**/
 
         final TextView testPosition = findViewById(R.id.test_position);
 
@@ -119,8 +120,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 //TODO faire constructeur pour points
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + adress+ " \n ");
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress));
-
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress)
+                                        .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
                             }
 
@@ -141,6 +142,65 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // On ajoute la requête à la file d'attente
         requestQueue.add(jsonObjectRequest);
+
+        /** Partie Json Papier/plastique **/
+        // Crée une file d'attente pour les requêtes vers l'API
+        RequestQueue requestQueueTwo = Volley.newRequestQueue(this);
+
+        // TODO : URL de la requête vers l'API
+        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE";
+
+        // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
+        JsonObjectRequest jsonObjectRequestTwo = new JsonObjectRequest(
+                Request.Method.GET, urlTwo, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+
+                            JSONArray records = response.getJSONArray("records");
+
+                            for (int c =0; c < records.length(); c++) {
+                                JSONObject recordslist = records.getJSONObject(c);
+                                JSONObject geometry = recordslist.getJSONObject("geometry");
+                                JSONObject location = recordslist.getJSONObject("fields");
+                                String adress = location.getString("adresse");
+                                JSONArray coordonates = geometry.getJSONArray("coordinates");
+                                String abs = coordonates.getString(0);
+                                String ordo = coordonates.getString(1);
+                                double valueAbs = Double.parseDouble(abs);
+                                double valueOrdo = Double.parseDouble(ordo);
+                                String type = "Papier/Plastique";
+
+                                //TODO faire constructeur pour points
+
+                                // testPosition.append(valueAbs + " " + valueOrdo + adress+ " \n ");
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress)
+                                .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Afficher l'erreur
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+
+        // On ajoute la requête à la file d'attente
+        requestQueueTwo.add(jsonObjectRequestTwo);
+
     }
 }
 
