@@ -142,16 +142,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 JSONObject recordslist = records.getJSONObject(c);
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
-                                String adress = location.getString("adresse");
-                                JSONArray coordonates = geometry.getJSONArray("coordinates");
-                                String abs = coordonates.getString(0);
-                                String ordo = coordonates.getString(1);
+                                String address = location.getString("adresse");
+                                JSONArray coordinate = geometry.getJSONArray("coordinates");
+                                String abs = coordinate.getString(0);
+                                String ordo = coordinate.getString(1);
                                 double valueAbs = Double.parseDouble(abs);
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Verre";
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress)
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
                                         .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
                             }
