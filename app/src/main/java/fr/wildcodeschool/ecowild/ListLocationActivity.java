@@ -1,13 +1,18 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ListLocationActivity extends AppCompatActivity {
@@ -17,11 +22,14 @@ public class ListLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listlocationactivity);
 
-        ListView locationList =findViewById(R.id.location_list);
+        ListView locationList = findViewById(R.id.location_list);
 
         Switch goMap = findViewById(R.id.goMap);
 
         ArrayList gps = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("CLEF");
+
+        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, gps);
+        locationList.setAdapter(adapter);
 
         goMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -31,7 +39,17 @@ public class ListLocationActivity extends AppCompatActivity {
             }
         });
 
-       ListAdapter adapter = new ListAdapter(ListLocationActivity.this, gps );
-       locationList.setAdapter(adapter);
+        locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ElemntModel localisation = adapter.getItem(i);
+                String adress = localisation.getAdress();
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q=" + adress + "&mode=b"));
+                startActivity(intent);
+            }
+        });
     }
 }
+

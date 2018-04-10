@@ -316,7 +316,7 @@
             android:textColor="#439dbb"
             android:textSize="18sp"
             android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/imageView_filtre-plastique"
+            map:layout_constraintStart_toEndOf="@+id/imageView_filtre_plastique"
             map:layout_constraintTop_toBottomOf="@+id/textView_filtre_verre" />
 
         <TextView
@@ -329,7 +329,7 @@
             android:textColor="#439dbb"
             android:textSize="18sp"
             android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/imageView_filtre-plastique"
+            map:layout_constraintStart_toEndOf="@+id/imageView_filtre_plastique"
             map:layout_constraintTop_toBottomOf="@+id/textView_km" />
 
         <SeekBar
@@ -345,7 +345,7 @@
             map:layout_constraintTop_toBottomOf="@+id/textView_rechercher" />
 
         <ImageView
-            android:id="@+id/imageView_filtre-plastique"
+            android:id="@+id/imageView_filtre_plastique"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="32dp"

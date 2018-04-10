@@ -11,8 +11,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -43,12 +46,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     DrawerLayout drawerLayout;
     final ArrayList<ElemntModel> gps = new ArrayList<>();
-
+    boolean glassFilter = true;
+    boolean paperfilter = true;
+    Marker verre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        ImageView filtreVerre = findViewById(R.id.imageView_filtre_verre);
+        ImageView filtrePapier = findViewById(R.id.imageView_filtre_plastique);
 
         //Snack
         Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(4000).setAction("Connexion", new View.OnClickListener() {
@@ -106,6 +114,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        filtreVerre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(glassFilter) {
+                    glassFilter=false;
+                    mMap.clear();
+                    onMapReady(mMap);
+                } else {
+                    glassFilter=true;
+                    mMap.clear();
+                    onMapReady(mMap);
+                }
+
+                Toast.makeText(MapsActivity.this, "Mange mon verre", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        filtrePapier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (paperfilter){
+                    paperfilter=false;
+                    mMap.clear();
+                    onMapReady(mMap);
+                }else {
+                    paperfilter = true;
+                    mMap.clear();
+                    onMapReady(mMap);
+                }
+                Toast.makeText(MapsActivity.this, "Mange mon verre", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
@@ -157,11 +198,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Verre";
                                 String id = "v" + c;
 
-                                gps.add(new ElemntModel(address,type,id));
+                                 gps.add(new ElemntModel(address,type,id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                                        .snippet(type).visible(glassFilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
                             }
 
@@ -218,7 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                        .snippet(type).visible(paperfilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             }
 
                         } catch (JSONException e) {
