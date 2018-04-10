@@ -11,211 +11,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true">
 
-<!--Volet Gauche -->
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:orientation="vertical"
-            android:background="#FFFFFFFF"
-            android:id="@+id/relativeLayoutLeft">
-            <!-- -->
-
-
-            <TextView
-                android:id="@+id/textView_background"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:background="#439dbb"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                map:layout_constraintHorizontal_bias="1.0" />
-
-            <TextView
-                android:id="@+id/textView_pseudo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Pseudo"
-                android:textColor="#f8dc81"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/img_profi"
-                android:layout_width="109dp"
-                android:layout_height="109dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/anonyme"
-                map:layout_constraintStart_toStartOf="@+id/textView_background"
-                map:layout_constraintTop_toTopOf="parent"
-                map:srcCompat="@drawable/anonyme" />
-
-            <TextView
-                android:id="@+id/textView_rang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="12dp"
-                android:text="Rang et Level"
-                android:textColor="#f8dc81"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintTop_toBottomOf="@+id/textView_pseudo" />
-
-            <TextView
-                android:id="@+id/textView_parametres"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="60dp"
-                android:text="Parametres"
-                android:textColor="#439dbb"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                map:layout_constraintStart_toEndOf="@+id/imageButton_parametres"
-                map:layout_constraintTop_toBottomOf="@+id/textView_favoris" />
-
-            <TextView
-                android:id="@+id/textView_infosUtilees"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="40dp"
-                android:text="Infos utiles"
-                android:textColor="#439dbb"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                map:layout_constraintStart_toEndOf="@+id/imageButton_infos"
-                map:layout_constraintTop_toBottomOf="@+id/textView_background" />
-
-            <TextView
-                android:id="@+id/textView_favoris"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="55dp"
-                android:text="Favoris"
-                android:textColor="#439dbb"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                map:layout_constraintStart_toEndOf="@+id/imageButton_favoris"
-                map:layout_constraintTop_toBottomOf="@+id/textView_infosUtilees" />
-
-            <ImageButton
-                android:id="@+id/imageButton_favoris"
-                style="@android:style/Widget.ImageButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:background="@android:drawable/btn_star_big_on"
-                app:srcCompat="@android:drawable/btn_star_big_on"
-                map:layout_constraintStart_toStartOf="parent"
-                map:layout_constraintTop_toBottomOf="@+id/imageButton_infos" />
-
-            <ImageButton
-                android:id="@+id/imageButton_parametres"
-                style="@android:style/Widget.ImageButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:background="@android:drawable/ic_menu_preferences"
-                app:srcCompat="@android:drawable/ic_menu_preferences"
-                map:layout_constraintStart_toStartOf="parent"
-                map:layout_constraintTop_toBottomOf="@+id/imageButton_favoris" />
-
-            <ImageButton
-                android:id="@+id/imageButton_infos"
-                style="@android:style/Widget.ImageButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:background="?android:attr/actionModeFindDrawable"
-                app:srcCompat="?android:attr/actionModeFindDrawable"
-                map:layout_constraintStart_toStartOf="parent"
-                map:layout_constraintTop_toBottomOf="@+id/textView_background" />
-
-            <ImageButton
-                android:id="@+id/imageButton_deconnexion"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="32dp"
-                android:background="@android:drawable/ic_lock_power_off"
-                android:src="@android:drawable/ic_lock_power_off"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView_deconnexion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginStart="8dp"
-                android:text="Deconnexion"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintStart_toEndOf="@+id/imageButton_deconnexion" />
-
-            <Button
-                android:id="@+id/button_creer_compte"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text=" Creer un compte"
-                android:textSize="12sp"
-                map:layout_constraintStart_toEndOf="@+id/iv_ajout_compte"
-                map:layout_constraintTop_toBottomOf="@+id/button_se_connecter" />
-
-            <ImageView
-                android:id="@+id/iv_se_co"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/connexionok"
-                app:srcCompat="@drawable/connexionok"
-                map:layout_constraintStart_toEndOf="@+id/img_profi"
-                map:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/button_se_connecter"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="30dp"
-                android:text="Se connecter"
-                android:textSize="12sp"
-                map:layout_constraintStart_toEndOf="@+id/iv_se_co"
-                map:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_ajout_compte"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/ajoutcompte"
-                app:srcCompat="@drawable/ajoutcompte"
-                map:layout_constraintStart_toEndOf="@+id/img_profi"
-                map:layout_constraintTop_toBottomOf="@+id/iv_se_co" />
-
-        </android.support.constraint.ConstraintLayout>
 
     <!--Page centre -->
 
@@ -231,6 +27,7 @@
                 android:layout_height="match_parent"
                 map:layout_constraintBottom_toBottomOf="parent"
                 map:layout_constraintEnd_toStartOf="@+id/buttonright"
+                map:layout_constraintHorizontal_bias="0.151"
                 map:layout_constraintStart_toEndOf="@+id/button_left"
                 map:layout_constraintTop_toTopOf="parent"
                 map:layout_constraintVertical_bias="0.0"
@@ -293,6 +90,214 @@
                 map:layout_constraintTop_toTopOf="@+id/button_left" />
 
         </android.support.constraint.ConstraintLayout>
+
+    <!--Volet Gauche -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:background="#FFFFFFFF"
+        android:id="@+id/relativeLayoutLeft"
+        >
+        <!--  -->
+
+
+        <TextView
+            android:id="@+id/textView_background"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="#439dbb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintHorizontal_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView_pseudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Pseudo"
+            android:textColor="#f8dc81"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            map:layout_constraintStart_toEndOf="@+id/img_profi"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_profi"
+            android:layout_width="109dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/anonyme"
+            map:layout_constraintStart_toStartOf="@+id/textView_background"
+            map:layout_constraintTop_toTopOf="parent"
+            map:srcCompat="@drawable/anonyme" />
+
+        <TextView
+            android:id="@+id/textView_rang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Rang et Level"
+            android:textColor="#f8dc81"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            map:layout_constraintStart_toEndOf="@+id/img_profi"
+            map:layout_constraintTop_toBottomOf="@+id/textView_pseudo" />
+
+        <TextView
+            android:id="@+id/textView_parametres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="60dp"
+            android:text="Parametres"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintStart_toEndOf="@+id/imageButton_parametres"
+            map:layout_constraintTop_toBottomOf="@+id/textView_favoris" />
+
+        <TextView
+            android:id="@+id/textView_infosUtilees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:text="Infos utiles"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintStart_toEndOf="@+id/imageButton_infos"
+            map:layout_constraintTop_toBottomOf="@+id/textView_background" />
+
+        <TextView
+            android:id="@+id/textView_favoris"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="55dp"
+            android:text="Favoris"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintStart_toEndOf="@+id/imageButton_favoris"
+            map:layout_constraintTop_toBottomOf="@+id/textView_infosUtilees" />
+
+        <ImageButton
+            android:id="@+id/imageButton_favoris"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@android:drawable/btn_star_big_on"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/imageButton_infos" />
+
+        <ImageButton
+            android:id="@+id/imageButton_parametres"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@android:drawable/ic_menu_preferences"
+            app:srcCompat="@android:drawable/ic_menu_preferences"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/imageButton_favoris" />
+
+        <ImageButton
+            android:id="@+id/imageButton_infos"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="?android:attr/actionModeFindDrawable"
+            app:srcCompat="?android:attr/actionModeFindDrawable"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/textView_background" />
+
+        <ImageButton
+            android:id="@+id/imageButton_deconnexion"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="32dp"
+            android:background="@android:drawable/ic_lock_power_off"
+            android:src="@android:drawable/ic_lock_power_off"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_deconnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="8dp"
+            android:text="Deconnexion"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintStart_toEndOf="@+id/imageButton_deconnexion" />
+
+        <Button
+            android:id="@+id/button_creer_compte"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text=" Creer un compte"
+            android:textSize="12sp"
+            map:layout_constraintStart_toEndOf="@+id/iv_ajout_compte"
+            map:layout_constraintTop_toBottomOf="@+id/button_se_connecter" />
+
+        <ImageView
+            android:id="@+id/iv_se_co"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/connexionok"
+            app:srcCompat="@drawable/connexionok"
+            map:layout_constraintStart_toEndOf="@+id/img_profi"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_se_connecter"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Se connecter"
+            android:textSize="12sp"
+            map:layout_constraintStart_toEndOf="@+id/iv_se_co"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_ajout_compte"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/ajoutcompte"
+            app:srcCompat="@drawable/ajoutcompte"
+            map:layout_constraintStart_toEndOf="@+id/img_profi"
+            map:layout_constraintTop_toBottomOf="@+id/iv_se_co" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <!--Volet Droite -->
 
     <android.support.constraint.ConstraintLayout
@@ -302,20 +307,19 @@
         android:orientation="vertical"
         android:background="#FFFFFFFF"
         android:id="@+id/relativeLayoutRight">
-
+        <!---->
 
         <TextView
-            android:id="@+id/textView_rechercher"
+            android:id="@+id/textView_titre_filtre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
-            android:text="Rechercher"
+            android:text="Parametres Carte"
             android:textColor="@color/colorBlack"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textStyle="normal|bold"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
@@ -325,23 +329,23 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="50dp"
             android:text="Kilometres"
-            android:textColor="#439dbb"
-            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
             android:textStyle="bold"
             map:layout_constraintStart_toEndOf="@+id/seekBar_kilometres"
-            map:layout_constraintTop_toBottomOf="@+id/textView_rechercher" />
+            map:layout_constraintTop_toBottomOf="@+id/textView_titre_filtre" />
 
         <TextView
             android:id="@+id/textView_filtre_plastique"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="50dp"
             android:text="Filtres Plastique"
-            android:textColor="#439dbb"
-            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
             android:textStyle="bold"
             map:layout_constraintStart_toEndOf="@+id/imageView_filtre-plastique"
             map:layout_constraintTop_toBottomOf="@+id/textView_filtre_verre" />
@@ -351,10 +355,10 @@
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:text="Filtres verre"
-            android:textColor="#439dbb"
-            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
             android:textStyle="bold"
             map:layout_constraintStart_toEndOf="@+id/imageView_filtre-plastique"
             map:layout_constraintTop_toBottomOf="@+id/textView_km" />
@@ -362,19 +366,19 @@
         <SeekBar
             android:id="@+id/seekBar_kilometres"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="67dp"
-            android:layout_height="16dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="50dp"
             android:max="10"
             android:progress="3"
             map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/textView_rechercher" />
+            map:layout_constraintTop_toBottomOf="@+id/textView_titre_filtre" />
 
         <ImageView
             android:id="@+id/imageView_filtre-plastique"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
 
@@ -385,8 +389,8 @@
 
         <ImageView
             android:id="@+id/imageView_filtre_verre"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="32dp"
             android:background="@android:color/holo_green_dark"

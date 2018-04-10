@@ -70,6 +70,7 @@ public class ConnectionActivity extends AppCompatActivity {
         buttonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 CONNECTER =1;
                 String editProfil = editTextProfil.getText().toString();
                 String editPassword = editTextPassword.getText().toString();
@@ -80,6 +81,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
                 else {
                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
+                    intentMap.putExtra("username",editProfil);
                     ConnectionActivity.this.startActivity(intentMap);
                 }
 

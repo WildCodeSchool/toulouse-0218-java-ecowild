@@ -50,7 +50,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        drawerLayout = findViewById(R.id.drawerLayout);
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
         //Volet gauche
         TextView pseudo = findViewById(R.id.textView_pseudo);
         TextView rand = findViewById(R.id.textView_rang);
@@ -58,7 +59,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ImageView creerCompte = findViewById(R.id.iv_ajout_compte);
         final Button btnSeConnecter = findViewById(R.id.button_se_connecter);
         final Button btnCreerCompte = findViewById(R.id.button_creer_compte);
+
         if (ConnectionActivity.CONNECTER == 1) {
+            String username = getIntent().getStringExtra("username");
+            pseudo.setText(username);
             pseudo.setVisibility(View.VISIBLE);
             rand.setVisibility(View.VISIBLE);
             seConnecter.setVisibility(View.GONE);
@@ -102,6 +106,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         snackbar.show();
 
 
+
         //Toast
         /**LayoutInflater inflater = getLayoutInflater();
          View layout = inflater.inflate(R.layout.toast,
@@ -123,7 +128,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // slide droite et gauche
-        drawerLayout = findViewById(R.id.drawerLayout);
+
         Button buttonLeft = findViewById(R.id.button_left);
 
         buttonLeft.setOnClickListener(new View.OnClickListener() {
@@ -295,5 +300,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+
 }
 
