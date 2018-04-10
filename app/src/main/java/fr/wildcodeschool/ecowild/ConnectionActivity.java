@@ -21,6 +21,7 @@ public class ConnectionActivity extends AppCompatActivity {
     int mPasswordVisibility = PASSWORD_HIDDEN;
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
+    public static int CONNECTER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class ConnectionActivity extends AppCompatActivity {
         buttonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                CONNECTER =1;
                 String editProfil = editTextProfil.getText().toString();
                 String editPassword = editTextPassword.getText().toString();
 
@@ -88,6 +89,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     editorProfil.putString(CACHE_PASSWORD, editPassword);
                     editorProfil.commit();
                 }
+
             }
         });
     }

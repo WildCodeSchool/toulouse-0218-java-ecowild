@@ -7,12 +7,14 @@ import android.location.LocationManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -49,11 +51,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        //Snack
-        Snackbar snackbar= Snackbar.make(this.findViewById(R.id.map), "N'oublier pas de vous connecter pour plus de fonctionnalités", Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+        //Volet gauche
+        TextView pseudo = findViewById(R.id.textView_pseudo);
+        TextView rand = findViewById(R.id.textView_rang);
+        ImageView seConnecter = findViewById(R.id.iv_se_co);
+        ImageView creerCompte = findViewById(R.id.iv_ajout_compte);
+        final Button btnSeConnecter = findViewById(R.id.button_se_connecter);
+        final Button btnCreerCompte = findViewById(R.id.button_creer_compte);
+        if (ConnectionActivity.CONNECTER == 1) {
+            pseudo.setVisibility(View.VISIBLE);
+            rand.setVisibility(View.VISIBLE);
+            seConnecter.setVisibility(View.GONE);
+            creerCompte.setVisibility(View.GONE);
+            btnSeConnecter.setVisibility(View.GONE);
+            btnCreerCompte.setVisibility(View.GONE);
+        }
+
+
+        btnSeConnecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this,ConnectionActivity.class);
+                Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+                MapsActivity.this.startActivity(intentCo);
+
+
+            }
+        });
+
+        btnCreerCompte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMap = new Intent(MapsActivity.this, MemberActivity.class);
+                MapsActivity.this.startActivity(intentMap);
+            }
+        });
+
+        //Snack
+        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), "N'oublier pas de vous connecter pour plus de fonctionnalités", Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
                 startActivity(intent);
 
             }
@@ -93,6 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.LEFT);
+
             }
         });
 
@@ -147,7 +185,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             JSONArray records = response.getJSONArray("records");
 
-                            for (int c =0; c < records.length(); c++) {
+                            for (int c = 0; c < records.length(); c++) {
                                 JSONObject recordslist = records.getJSONObject(c);
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
@@ -204,7 +242,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             JSONArray records = response.getJSONArray("records");
 
-                            for (int c =0; c < records.length(); c++) {
+                            for (int c = 0; c < records.length(); c++) {
                                 JSONObject recordslist = records.getJSONObject(c);
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
@@ -220,7 +258,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + adress+ " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(adress)
-                                .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                        .snippet(type).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
 
                             }
@@ -243,6 +281,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // On ajoute la requête à la file d'attente
         requestQueueTwo.add(jsonObjectRequestTwo);
 
+    }
+
+    private void initUI(View v) {
+        Button button1 = (Button) v.findViewById(R.id.button_se_connecter);
+        button1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //tu fais ce que tu veux dans le onClick
+                Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+                MapsActivity.this.startActivity(intentCo);
+            }
+        });
     }
 }
 
