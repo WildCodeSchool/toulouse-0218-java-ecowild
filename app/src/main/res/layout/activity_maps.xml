@@ -107,7 +107,7 @@
         <TextView
             android:id="@+id/textView_background"
             android:layout_width="300dp"
-            android:layout_height="match_parent"
+            android:layout_height="140dp"
             android:background="#439dbb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

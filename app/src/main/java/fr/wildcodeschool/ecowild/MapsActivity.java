@@ -97,6 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
                 startActivity(intent);
 
+
             }
         });
 
