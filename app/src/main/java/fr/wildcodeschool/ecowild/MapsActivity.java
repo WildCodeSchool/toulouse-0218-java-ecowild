@@ -2,6 +2,7 @@ package fr.wildcodeschool.ecowild;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
@@ -109,6 +110,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
+
+
+
         View snackBarView = snackbar.getView();
         TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(3);
@@ -140,7 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // slide droite et gauche
 
-        Button buttonLeft = findViewById(R.id.button_left);
+        final Button buttonLeft = findViewById(R.id.button_left);
 
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        Button buttonRight = findViewById(R.id.button_right);
+        final Button buttonRight = findViewById(R.id.button_right);
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,13 +167,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 if (MapsActivity.this.glassFilter) {
+                    buttonRight.setBackgroundResource(R.drawable.papier);
                     MapsActivity.this.glassFilter = false;
                     mMap.clear();
                     onMapReady(mMap);
+
                 } else {
                     MapsActivity.this.glassFilter = true;
                     mMap.clear();
                     onMapReady(mMap);
+
                 }
 
                 Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
@@ -180,17 +188,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 if (paperfilter) {
+                    buttonRight.setBackgroundResource(R.drawable.verre);
+
                     paperfilter = false;
                     mMap.clear();
                     onMapReady(mMap);
+
                 } else {
                     paperfilter = true;
                     mMap.clear();
                     onMapReady(mMap);
+
                 }
                 Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
+
+
     }
 
     @SuppressLint("MissingPermission")
