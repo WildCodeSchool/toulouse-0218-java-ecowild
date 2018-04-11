@@ -3,33 +3,33 @@ package fr.wildcodeschool.ecowild;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ElemntModel implements Parcelable {
+public class ElementModel implements Parcelable {
 
     String address;
     String type;
     String id;
 
-    public ElemntModel(String address, String type, String id) {
+    public ElementModel(String address, String type, String id) {
         this.address = address;
         this.type = type;
         this.id = id;
     }
 
-    protected ElemntModel(Parcel in) {
+    protected ElementModel(Parcel in) {
         address = in.readString();
         type = in.readString();
         id = in.readString();
     }
 
-    public static final Creator<ElemntModel> CREATOR = new Creator<ElemntModel>() {
+    public static final Creator<ElementModel> CREATOR = new Creator<ElementModel>() {
         @Override
-        public ElemntModel createFromParcel(Parcel in) {
-            return new ElemntModel(in);
+        public ElementModel createFromParcel(Parcel in) {
+            return new ElementModel(in);
         }
 
         @Override
-        public ElemntModel[] newArray(int size) {
-            return new ElemntModel[size];
+        public ElementModel[] newArray(int size) {
+            return new ElementModel[size];
         }
     };
 

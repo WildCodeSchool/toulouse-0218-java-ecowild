@@ -10,15 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<ElemntModel> {
+public class ListAdapter extends ArrayAdapter<ElementModel> {
 
-    public ListAdapter(Context context, ArrayList<ElemntModel> enemyGrid) {
+    public ListAdapter(Context context, ArrayList<ElementModel> enemyGrid) {
         super(context, 0, enemyGrid);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ElemntModel gpslocations = getItem(position);
+        ElementModel gpsLocations = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_model, parent, false);
@@ -29,9 +29,9 @@ public class ListAdapter extends ArrayAdapter<ElemntModel> {
         TextView id = convertView.findViewById(R.id.smallid);
         LinearLayout list = convertView.findViewById(R.id.item_list);
 
-        address.setText(gpslocations.getAddress());
-        type.setText(gpslocations.getType());
-        id.setText(gpslocations.getId());
+        address.setText(gpsLocations.getAddress());
+        type.setText(gpsLocations.getType());
+        id.setText(gpsLocations.getId());
 
         return convertView;
     }

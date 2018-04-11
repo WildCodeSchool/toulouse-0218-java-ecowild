@@ -44,10 +44,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     DrawerLayout drawerLayout;
-    final ArrayList<ElemntModel> gps = new ArrayList<>();
+    final ArrayList<ElementModel> gps = new ArrayList<>();
     boolean glassFilter = true;
     boolean paperfilter = true;
-    Marker verre;
+    Marker glass;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -57,8 +57,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         drawerLayout = findViewById(R.id.drawerLayout);
         //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
         //Volet gauche
-        TextView pseudo = findViewById(R.id.textView_pseudo);
-        TextView rang = findViewById(R.id.textView_rang);
+        TextView pseudo = findViewById(R.id.tv_pseudo);
+        TextView rank = findViewById(R.id.tv_rank);
         ImageView toLogIn = findViewById(R.id.iv_to_log_in);
         ImageView createAccount = findViewById(R.id.iv_create_account);
         final Button btnToLogIn = findViewById(R.id.button_connection);
@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String username = getIntent().getStringExtra("username");
             pseudo.setText(username);
             pseudo.setVisibility(View.VISIBLE);
-            rang.setVisibility(View.VISIBLE);
+            rank.setVisibility(View.VISIBLE);
             toLogIn.setVisibility(View.GONE);
             createAccount.setVisibility(View.GONE);
             btnToLogIn.setVisibility(View.GONE);
@@ -94,8 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        ImageView filtreVerre = findViewById(R.id.imageView_filtre_verre);
-        ImageView filtrePapier = findViewById(R.id.imageView_filtre_plastique);
+        ImageView glassFilter = findViewById(R.id.iv_glass_filter);
+        ImageView plasticFilter = findViewById(R.id.iv_plastic_filter);
 
 
         Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
@@ -109,8 +109,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        View snackbarView = snackbar.getView();
-        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        View snackBarView = snackbar.getView();
+        TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(3);
         textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         snackbar.setDuration(3500);
@@ -158,15 +158,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        filtreVerre.setOnClickListener(new View.OnClickListener() {
+        glassFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (glassFilter) {
-                    glassFilter = false;
+                if (MapsActivity.this.glassFilter) {
+                    MapsActivity.this.glassFilter = false;
                     mMap.clear();
                     onMapReady(mMap);
                 } else {
-                    glassFilter = true;
+                    MapsActivity.this.glassFilter = true;
                     mMap.clear();
                     onMapReady(mMap);
                 }
@@ -175,7 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        filtrePapier.setOnClickListener(new View.OnClickListener() {
+        plasticFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -242,7 +242,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Verre";
                                 String id = "v" + c;
 
-                                gps.add(new ElemntModel(address, type, id));
+                                gps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
@@ -299,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Papier/Plastique";
                                 String id = "p" + c;
 
-                                gps.add(new ElemntModel(address, type, id));
+                                gps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
@@ -324,12 +324,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // On ajoute la requête à la file d'attente
         requestQueueTwo.add(jsonObjectRequestTwo);
 
-        Switch goList = findViewById(R.id.golist);
+        Switch goList = findViewById(R.id.go_list);
         goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
-                goList.putExtra("CLEF", gps);
+                goList.putExtra("GPS_POSITIONS", gps);
                 startActivity(goList);
 
             }

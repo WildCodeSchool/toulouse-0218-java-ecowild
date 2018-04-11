@@ -23,7 +23,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
         Switch goMap = findViewById(R.id.goMap);
 
-        ArrayList gps = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("CLEF");
+        ArrayList gps = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("GPS_POSITIONS");
 
         final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, gps);
         locationList.setAdapter(adapter);
@@ -39,7 +39,7 @@ public class ListLocationActivity extends AppCompatActivity {
         locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ElemntModel localisation = adapter.getItem(i);
+                ElementModel localisation = adapter.getItem(i);
                 String address = localisation.getAddress();
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
