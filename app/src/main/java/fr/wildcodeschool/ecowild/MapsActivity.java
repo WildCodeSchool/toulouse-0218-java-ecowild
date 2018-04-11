@@ -204,6 +204,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(departure, 10));
 
+        WindowsInfoAdapter customInfoWindow = new WindowsInfoAdapter(MapsActivity.this);
+        mMap.setInfoWindowAdapter(customInfoWindow);
+
         // filtre afin de n'afficher que certaines données, en lien avec le json dans raw (créé).
         MapStyleOptions mapFilter = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
         googleMap.setMapStyle(mapFilter);
@@ -245,9 +248,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                  gps.add(new ElemntModel(address,type,id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
+                                Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
                                         .snippet(type).visible(glassFilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
                             }
 
                         } catch (JSONException e) {
