@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -54,16 +55,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+        //Volet gauche
+        TextView pseudo = findViewById(R.id.textView_pseudo);
+        TextView rand = findViewById(R.id.textView_rang);
+        ImageView seConnecter = findViewById(R.id.iv_se_co);
+        ImageView creerCompte = findViewById(R.id.iv_ajout_compte);
+        final Button btnSeConnecter = findViewById(R.id.button_se_connecter);
+        final Button btnCreerCompte = findViewById(R.id.button_creer_compte);
+
+        if (ConnectionActivity.CONNECTER == 1) {
+            String username = getIntent().getStringExtra("username");
+            pseudo.setText(username);
+            pseudo.setVisibility(View.VISIBLE);
+            rand.setVisibility(View.VISIBLE);
+            seConnecter.setVisibility(View.GONE);
+            creerCompte.setVisibility(View.GONE);
+            btnSeConnecter.setVisibility(View.GONE);
+            btnCreerCompte.setVisibility(View.GONE);
+        }
+
+
+        btnSeConnecter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+                MapsActivity.this.startActivity(intentCo);
+
+
+            }
+        });
+
+        btnCreerCompte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMap = new Intent(MapsActivity.this, MemberActivity.class);
+                MapsActivity.this.startActivity(intentMap);
+            }
+        });
 
         ImageView filtreVerre = findViewById(R.id.imageView_filtre_verre);
         ImageView filtrePapier = findViewById(R.id.imageView_filtre_plastique);
 
-        //Snack
-        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(4000).setAction("Connexion", new View.OnClickListener() {
+
+        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
                 startActivity(intent);
+
 
             }
         });
@@ -72,6 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(3);
         snackbar.show();
+
 
 
         //Toast réutilisable plus tard
@@ -96,13 +139,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // slide droite et gauche
-        drawerLayout = findViewById(R.id.drawerLayout);
+
         Button buttonLeft = findViewById(R.id.button_left);
 
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.LEFT);
+
             }
         });
 
@@ -291,5 +335,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+
+    private void initUI(View v) {
+        Button button1 = (Button) v.findViewById(R.id.button_se_connecter);
+        button1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //tu fais ce que tu veux dans le onClick
+                Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+                MapsActivity.this.startActivity(intentCo);
+            }
+        });
+    }
+
 }
 
