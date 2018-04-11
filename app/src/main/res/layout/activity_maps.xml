@@ -377,7 +377,7 @@
 
         <ImageView
 
-            android:id="@+id/imageView_filtre-plastique"
+            android:id="@+id/imageView_filtre_plastique"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
