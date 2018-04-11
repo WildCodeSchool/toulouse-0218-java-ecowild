@@ -6,13 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class ListLocationActivity extends AppCompatActivity {
@@ -43,10 +40,10 @@ public class ListLocationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ElemntModel localisation = adapter.getItem(i);
-                String adress = localisation.getAdress();
+                String address = localisation.getAddress();
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("google.navigation:q=" + adress + "&mode=b"));
+                        Uri.parse("google.navigation:q=" + address + "&mode=b"));
                 startActivity(intent);
             }
         });

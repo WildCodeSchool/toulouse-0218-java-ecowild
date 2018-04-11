@@ -2,10 +2,11 @@ package fr.wildcodeschool.ecowild;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -41,9 +42,6 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    //Pour recup la carte utiliser ses 2 attributs
-    //1er name ds layout=instance
-    //2eme: objet a linterieur pour pouvoir modif les données
     private GoogleMap mMap;
     DrawerLayout drawerLayout;
     final ArrayList<ElemntModel> gps = new ArrayList<>();
@@ -51,6 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean paperfilter = true;
     Marker verre;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,25 +58,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
         //Volet gauche
         TextView pseudo = findViewById(R.id.textView_pseudo);
-        TextView rand = findViewById(R.id.textView_rang);
-        ImageView seConnecter = findViewById(R.id.iv_se_co);
-        ImageView creerCompte = findViewById(R.id.iv_ajout_compte);
-        final Button btnSeConnecter = findViewById(R.id.button_se_connecter);
-        final Button btnCreerCompte = findViewById(R.id.button_creer_compte);
+        TextView rang = findViewById(R.id.textView_rang);
+        ImageView toLogIn = findViewById(R.id.iv_to_log_in);
+        ImageView createAccount = findViewById(R.id.iv_create_account);
+        final Button btnToLogIn = findViewById(R.id.button_connection);
+        final Button btnCreateAccount = findViewById(R.id.button_create_account);
 
-        if (ConnectionActivity.CONNECTER == 1) {
+        if (ConnectionActivity.CONNECTION == 1) {
             String username = getIntent().getStringExtra("username");
             pseudo.setText(username);
             pseudo.setVisibility(View.VISIBLE);
-            rand.setVisibility(View.VISIBLE);
-            seConnecter.setVisibility(View.GONE);
-            creerCompte.setVisibility(View.GONE);
-            btnSeConnecter.setVisibility(View.GONE);
-            btnCreerCompte.setVisibility(View.GONE);
+            rang.setVisibility(View.VISIBLE);
+            toLogIn.setVisibility(View.GONE);
+            createAccount.setVisibility(View.GONE);
+            btnToLogIn.setVisibility(View.GONE);
+            btnCreateAccount.setVisibility(View.GONE);
         }
 
 
-        btnSeConnecter.setOnClickListener(new View.OnClickListener() {
+        btnToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
@@ -87,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        btnCreerCompte.setOnClickListener(new View.OnClickListener() {
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentMap = new Intent(MapsActivity.this, MemberActivity.class);
@@ -113,8 +112,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         View snackbarView = snackbar.getView();
         TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(3);
+        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        snackbar.setDuration(3500);
         snackbar.show();
-
 
 
         //Toast réutilisable plus tard
@@ -161,17 +161,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filtreVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(glassFilter) {
-                    glassFilter=false;
+                if (glassFilter) {
+                    glassFilter = false;
                     mMap.clear();
                     onMapReady(mMap);
                 } else {
-                    glassFilter=true;
+                    glassFilter = true;
                     mMap.clear();
                     onMapReady(mMap);
                 }
 
-                Toast.makeText(MapsActivity.this, "Mange mon verre", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -179,16 +179,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (paperfilter){
-                    paperfilter=false;
+                if (paperfilter) {
+                    paperfilter = false;
                     mMap.clear();
                     onMapReady(mMap);
-                }else {
+                } else {
                     paperfilter = true;
                     mMap.clear();
                     onMapReady(mMap);
                 }
-                Toast.makeText(MapsActivity.this, "Mange mon verre", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -242,7 +242,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Verre";
                                 String id = "v" + c;
 
-                                 gps.add(new ElemntModel(address,type,id));
+                                gps.add(new ElemntModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
@@ -299,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Papier/Plastique";
                                 String id = "p" + c;
 
-                                gps.add(new ElemntModel(address,type,id));
+                                gps.add(new ElemntModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
@@ -337,7 +337,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initUI(View v) {
-        Button button1 = (Button) v.findViewById(R.id.button_se_connecter);
+        Button button1 = (Button) v.findViewById(R.id.button_connection);
         button1.setOnClickListener(new View.OnClickListener() {
 
             @Override

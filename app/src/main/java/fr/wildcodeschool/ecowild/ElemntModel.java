@@ -3,24 +3,20 @@ package fr.wildcodeschool.ecowild;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Crock on 09/04/2018.
- */
-
 public class ElemntModel implements Parcelable {
 
-    String adress;
+    String address;
     String type;
     String id;
 
-    public ElemntModel(String adress, String type, String id) {
-        this.adress = adress;
+    public ElemntModel(String address, String type, String id) {
+        this.address = address;
         this.type = type;
         this.id = id;
     }
 
     protected ElemntModel(Parcel in) {
-        adress = in.readString();
+        address = in.readString();
         type = in.readString();
         id = in.readString();
     }
@@ -37,12 +33,12 @@ public class ElemntModel implements Parcelable {
         }
     };
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getType() {
@@ -68,7 +64,7 @@ public class ElemntModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(adress);
+        dest.writeString(address);
         dest.writeString(type);
         dest.writeString(id);
     }

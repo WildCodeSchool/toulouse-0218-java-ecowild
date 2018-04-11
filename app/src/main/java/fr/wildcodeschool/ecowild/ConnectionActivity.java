@@ -21,7 +21,7 @@ public class ConnectionActivity extends AppCompatActivity {
     int mPasswordVisibility = PASSWORD_HIDDEN;
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
-    public static int CONNECTER = 0;
+    public static int CONNECTION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class ConnectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CONNECTER =1;
+                CONNECTION = 1;
                 String editProfil = editTextProfil.getText().toString();
                 String editPassword = editTextPassword.getText().toString();
 
@@ -77,7 +77,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     Toast.makeText(ConnectionActivity.this, getString(R.string.remplissez_tout_les_champs), Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                    intentMap.putExtra("username",editProfil);
+                    intentMap.putExtra("username", editProfil);
                     ConnectionActivity.this.startActivity(intentMap);
                 }
 
@@ -87,7 +87,6 @@ public class ConnectionActivity extends AppCompatActivity {
                     editorProfil.putString(CACHE_PASSWORD, editPassword);
                     editorProfil.commit();
                 }
-
             }
         });
     }

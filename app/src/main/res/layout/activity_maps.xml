@@ -253,18 +253,18 @@
             map:layout_constraintStart_toEndOf="@+id/imageButton_deconnexion" />
 
         <Button
-            android:id="@+id/button_creer_compte"
+            android:id="@+id/button_create_account"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text=" Creer un compte"
             android:textSize="12sp"
-            map:layout_constraintStart_toEndOf="@+id/iv_ajout_compte"
-            map:layout_constraintTop_toBottomOf="@+id/button_se_connecter" />
+            map:layout_constraintStart_toEndOf="@+id/iv_create_account"
+            map:layout_constraintTop_toBottomOf="@+id/button_connection" />
 
         <ImageView
-            android:id="@+id/iv_se_co"
+            android:id="@+id/iv_to_log_in"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="8dp"
@@ -275,18 +275,18 @@
             map:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_se_connecter"
+            android:id="@+id/button_connection"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
             android:text="Se connecter"
             android:textSize="12sp"
-            map:layout_constraintStart_toEndOf="@+id/iv_se_co"
+            map:layout_constraintStart_toEndOf="@+id/iv_to_log_in"
             map:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_ajout_compte"
+            android:id="@+id/iv_create_account"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="8dp"
@@ -294,7 +294,7 @@
             android:background="@drawable/ajoutcompte"
             app:srcCompat="@drawable/ajoutcompte"
             map:layout_constraintStart_toEndOf="@+id/img_profi"
-            map:layout_constraintTop_toBottomOf="@+id/iv_se_co" />
+            map:layout_constraintTop_toBottomOf="@+id/iv_to_log_in" />
 
     </android.support.constraint.ConstraintLayout>
 
