@@ -8,10 +8,6 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
-/**
- * Created by wilder on 11/04/18.
- */
-
 public class WindowsInfoAdapter implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
