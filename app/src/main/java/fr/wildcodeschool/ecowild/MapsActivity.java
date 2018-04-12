@@ -95,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //envoit sous bouton au menu
         final SubActionButton sabVerre= listeBuilder.setContentView(filtreVerre).build();
 
-        ImageView filtrePapier = new ImageView(this); // Create an icon
+        final ImageView filtrePapier = new ImageView(this); // Create an icon
         filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.papier));
         SubActionButton sabPapier= listeBuilder.setContentView(filtrePapier).build();
 
@@ -118,13 +118,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-
+/*
 
         sabVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.etoile));
                 Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
-              //  filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.logook));
+
+              //  bt1.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.logook));
+
             }
         });
 
@@ -141,7 +144,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
             }
         });
-//fin
+//fin */
 
 
         /** Partie GPS **/
@@ -298,6 +301,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.verresansfond));
+
                 if (MapsActivity.this.glassFilter) {
                     buttonRight.setBackgroundResource(R.drawable.papier);
                     MapsActivity.this.glassFilter = false;
@@ -318,7 +323,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabPapier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.papiersansfond));
                 if (paperfilter) {
                     buttonRight.setBackgroundResource(R.drawable.verre);
 
