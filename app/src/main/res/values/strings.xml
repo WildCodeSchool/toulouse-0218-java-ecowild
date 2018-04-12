@@ -18,5 +18,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="remplissez_tout_les_champs">Remplissez tous les champs</string>
     <string name="password">Modifier mot de passe</string>
-    <string name="snack">N\'oubliez pas de vous connecter pour plus de fonctionnalités</string>
+    <string name="snack">Connectez-vous pour plus de fonctionnalités</string>
+    <string name="Verre">Dépôts de verre retirés de la carte</string>
+    <string name="Papier">Dépôts de papier retirés de la carte</string>
 </resources>
