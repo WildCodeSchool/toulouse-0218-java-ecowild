@@ -70,6 +70,7 @@ public class ConnectionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 CONNECTED = true;
+
                 String editProfil = editTextProfil.getText().toString();
                 String editPassword = editTextPassword.getText().toString();
 
