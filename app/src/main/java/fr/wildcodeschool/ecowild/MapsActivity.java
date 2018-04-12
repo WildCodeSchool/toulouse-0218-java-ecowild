@@ -73,12 +73,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
         askLocationPermission();
 
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
         //Volet gauche
