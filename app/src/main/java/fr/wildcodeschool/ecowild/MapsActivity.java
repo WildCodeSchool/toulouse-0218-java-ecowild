@@ -54,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        drawerLayout = findViewById(R.id.drawerLayout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
