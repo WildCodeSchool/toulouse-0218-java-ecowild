@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintEnd_toStartOf="@+id/buttonright"
+                map:layout_constraintEnd_toStartOf="@+id/button_right"
                 map:layout_constraintHorizontal_bias="0.151"
                 map:layout_constraintStart_toEndOf="@+id/button_left"
                 map:layout_constraintTop_toTopOf="parent"

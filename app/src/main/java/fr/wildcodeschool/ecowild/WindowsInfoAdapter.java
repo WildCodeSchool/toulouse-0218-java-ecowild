@@ -12,7 +12,7 @@ public class WindowsInfoAdapter implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
 
-    public WindowsInfoAdapter(Context ctx){
+    public WindowsInfoAdapter(Context ctx) {
         context = ctx;
     }
 
@@ -25,7 +25,7 @@ public class WindowsInfoAdapter implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
-        View view = ((Activity)context).getLayoutInflater()
+        View view = ((Activity) context).getLayoutInflater()
                 .inflate(R.layout.windows_info_layout, null);
 
         TextView adress = view.findViewById(R.id.pointAddress);

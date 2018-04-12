@@ -1,9 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -135,9 +134,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-
-
-
 
 
         View snackBarView = snackbar.getView();
@@ -299,11 +295,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 moveCameraOnUser(location);
             }
 
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-            public void onProviderEnabled(String provider) {}
+            public void onProviderEnabled(String provider) {
+            }
 
-            public void onProviderDisabled(String provider) {}
+            public void onProviderDisabled(String provider) {
+            }
         };
 
         // Si l'utilisateur à permis l'utilisation de la localisation
