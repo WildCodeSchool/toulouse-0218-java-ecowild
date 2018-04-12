@@ -84,12 +84,12 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+
         android:orientation="vertical"
         android:background="#FFFFFFFF"
         android:id="@+id/relativeLayoutLeft"
         >
-        <!-- -->
+        <!-- android:layout_gravity="start" -->
 
 
         <TextView
@@ -118,9 +118,10 @@
 
         <ImageView
             android:id="@+id/img_profil"
-            android:layout_width="109dp"
-            android:layout_height="109dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/anonyme"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
             map:layout_constraintTop_toTopOf="parent"
@@ -229,10 +230,10 @@
 
         <Button
             android:id="@+id/button_create_account"
-            android:layout_width="wrap_content"
+            android:layout_width="145dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
             android:text=" Creer un compte"
             android:textSize="12sp"
             map:layout_constraintStart_toEndOf="@+id/iv_create_account"
@@ -242,7 +243,8 @@
             android:id="@+id/iv_to_log_in"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/connexionok"
             app:srcCompat="@drawable/connexionok"
             map:layout_constraintStart_toEndOf="@+id/img_profil"
@@ -250,10 +252,10 @@
 
         <Button
             android:id="@+id/button_connection"
-            android:layout_width="wrap_content"
+            android:layout_width="145dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
             android:text="Se connecter"
             android:textSize="12sp"
             map:layout_constraintStart_toEndOf="@+id/iv_to_log_in"
@@ -279,17 +281,18 @@
             app:srcCompat="@drawable/parametres"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
-      
+
         <ProgressBar
-            android:id="@+id/progressBar2"
+            android:id="@+id/pb_xp"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="13dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="16dp"
+            android:progressDrawable="@drawable/progressbar"
             map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintHorizontal_bias="0.359"
+            map:layout_constraintHorizontal_bias="0.328"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/img_profil" />
 
