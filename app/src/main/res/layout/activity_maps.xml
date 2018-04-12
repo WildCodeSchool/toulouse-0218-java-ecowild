@@ -96,12 +96,12 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+
         android:orientation="vertical"
         android:background="#FFFFFFFF"
         android:id="@+id/relativeLayoutLeft"
         >
-        <!--  -->
+        <!-- android:layout_gravity="start" -->
 
 
         <TextView
@@ -133,7 +133,6 @@
             android:layout_width="109dp"
             android:layout_height="109dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/anonyme"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
             map:layout_constraintTop_toTopOf="parent"
@@ -295,6 +294,19 @@
             app:srcCompat="@drawable/ajoutcompte"
             map:layout_constraintStart_toEndOf="@+id/img_profil"
             map:layout_constraintTop_toBottomOf="@+id/iv_to_log_in" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.359"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/img_profil" />
 
     </android.support.constraint.ConstraintLayout>
 
