@@ -22,6 +22,7 @@ public class ConnectionActivity extends AppCompatActivity {
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
     public static int CONNECTION = 0;
+    public static boolean ISNT_CONNECT = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +69,8 @@ public class ConnectionActivity extends AppCompatActivity {
         buttonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                CONNECTION = 1;
+                ISNT_CONNECT =false;
+                //CONNECTION = 1;
                 String editProfil = editTextProfil.getText().toString();
                 String editPassword = editTextPassword.getText().toString();
 
