@@ -99,26 +99,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.papier));
         SubActionButton sabPapier= listeBuilder.setContentView(filtrePapier).build();
 
+
         ImageView filtreFavoris = new ImageView(this); // Create an icon
-        filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.parametres));
+        filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.etoile));
         SubActionButton sabFavoris= listeBuilder.setContentView(filtreFavoris).build();
 
-
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(100,100);
+        sabFavoris.setLayoutParams(layoutParam);
+        sabPapier.setLayoutParams(layoutParam);
+        sabVerre.setLayoutParams(layoutParam);
 
         //Creation bouton sous menu
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabVerre)
-                .addSubActionView(sabFavoris)
                 .addSubActionView(sabPapier)
+                .addSubActionView(sabFavoris)
                 .attachTo(actionButton)
                 .build();
+
 
 
 
         sabVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "un", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
               //  filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.logook));
             }
         });
@@ -126,7 +131,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabFavoris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sabPapier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
             }
         });
 //fin
@@ -240,7 +252,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
-        /**Filtres verre et papier**/
+        /**Filtres verre et papier slide droit**/
         glassFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -262,6 +274,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         plasticFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (paperfilter) {
+                    buttonRight.setBackgroundResource(R.drawable.verre);
+
+                    paperfilter = false;
+                    mMap.clear();
+                    onMapReady(mMap);
+
+                } else {
+                    paperfilter = true;
+                    mMap.clear();
+                    onMapReady(mMap);
+
+                }
+                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**Filtres verre et papier menu multiples droit**/
+        sabVerre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MapsActivity.this.glassFilter) {
+                    buttonRight.setBackgroundResource(R.drawable.papier);
+                    MapsActivity.this.glassFilter = false;
+                    mMap.clear();
+                    onMapReady(mMap);
+
+                } else {
+                    MapsActivity.this.glassFilter = true;
+                    mMap.clear();
+                    onMapReady(mMap);
+
+                }
+
+                Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sabPapier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
