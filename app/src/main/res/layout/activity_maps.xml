@@ -84,12 +84,12 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
-
+        android:layout_gravity="start"
         android:orientation="vertical"
         android:background="#FFFFFFFF"
         android:id="@+id/relativeLayoutLeft"
         >
-        <!-- android:layout_gravity="start" -->
+        <!-- -->
 
 
         <TextView
@@ -300,9 +300,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="150dp"
         android:layout_height="match_parent"
+        android:layout_gravity="end"
         android:orientation="vertical"
         android:background="#FFFFFFFF"
-        android:layout_gravity="end"
         android:id="@+id/relativeLayoutRight">
         <!--         -->
 
@@ -333,9 +333,9 @@
 
         <TextView
             android:id="@+id/tv_filter_title"
-            android:layout_width="97dp"
+            android:layout_width="131dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginTop="24dp"
             android:text="Parametres "
             android:textColor="@color/colorBlack"
