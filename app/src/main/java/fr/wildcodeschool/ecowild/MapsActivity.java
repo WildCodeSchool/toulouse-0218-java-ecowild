@@ -79,8 +79,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
         askLocationPermission();
 
-
-        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
         TextView rank = findViewById(R.id.tv_rank);
@@ -276,7 +274,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void moveCameraOnUser(Location location) {
 
         LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
