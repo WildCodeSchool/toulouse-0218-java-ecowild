@@ -21,7 +21,7 @@ public class ConnectionActivity extends AppCompatActivity {
     int mPasswordVisibility = PASSWORD_HIDDEN;
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
-    public static int CONNECTION = 0;
+    public static boolean CONNECTED = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class ConnectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CONNECTION = 1;
+                CONNECTED = true;
                 String editProfil = editTextProfil.getText().toString();
                 String editPassword = editTextPassword.getText().toString();
 

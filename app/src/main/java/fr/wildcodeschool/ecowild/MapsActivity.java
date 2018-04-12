@@ -64,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Button btnToLogIn = findViewById(R.id.button_connection);
         final Button btnCreateAccount = findViewById(R.id.button_create_account);
 
-        if (ConnectionActivity.CONNECTION == 1) {
+        if (ConnectionActivity.CONNECTED) {
             String username = getIntent().getStringExtra("username");
             pseudo.setText(username);
             pseudo.setVisibility(View.VISIBLE);
