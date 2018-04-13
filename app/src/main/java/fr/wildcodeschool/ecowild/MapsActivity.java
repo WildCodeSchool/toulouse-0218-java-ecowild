@@ -543,7 +543,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE";
+        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=100";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -605,7 +605,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueueTwo = Volley.newRequestQueue(this);
 
-        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE";
+        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=100";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestTwo = new JsonObjectRequest(
