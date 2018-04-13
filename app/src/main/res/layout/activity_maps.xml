@@ -67,6 +67,17 @@
                 map:layout_constraintEnd_toEndOf="parent" />
 
             <Button
+                android:id="@+id/button_test"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="44dp"
+                android:layout_marginEnd="160dp"
+                android:alpha="0.7"
+                android:background="@drawable/papier"
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
                 android:id="@+id/button_left"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -89,7 +100,7 @@
         android:background="#FFFFFFFF"
         android:id="@+id/relativeLayoutLeft"
         >
-        <!-- -->
+        <!--  -->
 
 
         <TextView
@@ -295,6 +306,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:progressDrawable="@drawable/progressbar"
+            android:max="10"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintHorizontal_bias="0.0"
             map:layout_constraintStart_toStartOf="parent"
