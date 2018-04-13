@@ -21,7 +21,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
         ListView locationList = findViewById(R.id.location_list);
 
-        Switch goMap = findViewById(R.id.goMap);
+        Switch goMap = findViewById(R.id.go_Map);
 
         ArrayList gps = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("GPS_POSITIONS");
 

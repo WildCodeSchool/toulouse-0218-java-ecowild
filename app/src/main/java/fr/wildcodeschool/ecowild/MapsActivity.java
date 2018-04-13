@@ -22,10 +22,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,14 +66,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
-    final ArrayList<ElementModel> gps = new ArrayList<>();
-    DrawerLayout drawerLayout;
-    boolean glassFilter = true;
-    boolean paperfilter = true;
-    // variable pour presentation en enlver apres
-    int i = 0;
+
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
+    DrawerLayout mDrawerLayout;
+    final ArrayList<ElementModel> mGps = new ArrayList<>();
+    boolean mGlassFilter = true;
+    boolean mPaperfilter = true;
+    // variable pour presentation en enlever apres
+    int i = 0;
+    boolean mIsWaitingForGoogleMap = false;
+    Location mLastLocation = null;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -125,6 +131,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .attachTo(actionButton)
                 .build();
 
+      /* Partie XP */
+        final ProgressBar pbTest = findViewById(R.id.pb_xp);
+        final Button buttonTest = findViewById(R.id.button_test);
+        final experienceModel experienceModelModel = new experienceModel(0, 1);
+
+        buttonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getTriExperience());
+                pbTest.setProgress(10);
+                pbTest.setProgress(experienceModelModel.getExperience());
+
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast,
+                        (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                textToast.setText(R.string.Toast);
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+        });
+
+        mDrawerLayout = findViewById(R.id.drawerLayout);
 
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
@@ -132,6 +168,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /**Partie Slide**/
         drawerLayout = findViewById(R.id.drawer_layout);
+      
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
         TextView rank = findViewById(R.id.tv_rank);
@@ -173,24 +210,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ImageView glassFilter = findViewById(R.id.iv_glass_filter);
         ImageView plasticFilter = findViewById(R.id.iv_plastic_filter);
 
+        if (!ConnectionActivity.CONNECTED) {
+            Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
 
-        Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
+                    startActivity(intent);
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
-                startActivity(intent);
+                }
+            });
 
-            }
-        });
 
-        View snackBarView = snackbar.getView();
-        TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setMaxLines(3);
-        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        snackbar.setDuration(3500);
-        snackbar.show();
-
+            View snackBarView = snackbar.getView();
+            TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setMaxLines(3);
+            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            snackbar.setDuration(3500);
+            snackbar.show();
+          
+        }
 
         /**Toast réutilisable plus tard**/
         /**LayoutInflater inflater = getLayoutInflater();
@@ -220,7 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
+                mDrawerLayout.openDrawer(Gravity.LEFT);
 
             }
         });
@@ -229,7 +268,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.RIGHT);
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
 
@@ -238,14 +277,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         glassFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MapsActivity.this.glassFilter) {
+                if (MapsActivity.this.mGlassFilter) {
                     buttonRight.setBackgroundResource(R.drawable.papier);
-                    MapsActivity.this.glassFilter = false;
+                    MapsActivity.this.mGlassFilter = false;
                     mMap.clear();
                     onMapReady(mMap);
 
                 } else {
-                    MapsActivity.this.glassFilter = true;
+                    MapsActivity.this.mGlassFilter = true;
                     mMap.clear();
                     onMapReady(mMap);
 
@@ -259,14 +298,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (paperfilter) {
+                if (mPaperfilter) {
                     buttonRight.setBackgroundResource(R.drawable.verre);
-                    paperfilter = false;
+
+                    mPaperfilter = false;
+
                     mMap.clear();
                     onMapReady(mMap);
 
                 } else {
-                    paperfilter = true;
+                    mPaperfilter = true;
                     mMap.clear();
                     onMapReady(mMap);
 
@@ -404,17 +445,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void moveCameraOnUser(Location location) {
 
         if (mMap == null) {
-            return;
-        }
-        LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
+            mIsWaitingForGoogleMap = true;
+            mLastLocation = location;
+        } else {
 
+            LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            }
+            mMap.moveCamera(yourLocation);
         }
-        mMap.moveCamera(yourLocation);
     }
 
     private void getLocation() {
@@ -445,10 +487,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-
-                            if (location != null) {
-                                moveCameraOnUser(location);
-                            }
+                            moveCameraOnUser(location);
                         }
                     });
 
@@ -468,6 +507,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        if (mIsWaitingForGoogleMap) {
+            moveCameraOnUser(mLastLocation);
+        }
 
         WindowsInfoAdapter customInfoWindow = new WindowsInfoAdapter(MapsActivity.this);
         mMap.setInfoWindowAdapter(customInfoWindow);
@@ -510,11 +553,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Verre";
                                 String id = "v" + c;
 
-                                gps.add(new ElementModel(address, type, id));
+                                mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).visible(glassFilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                                        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                             }
 
                         } catch (JSONException e) {
@@ -566,11 +609,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Papier/Plastique";
                                 String id = "p" + c;
 
-                                gps.add(new ElementModel(address, type, id));
+                                mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).visible(paperfilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                        .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             }
 
                         } catch (JSONException e) {
@@ -596,7 +639,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
-                goList.putExtra("GPS_POSITIONS", gps);
+                goList.putExtra("GPS_POSITIONS", mGps);
                 startActivity(goList);
 
             }

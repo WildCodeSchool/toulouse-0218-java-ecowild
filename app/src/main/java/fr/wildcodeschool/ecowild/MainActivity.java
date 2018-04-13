@@ -14,8 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //checkPermission();
-
         final Button buttonToLogIn = findViewById(R.id.button_to_log_in);
         buttonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,21 +41,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /**
-     private void checkPermission() {
-     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-     ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-
-     {
-
-     ActivityCompat.requestPermissions(this, new String[]{
-     Manifest.permission.ACCESS_FINE_LOCATION,
-     Manifest.permission.ACCESS_COARSE_LOCATION
-     }, PERMS_CALL_ID);
-
-     return;
-     }
-     }
-     **/
 }
