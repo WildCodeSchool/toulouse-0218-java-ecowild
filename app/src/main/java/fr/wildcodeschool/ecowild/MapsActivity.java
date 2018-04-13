@@ -67,7 +67,6 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -151,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
       /* Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final Button buttonTest = findViewById(R.id.button_test);
-        final experienceModel experienceModelModel = new experienceModel(0, 1);
+        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
 
         buttonTest.setOnClickListener(new View.OnClickListener() {
             @Override
