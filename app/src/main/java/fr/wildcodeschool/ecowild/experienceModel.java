@@ -1,11 +1,11 @@
 package fr.wildcodeschool.ecowild;
 
-public class experienceBar {
+public class experienceModel {
 
     int experience;
     int triExperience;
 
-    public experienceBar(int experience, int triExperience) {
+    public experienceModel(int experience, int triExperience) {
         this.experience = experience;
         this.triExperience = triExperience;
     }

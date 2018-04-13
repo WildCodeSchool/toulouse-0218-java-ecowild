@@ -78,15 +78,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final Button buttonTest = findViewById(R.id.button_test);
-        final experienceBar experienceBarModel = new experienceBar(0, 1);
+        final experienceModel experienceModelModel = new experienceModel(0, 1);
 
         buttonTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                experienceBarModel.setExperience(experienceBarModel.getExperience() + experienceBarModel.getTriExperience());
+                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getTriExperience());
                 pbTest.setProgress(10);
-                pbTest.setProgress(experienceBarModel.getExperience());
+                pbTest.setProgress(experienceModelModel.getExperience());
 
                 Toast.makeText(MapsActivity.this, R.string.pointXP, Toast.LENGTH_SHORT).show();
             }
