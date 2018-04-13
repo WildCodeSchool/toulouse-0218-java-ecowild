@@ -184,7 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /**Partie Slide**/
         mDrawerLayout = findViewById(R.id.drawer_layout);
-      
+
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
         TextView rank = findViewById(R.id.tv_rank);
@@ -244,7 +244,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             snackbar.setDuration(3500);
             snackbar.show();
-          
+
         }
 
         /**Toast réutilisable plus tard**/
@@ -572,7 +572,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 int height = 150;
                                 int width = 150;
-                                BitmapDrawable bitmapDrawableGlass = (BitmapDrawable)getResources().getDrawable(R.drawable.pointeur_verre);
+                                BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) getResources().getDrawable(R.drawable.pointeur_verre);
                                 Bitmap glass = bitmapDrawableGlass.getBitmap();
                                 Bitmap finalGlass = Bitmap.createScaledBitmap(glass, width, height, false);
 
@@ -634,7 +634,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 int height = 150;
                                 int width = 150;
-                                BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable)getResources().getDrawable(R.drawable.pointeur_papier);
+                                BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable) getResources().getDrawable(R.drawable.pointeur_papier);
                                 Bitmap plastic = bitmapDrawablePlastic.getBitmap();
                                 Bitmap finalPlastic = Bitmap.createScaledBitmap(plastic, width, height, false);
 
