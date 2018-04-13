@@ -160,14 +160,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        mDrawerLayout = findViewById(R.id.drawerLayout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
         askLocationPermission();
 
         /**Partie Slide**/
-        drawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
       
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
@@ -321,16 +321,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (MapsActivity.this.glassFilter) {
+                if (MapsActivity.this.mGlassFilter) {
                     buttonRight.setBackgroundResource(R.drawable.papier);
-                    MapsActivity.this.glassFilter = false;
+                    MapsActivity.this.mGlassFilter = false;
                     mMap.clear();
                     onMapReady(mMap);
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
 
 
                 } else {
-                    MapsActivity.this.glassFilter = true;
+                    MapsActivity.this.mGlassFilter = true;
                     mMap.clear();
                     onMapReady(mMap);
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
@@ -346,15 +346,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
 
-                if (paperfilter) {
+                if (mPaperfilter) {
                     buttonRight.setBackgroundResource(R.drawable.verre);
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
-                    paperfilter = false;
+                    mPaperfilter = false;
                     mMap.clear();
                     onMapReady(mMap);
 
                 } else {
-                    paperfilter = true;
+                    mPaperfilter = true;
                     mMap.clear();
                     onMapReady(mMap);
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
