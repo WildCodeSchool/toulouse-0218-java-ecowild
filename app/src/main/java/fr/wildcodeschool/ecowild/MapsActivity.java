@@ -52,6 +52,9 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,12 +66,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
+
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
     DrawerLayout mDrawerLayout;
     final ArrayList<ElementModel> mGps = new ArrayList<>();
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
+    // variable pour presentation en enlever apres
+    int i = 0;
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
 
@@ -78,6 +84,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        /** Partie menu Circle**/
+        //Image bouton Menu
+        ImageView iconMenu = new ImageView(this); // Create an icon
+        iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
+
+        //creation bouton Menu
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(iconMenu)
+                .build();
+
+
+        SubActionButton.Builder listeBuilder = new SubActionButton.Builder(this);
+
+        //Creation image sous menu
+        final ImageView filtreVerre = new ImageView(this); // Create an icon
+        filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
+        //envoit sous bouton au menu
+        final SubActionButton sabVerre = listeBuilder.setContentView(filtreVerre).build();
+
+        final ImageView filtrePapier = new ImageView(this); // Create an icon
+        filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+        SubActionButton sabPapier = listeBuilder.setContentView(filtrePapier).build();
+
+
+        final ImageView filtreFavoris = new ImageView(this); // Create an icon
+        filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
+        SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
+
+        final ImageView filtreKm = new ImageView(this);
+        filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.borne));
+        SubActionButton sabKm = listeBuilder.setContentView(filtreKm).build();
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(150, 150);
+        sabFavoris.setLayoutParams(layoutParam);
+        sabKm.setLayoutParams(layoutParam);
+        sabPapier.setLayoutParams(layoutParam);
+        sabVerre.setLayoutParams(layoutParam);
+
+        //Creation bouton sous menu
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
+                .addSubActionView(sabVerre)
+                .addSubActionView(sabPapier)
+                .addSubActionView(sabKm)
+                .addSubActionView(sabFavoris)
+                .attachTo(actionButton)
+                .build();
+
+      /* Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final Button buttonTest = findViewById(R.id.button_test);
         final experienceModel experienceModelModel = new experienceModel(0, 1);
@@ -112,6 +166,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
         askLocationPermission();
 
+        /**Partie Slide**/
+        drawerLayout = findViewById(R.id.drawer_layout);
+      
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
         TextView rank = findViewById(R.id.tv_rank);
@@ -139,7 +196,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
                 MapsActivity.this.startActivity(intentCo);
 
-
             }
         });
 
@@ -162,7 +218,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
                     startActivity(intent);
 
-
                 }
             });
 
@@ -173,10 +228,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             snackbar.setDuration(3500);
             snackbar.show();
+          
         }
 
-
-        //Toast réutilisable plus tard
+        /**Toast réutilisable plus tard**/
         /**LayoutInflater inflater = getLayoutInflater();
          View layout = inflater.inflate(R.layout.toast,
          (ViewGroup) findViewById(R.id.custom_toast_container));
@@ -192,12 +247,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          toast.show();
          **/
 
-        //Map
+        /**Map**/
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // slide droite et gauche
+        // Bouton slide ouverture droite et gauche
 
         final Button buttonLeft = findViewById(R.id.button_left);
 
@@ -217,6 +272,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
+        /**Filtres verre et papier slide droit**/
         glassFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -245,6 +302,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     buttonRight.setBackgroundResource(R.drawable.verre);
 
                     mPaperfilter = false;
+
                     mMap.clear();
                     onMapReady(mMap);
 
@@ -258,8 +316,87 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        /**Filtres verre et papier menu multiples droit**/
+        sabVerre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (MapsActivity.this.glassFilter) {
+                    buttonRight.setBackgroundResource(R.drawable.papier);
+                    MapsActivity.this.glassFilter = false;
+                    mMap.clear();
+                    onMapReady(mMap);
+                    filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+
+
+                } else {
+                    MapsActivity.this.glassFilter = true;
+                    mMap.clear();
+                    onMapReady(mMap);
+                    filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
+
+                }
+
+
+            }
+        });
+
+        sabPapier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (paperfilter) {
+                    buttonRight.setBackgroundResource(R.drawable.verre);
+                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                    paperfilter = false;
+                    mMap.clear();
+                    onMapReady(mMap);
+
+                } else {
+                    paperfilter = true;
+                    mMap.clear();
+                    onMapReady(mMap);
+                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+
+                }
+
+            }
+        });
+
+        sabKm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // i pour presentation a retirer apres av les filtre
+                if (i == 0) {
+                    filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.bornesansfond));
+                    i = 1;
+                } else if (i == 1) {
+                    filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.borne));
+                    i = 0;
+                }
+            }
+        });
+
+        sabFavoris.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // i pour presentation a retirer apres av les filtre
+                if (i == 0) {
+                    filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoilesansfond));
+                    i = 1;
+                } else if (i == 1) {
+                    filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
+                    i = 0;
+                }
+            }
+        });
+
     }
 
+    /**
+     * Permissions
+     **/
     private void askLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -319,7 +456,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.setMyLocationEnabled(true);
             }
             mMap.moveCamera(yourLocation);
-
         }
     }
 
@@ -509,19 +645,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+    /** Boutton mystere
+     private void initUI(View v) {
+     Button button1 = (Button) v.findViewById(R.id.button_connection);
+     button1.setOnClickListener(new View.OnClickListener() {
 
-    private void initUI(View v) {
-        Button button1 = (Button) v.findViewById(R.id.button_connection);
-        button1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //tu fais ce que tu veux dans le onClick
-                Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
-                MapsActivity.this.startActivity(intentCo);
-            }
-        });
+    @Override public void onClick(View v) {
+    //tu fais ce que tu veux dans le onClick
+    Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+    MapsActivity.this.startActivity(intentCo);
     }
+    });
+     } */
 
 }
 
