@@ -22,7 +22,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -88,7 +90,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 pbTest.setProgress(10);
                 pbTest.setProgress(experienceModelModel.getExperience());
 
-                Toast.makeText(MapsActivity.this, R.string.pointXP, Toast.LENGTH_SHORT).show();
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast,
+                        (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                textToast.setText(R.string.Toast);
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         });
 
