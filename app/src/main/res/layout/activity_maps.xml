@@ -96,12 +96,12 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         android:orientation="vertical"
+        android:layout_gravity="start"
         android:background="#FFFFFFFF"
         android:id="@+id/relative_layout_left"
         >
-        <!--  -->
+        <!---->
 
 
         <TextView
@@ -244,19 +244,23 @@
             android:id="@+id/button_create_account"
             android:layout_width="145dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="24dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:text=" Creer un compte"
             android:textSize="12sp"
+            map:layout_constraintBottom_toBottomOf="@+id/tv_background"
             map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/button_connection" />
+            map:layout_constraintTop_toBottomOf="@+id/button_connection"
+            map:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/iv_to_log_in"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="33dp"
             android:background="@drawable/connexionok"
             app:srcCompat="@drawable/connexionok"
             map:layout_constraintEnd_toStartOf="@+id/button_connection"
@@ -269,7 +273,7 @@
             android:layout_width="145dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="24dp"
             android:text="Se connecter"
             android:textSize="12sp"
             map:layout_constraintEnd_toEndOf="parent"
@@ -279,7 +283,8 @@
             android:id="@+id/iv_create_account"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="27dp"
             android:background="@drawable/ajoutcompte"
             app:srcCompat="@drawable/ajoutcompte"
             map:layout_constraintEnd_toStartOf="@+id/button_create_account"
@@ -305,9 +310,9 @@
             android:layout_height="13dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:progressDrawable="@drawable/progressbar"
+            android:layout_marginTop="6dp"
             android:max="10"
+            android:progressDrawable="@drawable/progressbar"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintHorizontal_bias="0.0"
             map:layout_constraintStart_toStartOf="parent"
