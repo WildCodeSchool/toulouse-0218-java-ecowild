@@ -69,6 +69,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     final ArrayList<ElementModel> gps = new ArrayList<>();
     boolean glassFilter = true;
     boolean paperfilter = true;
+    // variable pour presentation en enlver apres
+    int i =0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -100,12 +103,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SubActionButton sabPapier= listeBuilder.setContentView(filtrePapier).build();
 
 
-        ImageView filtreFavoris = new ImageView(this); // Create an icon
+        final ImageView filtreFavoris = new ImageView(this); // Create an icon
         filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.etoile));
         SubActionButton sabFavoris= listeBuilder.setContentView(filtreFavoris).build();
 
-        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(100,100);
+        final ImageView filtreKm = new ImageView(this);
+        filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.borne));
+        SubActionButton sabKm= listeBuilder.setContentView(filtreKm).build();
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(150,150);
         sabFavoris.setLayoutParams(layoutParam);
+        sabKm.setLayoutParams(layoutParam);
         sabPapier.setLayoutParams(layoutParam);
         sabVerre.setLayoutParams(layoutParam);
 
@@ -113,38 +121,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabVerre)
                 .addSubActionView(sabPapier)
+                .addSubActionView(sabKm)
                 .addSubActionView(sabFavoris)
                 .attachTo(actionButton)
                 .build();
 
-
-/*
-
-        sabVerre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.etoile));
-                Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
-
-              //  bt1.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.logook));
-
-            }
-        });
-
-        sabFavoris.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        sabPapier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
-            }
-        });
-//fin */
 
 
         /** Partie GPS **/
@@ -282,7 +263,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (paperfilter) {
                     buttonRight.setBackgroundResource(R.drawable.verre);
-
                     paperfilter = false;
                     mMap.clear();
                     onMapReady(mMap);
@@ -301,32 +281,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.verresansfond));
 
                 if (MapsActivity.this.glassFilter) {
                     buttonRight.setBackgroundResource(R.drawable.papier);
                     MapsActivity.this.glassFilter = false;
                     mMap.clear();
                     onMapReady(mMap);
+                    filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.verresansfond));
+
 
                 } else {
                     MapsActivity.this.glassFilter = true;
                     mMap.clear();
                     onMapReady(mMap);
+                    filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.verre));
 
                 }
 
-                Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
+
+
             }
         });
 
         sabPapier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.papiersansfond));
+
+
                 if (paperfilter) {
                     buttonRight.setBackgroundResource(R.drawable.verre);
-
+                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.papiersansfond));
                     paperfilter = false;
                     mMap.clear();
                     onMapReady(mMap);
@@ -335,9 +319,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     paperfilter = true;
                     mMap.clear();
                     onMapReady(mMap);
+                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.papier));
 
                 }
-                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        sabKm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // i pour presentation a retirer apres av les filtre
+                if(i==0){
+                    filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.bornesansfond));
+                    i=1;
+                }
+                else if (i==1){
+                    filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.borne));
+                    i=0;
+                }
+            }
+        });
+
+        sabFavoris.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // i pour presentation a retirer apres av les filtre
+                if(i==0){
+                    filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.etoilesansfond));
+                    i=1;
+                }
+                else if (i==1){
+                    filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(),R.drawable.etoile));
+                    i=0;
+                }
             }
         });
 
@@ -391,9 +406,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void moveCameraOnUser(Location location) {
 
+        if(mMap==null){
+            return;
+        }
         LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
+
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
