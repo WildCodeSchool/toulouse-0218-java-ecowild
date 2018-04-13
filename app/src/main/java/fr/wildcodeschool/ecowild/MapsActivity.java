@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -29,6 +31,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -108,15 +111,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SubActionButton sabPapier = listeBuilder.setContentView(filtrePapier).build();
 
 
-        final ImageView filtreFavoris = new ImageView(this); // Create an icon
+        final ImageView filtreFavoris = new ImageView(MapsActivity.this); // Create an icon
         filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
         SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
 
-        final ImageView filtreKm = new ImageView(this);
+        final ImageView filtreKm = new ImageView(MapsActivity.this);
         filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.borne));
         SubActionButton sabKm = listeBuilder.setContentView(filtreKm).build();
 
-        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(150, 150);
+        SeekBar seekBarKM = new SeekBar(MapsActivity.this);
+        SubActionButton sabSeekBar = listeBuilder.setContentView(seekBarKM).build();
+
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
         sabFavoris.setLayoutParams(layoutParam);
         sabKm.setLayoutParams(layoutParam);
         sabPapier.setLayoutParams(layoutParam);
@@ -130,6 +137,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addSubActionView(sabFavoris)
                 .attachTo(actionButton)
                 .build();
+
+        DrawerLayout.LayoutParams layoutParamHori = new DrawerLayout.LayoutParams(500, 150);
+        sabSeekBar.setLayoutParams(layoutParamHori);
+
+
+        FloatingActionMenu actionkm = new FloatingActionMenu.Builder(MapsActivity.this)
+                .addSubActionView(sabSeekBar)
+                .attachTo(sabKm)
+                .build();
+
 
       /* Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
@@ -364,6 +381,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        /*
         sabKm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,7 +394,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     i = 0;
                 }
             }
-        });
+        }); */
 
         sabFavoris.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -553,11 +571,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Verre";
                                 String id = "v" + c;
 
+                                int height = 150;
+                                int width = 150;
+                                BitmapDrawable bitmapDrawableGlass = (BitmapDrawable)getResources().getDrawable(R.drawable.pointeur_verre);
+                                Bitmap glass = bitmapDrawableGlass.getBitmap();
+                                Bitmap finalGlass = Bitmap.createScaledBitmap(glass, width, height, false);
+
                                 mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
                                 Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                                        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.fromBitmap(finalGlass)));
                             }
 
                         } catch (JSONException e) {
@@ -609,11 +633,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Papier/Plastique";
                                 String id = "p" + c;
 
+                                int height = 150;
+                                int width = 150;
+                                BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable)getResources().getDrawable(R.drawable.pointeur_papier);
+                                Bitmap plastic = bitmapDrawablePlastic.getBitmap();
+                                Bitmap finalPlastic = Bitmap.createScaledBitmap(plastic, width, height, false);
+
                                 mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                        .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.fromBitmap(finalPlastic)));
                             }
 
                         } catch (JSONException e) {
