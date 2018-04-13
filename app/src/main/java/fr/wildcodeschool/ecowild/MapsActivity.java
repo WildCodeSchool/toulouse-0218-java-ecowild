@@ -141,10 +141,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabSeekBar.setLayoutParams(layoutParamHori);
 
 
-        FloatingActionMenu actionkm = new FloatingActionMenu.Builder(MapsActivity.this)
+        /*FloatingActionMenu actionkm = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabSeekBar)
                 .attachTo(sabKm)
-                .build();
+                .build();*/
 
 
       /* Partie XP */
