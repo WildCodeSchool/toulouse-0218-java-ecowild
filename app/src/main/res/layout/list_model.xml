@@ -18,9 +18,10 @@
         android:layout_height="wrap_content"
         >
 
+
         <TextView
             android:id="@+id/address"
-            android:layout_width="176dp"
+            android:layout_width="181dp"
             android:layout_height="39dp"
             android:layout_margin="10dp"
             android:gravity="center"
@@ -28,21 +29,6 @@
             android:textColor="@color/colorBlack"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/type"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/address"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -50,9 +36,11 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/papier"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_favoris"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,13 +49,27 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@drawable/etoile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_itineraire"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_itineraire"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:srcCompat="@drawable/itineraire" />
 
     </android.support.constraint.ConstraintLayout>
 

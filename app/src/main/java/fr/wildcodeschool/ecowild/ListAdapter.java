@@ -27,12 +27,12 @@ public class ListAdapter extends ArrayAdapter<ElementModel> {
         }
 
         TextView address = convertView.findViewById(R.id.address);
-        TextView type = convertView.findViewById(R.id.type);
+        //TextView type = convertView.findViewById(R.id.type);
        // TextView id = convertView.findViewById(R.id.smallid);
         LinearLayout list = convertView.findViewById(R.id.item_list);
 
         address.setText(gpsLocations.getAddress());
-        type.setText(gpsLocations.getType());
+       // type.setText(gpsLocations.getType());
        // id.setText(gpsLocations.getId());
         LinearLayout liste =convertView.findViewById(R.id.item_list);
 
