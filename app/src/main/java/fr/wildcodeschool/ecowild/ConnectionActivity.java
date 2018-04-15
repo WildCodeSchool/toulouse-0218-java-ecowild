@@ -102,6 +102,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
         final SubmitButton sbConnection = findViewById(R.id.sb_connexion);
         sbConnection.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View v) {
 
@@ -113,7 +114,8 @@ public class ConnectionActivity extends AppCompatActivity {
 
                 if (editProfil.isEmpty() || editPassword.isEmpty()) {
 
-                    Toast.makeText(ConnectionActivity.this, getString(remplissez_tout_les_champs), Toast.LENGTH_SHORT).show();
+                    sbConnection.setText("essayer encore");
+
                 } else {
                     new Handler().postDelayed(new Runnable() {
                         @Override
