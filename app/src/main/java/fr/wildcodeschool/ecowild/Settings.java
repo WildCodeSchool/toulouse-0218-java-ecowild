@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
-    public static boolean INVISIBLE = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,79 +31,59 @@ public class Settings extends AppCompatActivity {
         final ImageView ivNewPassword = findViewById(R.id.image_view_new_password);
         final ImageView ivNewPassword2 = findViewById(R.id.image_view_validated_password2);
         final ImageView ivkey = findViewById(R.id.image_view_key);
-        if(INVISIBLE) {
-            etPassword.setVisibility(View.GONE);
-            etNewPassword.setVisibility(View.GONE);
-            etNewPassword2.setVisibility(View.GONE);
-            etProfil.setVisibility(View.GONE);
-            etNewProfil.setVisibility(View.GONE);
-            etNewProfil2.setVisibility(View.GONE);
-            buttonMdp.setVisibility(View.GONE);
-            buttonMnc.setVisibility(View.GONE);
-            ivPassword.setVisibility(View.GONE);
-            ivNewPassword.setVisibility(View.GONE);
-            ivNewPassword2.setVisibility(View.GONE);
-            ivkey.setVisibility(View.GONE);
-        }
-        if(!INVISIBLE){
-
-        }
 
         RadioButton rbAvatar = findViewById(R.id.radioButton_avatar);
-        RadioButton rbName = findViewById(R.id.radioButton_name);
+        final RadioButton rbName = findViewById(R.id.radioButton_name);
         final RadioButton rbPassword =findViewById(R.id.radioButton_password);
+        RadioGroup rG =findViewById(R.id.radio_group);
 
-        RadioGroup rg =findViewById(R.id.radio_group);
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                etPassword.setVisibility(View.GONE);
+                etNewPassword.setVisibility(View.GONE);
+                etNewPassword2.setVisibility(View.GONE);
+                etProfil.setVisibility(View.GONE);
+                etNewProfil.setVisibility(View.GONE);
+                etNewProfil2.setVisibility(View.GONE);
+                buttonMdp.setVisibility(View.GONE);
+                buttonMnc.setVisibility(View.GONE);
+                ivPassword.setVisibility(View.GONE);
+                ivNewPassword.setVisibility(View.GONE);
+                ivNewPassword2.setVisibility(View.GONE);
+                ivkey.setVisibility(View.GONE);
+
                 if (rbPassword.isChecked()){
-                    visibleEt(etPassword);
-                    visibleEt(etNewPassword);
-                    visibleEt(etNewPassword2);
-                    visibleBte(buttonMdp);
-                    visibleIv(ivPassword);
-                    visibleIv(ivNewPassword);
-                    visibleIv(ivNewPassword2);
-                    visibleIv(ivkey);
+                    visibleEt(etPassword,etNewPassword,etNewPassword2);
+                    buttonMdp.setVisibility(View.VISIBLE);
+                    ivPassword.setVisibility(View.VISIBLE);
+                    ivNewPassword.setVisibility(View.VISIBLE);
+                    ivNewPassword2.setVisibility(View.VISIBLE);
+                    ivkey.setVisibility(View.VISIBLE);
+
                 }
+
+                if(rbName.isChecked()){
+                   buttonMnc.setVisibility(View.VISIBLE);
+                    visibleEt(etProfil, etNewProfil,etNewProfil2);
+
+                }
+
+
             }
         });
 
 
 
 
-        rbName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
-        CheckBox cbName = findViewById(R.id.checkBox_name);
-        cbName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visibleBte(buttonMnc);
-                visibleEt(etProfil);
-                visibleEt(etNewProfil);
-                visibleEt(etNewProfil2);
-                INVISIBLE= false;
-            }
-        });
-
-
 
 
     }
-    public void visibleEt(EditText et){
-        et.setVisibility(View.VISIBLE);
+    public void visibleEt(EditText et1, EditText et2, EditText et3){
+        et1.setVisibility(View.VISIBLE);
+        et2.setVisibility(View.VISIBLE);
+        et3.setVisibility(View.VISIBLE);
 
-    }
-    public void visibleBte (Button bte){
-        bte.setVisibility(View.VISIBLE);
-    }
-    public void visibleIv (ImageView iv){
-        iv.setVisibility(View.VISIBLE);
     }
 
 }

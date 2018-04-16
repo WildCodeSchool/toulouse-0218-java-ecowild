@@ -14,9 +14,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:text="Parametres"
+        android:text="@string/setting"
         android:textColor="#439DBB"
-        android:textSize="40sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +26,11 @@
         android:id="@+id/tv_change_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:text="Modifier les parametres de l'application"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/move_setting"
         android:textColor="@color/colorBlack"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_setting" />
@@ -38,10 +39,11 @@
         android:id="@+id/tv_profil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:text="Modifier mon profil"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/move_profil"
         android:textColor="@color/colorBlack"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch_son" />
@@ -50,9 +52,8 @@
         android:id="@+id/switch_son"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:showText="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch_notification" />
 
@@ -60,91 +61,65 @@
         android:id="@+id/switch_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:showText="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_change_setting" />
 
     <TextView
-        android:id="@+id/textView_notification"
+        android:id="@+id/textView_gps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Notifications"
+        android:layout_marginTop="20dp"
+        android:text="@string/gps"
         android:textColor="@color/colorBlack"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/switch_notification"
         app:layout_constraintTop_toBottomOf="@+id/tv_change_setting" />
 
     <TextView
-        android:id="@+id/textView_son"
+        android:id="@+id/textView_notifications"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Volume"
+        android:layout_marginTop="20dp"
+        android:text="@string/notifications"
         android:textColor="@color/colorBlack"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/switch_son"
-        app:layout_constraintTop_toBottomOf="@+id/textView_notification" />
-
-    <CheckBox
-        android:id="@+id/checkBox_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profil" />
-
-    <CheckBox
-        android:id="@+id/checkBox_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Pseudo"
-        app:layout_constraintStart_toEndOf="@+id/checkBox_avatar"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profil" />
-
-    <CheckBox
-        android:id="@+id/checkBox_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Mot de passe"
-        app:layout_constraintStart_toEndOf="@+id/checkBox_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profil" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_gps" />
 
     <!-- Partie mot de passe-->
     <EditText
         android:id="@+id/edit_text_password"
-        android:layout_width="269dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+
         android:hint="@string/ancien_mot_de_passe"
         android:inputType="textPassword"
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_password" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_group" />
 
     <EditText
         android:id="@+id/edit_text_new_password"
-        android:layout_width="269dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/nouveau_mot_de_passe"
         android:inputType="textPassword"
+
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,14 +127,16 @@
 
     <EditText
         android:id="@+id/edit_text_new_assword_confirm"
-        android:layout_width="269dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/validez_votre_mot_de_passe"
         android:inputType="textPassword"
+
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -173,6 +150,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/edit_text_password"
         app:layout_constraintEnd_toEndOf="@+id/edit_text_password"
@@ -186,6 +164,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_password"
         app:layout_constraintEnd_toEndOf="@+id/edit_text_new_password"
@@ -199,6 +178,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_assword_confirm"
         app:layout_constraintEnd_toEndOf="@+id/edit_text_new_assword_confirm"
@@ -212,6 +192,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_assword_confirm"
         app:layout_constraintStart_toStartOf="parent"
@@ -220,14 +201,16 @@
 
     <Button
         android:id="@+id/button_mdp"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:background="@color/colorEcoWild"
         android:text="@string/modifier_mot_de_passe2"
         android:textColor="@color/colorWhite"
+
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -236,29 +219,32 @@
     <!--Partie Pseudo -->
     <EditText
         android:id="@+id/edit_text_profil"
-        android:layout_width="269dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/nom_de_compte_connection"
+
         android:inputType="textPassword"
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox_password" />
+        app:layout_constraintTop_toTopOf="@+id/edit_text_password" />
 
     <EditText
         android:id="@+id/edit_text_new_profil"
-        android:layout_width="269dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Nouveau nom de compte"
+        android:hint="@string/new_compte"
         android:inputType="textPassword"
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -267,14 +253,15 @@
 
     <EditText
         android:id="@+id/edit_text_new_profil_confirm"
-        android:layout_width="269dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Validez votre nom de compte"
+        android:hint="@string/new_compte2"
         android:inputType="textPassword"
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -283,13 +270,13 @@
 
     <Button
         android:id="@+id/button_mnc"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:background="@color/colorEcoWild"
-        android:text="Modifier nom de Compte"
+        android:text="@string/move_compte"
         android:textColor="@color/colorWhite"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -298,35 +285,36 @@
 
     <RadioGroup
         android:id="@+id/radio_group"
-        android:layout_width="362dp"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profil">
 
         <RadioButton
             android:id="@+id/radioButton_avatar"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Avatar" />
+            android:text="@string/avatar"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/radioButton_name"
-            android:layout_width="wrap_content"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pseudo" />
+            android:text="@string/name"
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/radioButton_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Mot de passe" />
+            android:text="@string/password2"
+            android:textSize="15sp" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>
