@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.wildcodeschool.ecowild.Settings">
+
+
+    <TextView
+        android:id="@+id/text_view_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="Parametres"
+        android:textColor="#439DBB"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_change_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="Modifier les parametres de l'application"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_setting" />
+
+    <TextView
+        android:id="@+id/tv_profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="Modifier mon profil"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_son" />
+
+    <Switch
+        android:id="@+id/switch_son"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:showText="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_notification" />
+
+    <Switch
+        android:id="@+id/switch_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:showText="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_change_setting" />
+
+    <TextView
+        android:id="@+id/textView_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Notifications"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintStart_toEndOf="@+id/switch_notification"
+        app:layout_constraintTop_toBottomOf="@+id/tv_change_setting" />
+
+    <TextView
+        android:id="@+id/textView_son"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Volume"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintStart_toEndOf="@+id/switch_son"
+        app:layout_constraintTop_toBottomOf="@+id/textView_notification" />
+
+    <CheckBox
+        android:id="@+id/checkBox_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profil" />
+
+    <CheckBox
+        android:id="@+id/checkBox_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Pseudo"
+        app:layout_constraintStart_toEndOf="@+id/checkBox_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profil" />
+
+    <CheckBox
+        android:id="@+id/checkBox_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Mot de passe"
+        app:layout_constraintStart_toEndOf="@+id/checkBox_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profil" />
+
+    <!-- Partie mot de passe-->
+    <EditText
+        android:id="@+id/edit_text_password"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/ancien_mot_de_passe"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_password" />
+
+    <EditText
+        android:id="@+id/edit_text_new_password"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/nouveau_mot_de_passe"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
+
+    <EditText
+        android:id="@+id/edit_text_new_assword_confirm"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/validez_votre_mot_de_passe"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_new_password" />
+
+    <ImageView
+        android:id="@+id/image_view_past_password"
+        android:layout_width="28dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_password"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_password"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_password"
+        app:srcCompat="@drawable/icon_password" />
+
+    <ImageView
+        android:id="@+id/image_view_new_password"
+        android:layout_width="28dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_password"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_new_password"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_new_password"
+        app:srcCompat="@drawable/icon_password" />
+
+    <ImageView
+        android:id="@+id/image_view_validated_password2"
+        android:layout_width="28dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_assword_confirm"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_new_assword_confirm"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_new_assword_confirm"
+        app:srcCompat="@drawable/icon_password" />
+
+    <ImageView
+        android:id="@+id/image_view_key"
+        android:layout_width="28dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_assword_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_password"
+        app:srcCompat="@drawable/key" />
+
+    <Button
+        android:id="@+id/button_mdp"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorEcoWild"
+        android:text="@string/modifier_mot_de_passe2"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_new_assword_confirm" />
+
+    <!--Partie Pseudo -->
+    <EditText
+        android:id="@+id/edit_text_profil"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/nom_de_compte_connection"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_password" />
+
+    <EditText
+        android:id="@+id/edit_text_new_profil"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Nouveau nom de compte"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_profil" />
+
+    <EditText
+        android:id="@+id/edit_text_new_profil_confirm"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Validez votre nom de compte"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_new_profil" />
+
+    <Button
+        android:id="@+id/button_mnc"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorEcoWild"
+        android:text="Modifier nom de Compte"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_new_profil_confirm" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButton_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Avatar" />
+
+        <RadioButton
+            android:id="@+id/radioButton_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pseudo" />
+
+        <RadioButton
+            android:id="@+id/radioButton_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mot de passe" />
+    </RadioGroup>
+</android.support.constraint.ConstraintLayout>
