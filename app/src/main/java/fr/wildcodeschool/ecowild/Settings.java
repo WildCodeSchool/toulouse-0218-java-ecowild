@@ -1,5 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +36,14 @@ public class Settings extends AppCompatActivity {
         final ImageView ivNewPassword2 = findViewById(R.id.image_view_validated_password2);
         final ImageView ivkey = findViewById(R.id.image_view_key);
 
-        RadioButton rbAvatar = findViewById(R.id.radioButton_avatar);
+        //test image ronde
+        final ImageView ivAvatar =findViewById(R.id.imageView_avatar);
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(), R.drawable.jeter);
+        RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(),bitmap);
+        roundedBitmapDrawable.setCircular(true);
+        ivAvatar.setImageDrawable(roundedBitmapDrawable);
+
+        final RadioButton rbAvatar = findViewById(R.id.radioButton_avatar);
         final RadioButton rbName = findViewById(R.id.radioButton_name);
         final RadioButton rbPassword =findViewById(R.id.radioButton_password);
         RadioGroup rG =findViewById(R.id.radio_group);
@@ -52,6 +63,7 @@ public class Settings extends AppCompatActivity {
                 ivNewPassword.setVisibility(View.GONE);
                 ivNewPassword2.setVisibility(View.GONE);
                 ivkey.setVisibility(View.GONE);
+                ivAvatar.setVisibility(View.GONE);
 
                 if (rbPassword.isChecked()){
                     visibleEt(etPassword,etNewPassword,etNewPassword2);
@@ -67,6 +79,10 @@ public class Settings extends AppCompatActivity {
                    buttonMnc.setVisibility(View.VISIBLE);
                     visibleEt(etProfil, etNewProfil,etNewProfil2);
 
+                }
+
+                if(rbAvatar.isChecked()){
+                    ivAvatar.setVisibility(View.VISIBLE);
                 }
 
 
