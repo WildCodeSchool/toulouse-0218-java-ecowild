@@ -42,6 +42,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.ebanx.swipebtn.OnStateChangeListener;
+import com.ebanx.swipebtn.SwipeButton;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -192,10 +194,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
         TextView rank = findViewById(R.id.tv_rank);
-        ImageView toLogIn = findViewById(R.id.iv_to_log_in);
-        ImageView createAccount = findViewById(R.id.iv_create_account);
-        final Button btnToLogIn = findViewById(R.id.button_connection);
         final Button btnCreateAccount = findViewById(R.id.button_create_account);
+        final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
+
+        swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
+            @Override
+            public void onStateChange(boolean active) {
+
+                Intent test = new Intent(MapsActivity.this, ConnectionActivity.class);
+                startActivity(test);
+            }
+        });
 
         if (ConnectionActivity.CONNECTED) {
 
@@ -203,21 +212,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setText(username);
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
-            toLogIn.setVisibility(View.GONE);
-            createAccount.setVisibility(View.GONE);
-            btnToLogIn.setVisibility(View.GONE);
             btnCreateAccount.setVisibility(View.GONE);
         }
-
-
-        btnToLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
-                MapsActivity.this.startActivity(intentCo);
-
-            }
-        });
 
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,5 +31,6 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.github.bloder:magic:1.1'
+    compile 'com.ebanx:swipe-button:0.4.0'
 }
 

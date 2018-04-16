@@ -22,4 +22,5 @@
     <string name="Verre">Dépôts de verre retirés de la carte</string>
     <string name="Papier">Dépôts de papier retirés de la carte</string>
     <string name="Toast">Tu as gagné un point d\'expérience !</string>
+    <string name="déconnection">Déconnection</string>
 </resources>
