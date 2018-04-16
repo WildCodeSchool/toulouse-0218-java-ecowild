@@ -57,10 +57,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="@color/colorEcoWild"
-        android:enabled="false"
         android:text="@string/se_connecter_connection"
         android:textColor="@color/colorWhite"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,26 +106,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check_box_connection" />
 
-    <com.spark.submitbutton.SubmitButton
 
-        android:id="@+id/sb_connexion"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="44dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:enabled="true"
-        android:saveEnabled="true"
-        android:text="@string/se_connecter_connection"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:sub_btn_background="@color/gray"
-        app:sub_btn_duration="2250"
-        app:sub_btn_line_color="@color/colorEcoWild"
-        app:sub_btn_ripple_color="@color/colorEcoWild"
-        app:sub_btn_tick_color="@color/white"
-        tools:enabled="false" />
 
 </android.support.constraint.ConstraintLayout>

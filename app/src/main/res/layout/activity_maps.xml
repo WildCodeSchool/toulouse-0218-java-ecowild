@@ -105,7 +105,7 @@
                 app:button_icon_width="40dp"
                 app:expandable_area_color="#87abb7"
                 app:hide_text="     Je viens de recycler"
-                app:hide_text_color="@color/black"
+                app:hide_text_color="@color/colorBlack"
                 app:hide_text_size="5dp"
                 app:icon_button_color="@color/colorEcoWild"
                 app:magic_button_size="60dp"
@@ -151,7 +151,7 @@
             map:layout_constraintStart_toEndOf="@+id/img_profil"
             map:layout_constraintTop_toTopOf="parent"
             android:shadowRadius="20"
-            android:shadowColor="@color/black"/>
+            android:shadowColor="@color/colorBlack"/>
 
         <ImageView
             android:id="@+id/img_profil"
@@ -178,7 +178,7 @@
             map:layout_constraintStart_toEndOf="@+id/img_profil"
             map:layout_constraintTop_toBottomOf="@+id/tv_pseudo"
             android:shadowRadius="20"
-            android:shadowColor="@color/black"/>
+            android:shadowColor="@color/colorBlack"/>
 
         <TextView
             android:id="@+id/tv_parameter"

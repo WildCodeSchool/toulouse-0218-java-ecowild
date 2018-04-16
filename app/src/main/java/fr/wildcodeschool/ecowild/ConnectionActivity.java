@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.spark.submitbutton.SubmitButton;
-
 import static fr.wildcodeschool.ecowild.R.string.remplissez_tout_les_champs;
 
 public class ConnectionActivity extends AppCompatActivity {
@@ -98,46 +96,6 @@ public class ConnectionActivity extends AppCompatActivity {
             }
         });
 
-        /**Proposition changement bouton se connecter */
 
-        final SubmitButton sbConnection = findViewById(R.id.sb_connexion);
-        sbConnection.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View v) {
-
-
-                CONNECTED = true;
-
-                final String editProfil = editTextProfil.getText().toString();
-                String editPassword = editTextPassword.getText().toString();
-
-                if (editProfil.isEmpty() || editPassword.isEmpty()) {
-
-                    sbConnection.setText("essayer encore");
-
-                } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                            intentMap.putExtra("username", editProfil);
-                            ConnectionActivity.this.startActivity(intentMap);
-                        }
-                    }, SPLASH_TIME_OUT);
-
-
-                }
-
-                if (checkBoxToLogIn.isChecked()) {
-                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                    editorProfil.putString(CACHE_USERNAME, editProfil);
-                    editorProfil.putString(CACHE_PASSWORD, editPassword);
-                    editorProfil.commit();
-                }
-
-
-            }
-        });
     }
 }

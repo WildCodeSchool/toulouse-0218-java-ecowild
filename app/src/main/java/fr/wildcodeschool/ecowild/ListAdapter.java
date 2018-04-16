@@ -1,7 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ public class ListAdapter extends ArrayAdapter<ElementModel> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ElementModel gpsLocations = getItem(position);
 
         if (convertView == null) {
@@ -34,21 +37,34 @@ public class ListAdapter extends ArrayAdapter<ElementModel> {
         address.setText(gpsLocations.getAddress());
        // type.setText(gpsLocations.getType());
        // id.setText(gpsLocations.getId());
-        LinearLayout liste =convertView.findViewById(R.id.item_list);
 
 
-        ImageView test = convertView.findViewById(R.id.iv_type);
+
+        ImageView ivType = convertView.findViewById(R.id.iv_type);
         if (gpsLocations.getType().equals("Verre")){
-            test.setBackgroundResource(R.drawable.verre);
-            //liste.setBackgroundColor(Color.alpha((long) 0.7).);
-            liste.setBackgroundColor(Color.parseColor("#bce7ca"));
+            ivType.setBackgroundResource(R.drawable.verre);
+            list.setBackgroundColor(Color.parseColor("#bce7ca"));
         }
         else {
-            test.setBackgroundResource(R.drawable.papier);
-
-            liste.setBackgroundColor(Color.parseColor("#c7e0f6"));
+            ivType.setBackgroundResource(R.drawable.papier);
+            list.setBackgroundColor(Color.parseColor("#c7e0f6"));
         }
 
+        final ImageView itineraire= convertView.findViewById(R.id.iv_itineraire);
+        itineraire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itineraire.setBackgroundResource(R.drawable.papier);
+                itineraire.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itineraire.setBackgroundResource(R.drawable.itineraire);
+                    }
+                });
+
+            }
+        });
+        
 
         return convertView;
     }

@@ -151,35 +151,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
       /** Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
-        final Button buttonTest = findViewById(R.id.button_test);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
 
-        buttonTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getTriExperience());
-                pbTest.setProgress(10);
-                pbTest.setProgress(experienceModelModel.getExperience());
-
-                LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.toast,
-                        (ViewGroup) findViewById(R.id.custom_toast_container));
-
-                TextView textToast = (TextView) layout.findViewById(R.id.text);
-                textToast.setText(R.string.Toast);
-
-                Toast toast = new Toast(getApplicationContext());
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-            }
-        });
-
-
-        /** autre propo pour icone xp*/
         MagicButton mbXp = findViewById(R.id.magic_button);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
