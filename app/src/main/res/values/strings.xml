@@ -22,4 +22,6 @@
     <string name="Verre">Dépôts de verre retirés de la carte</string>
     <string name="Papier">Dépôts de papier retirés de la carte</string>
     <string name="Toast">Tu as gagné un point d\'expérience !</string>
+    <string name="error">Vos mots de passent ne correspondent pas</string>
+    <string name="confirmation">Veuillez confirmez votre mot de passe</string>
 </resources>
