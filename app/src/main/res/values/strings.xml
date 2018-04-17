@@ -22,4 +22,17 @@
     <string name="Verre">Dépôts de verre retirés de la carte</string>
     <string name="Papier">Dépôts de papier retirés de la carte</string>
     <string name="Toast">Tu as gagné un point d\'expérience !</string>
+    <string name="error">Vos mots de passent ne correspondent pas</string>
+    <string name="confirmation">Veuillez confirmez votre mot de passe</string>
+    <string name="setting">Parametres</string>
+    <string name="move_setting">Modifier les parametres de l\'application</string>
+    <string name="move_profil">Modifier mon profil</string>
+    <string name="gps">GPS</string>
+    <string name="notifications">Notifications</string>
+    <string name="new_compte">Nouveau nom de compte</string>
+    <string name="new_compte2">Validez votre nom de compte</string>
+    <string name="move_compte">Modifier nom de Compte</string>
+    <string name="avatar">Avatar</string>
+    <string name="name">Name</string>
+    <string name="password2">Mot de passe</string>
 </resources>

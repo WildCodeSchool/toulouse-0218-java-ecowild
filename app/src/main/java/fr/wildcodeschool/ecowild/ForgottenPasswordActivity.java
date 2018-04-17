@@ -20,8 +20,8 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotten_password);
 
-        final EditText editTextForgottenPassword = findViewById(R.id.edit_text_forgotten_password);
-        final EditText editTextValidatedPassword = findViewById(R.id.edit_text_validated_password);
+        final EditText editTextForgottenPassword = findViewById(R.id.edit_text_password);
+        final EditText editTextValidatedPassword = findViewById(R.id.edit_text_new_password);
         final ImageView imageViewForgottenPassword = findViewById(R.id.image_view_forgotten_password);
         final ImageView imageViewValidatedPassword = findViewById(R.id.image_view_validated_password);
 
