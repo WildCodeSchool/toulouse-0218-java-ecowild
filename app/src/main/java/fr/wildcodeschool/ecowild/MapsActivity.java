@@ -55,6 +55,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -70,7 +71,7 @@ import br.com.bloder.magic.view.MagicButton;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
-
+    private ClusterManager<MyItem> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
     DrawerLayout mDrawerLayout;
@@ -82,11 +83,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
 
+    ArrayList <MyItem> test = new ArrayList<>();
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -454,13 +458,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mLastLocation = location;
         } else {
 
-            LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
+//            LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+  //          CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
             }
-            mMap.moveCamera(yourLocation);
+          //  mMap.moveCamera(yourLocation);
         }
     }
 
@@ -510,7 +514,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
         if (mIsWaitingForGoogleMap) {
@@ -567,13 +571,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
-                                Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                                        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.fromBitmap(finalGlass)));
+                                //Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
+                                //        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.fromBitmap(finalGlass)));
+
+                                test.add(new MyItem(valueOrdo,valueAbs));
+                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+                               // mClusterManager = new ClusterManager<MyItem>(this, mMap);
+                               // mMap.setOnCameraIdleListener(mClusterManager);
+                               // mMap.setOnMarkerClickListener(mClusterManager);
+                                mClusterManager.addItems(test);
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -588,6 +601,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // On ajoute la requête à la file d'attente
         requestQueue.add(jsonObjectRequest);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+
+        mClusterManager = new ClusterManager<MyItem>(this, mMap);
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
+
+        mClusterManager.addItems(test);
+
+
+
 
         /** Partie Json Papier/plastique **/
         // Crée une file d'attente pour les requêtes vers l'API
@@ -631,6 +654,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
                                         .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.fromBitmap(finalPlastic)));
+
+
                             }
 
                         } catch (JSONException e) {
@@ -661,6 +686,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+
     }
     /** Boutton mystere
      private void initUI(View v) {

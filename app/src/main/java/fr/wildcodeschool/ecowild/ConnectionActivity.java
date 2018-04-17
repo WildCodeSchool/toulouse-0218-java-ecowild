@@ -25,6 +25,7 @@ public class ConnectionActivity extends AppCompatActivity {
     public static boolean CONNECTED = false;
     int mPasswordVisibility = PASSWORD_HIDDEN;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
