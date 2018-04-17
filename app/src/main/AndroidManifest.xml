@@ -39,14 +39,15 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".ListLocationActivity" />
-        <activity android:name=".Settings"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>

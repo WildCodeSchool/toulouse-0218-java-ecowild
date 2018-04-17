@@ -6,6 +6,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,8 +17,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class Settings extends AppCompatActivity {
+import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
 
+public class Settings extends AppCompatActivity {
+    int mPasswordVisibility = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,48 @@ public class Settings extends AppCompatActivity {
         final RadioButton rbName = findViewById(R.id.radioButton_name);
         final RadioButton rbPassword =findViewById(R.id.radioButton_password);
         RadioGroup rG =findViewById(R.id.radio_group);
+
+        ivPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
+                    etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    mPasswordVisibility = PASSWORD_VISIBLE;
+                } else {
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    mPasswordVisibility = PASSWORD_HIDDEN;
+                }
+            }
+        });
+
+        ivNewPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
+                    etNewPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    mPasswordVisibility = PASSWORD_VISIBLE;
+                } else {
+                    etNewPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    mPasswordVisibility = PASSWORD_HIDDEN;
+                }
+            }
+        });
+
+        ivNewPassword2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (mPasswordVisibility == PASSWORD_HIDDEN) {
+                    etNewPassword2.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    mPasswordVisibility = PASSWORD_VISIBLE;
+                } else {
+                    etNewPassword2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    mPasswordVisibility = PASSWORD_HIDDEN;
+                }
+            }
+        });
 
         rG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

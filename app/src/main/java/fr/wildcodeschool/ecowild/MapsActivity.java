@@ -116,17 +116,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
         SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
 
-        final ImageView filtreKm = new ImageView(MapsActivity.this);
-        filtreKm.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.borne));
-        SubActionButton sabKm = listeBuilder.setContentView(filtreKm).build();
-
-        SeekBar seekBarKM = new SeekBar(MapsActivity.this);
-        SubActionButton sabSeekBar = listeBuilder.setContentView(seekBarKM).build();
 
 
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
         sabFavoris.setLayoutParams(layoutParam);
-        sabKm.setLayoutParams(layoutParam);
         sabPapier.setLayoutParams(layoutParam);
         sabVerre.setLayoutParams(layoutParam);
 
@@ -134,19 +127,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabVerre)
                 .addSubActionView(sabPapier)
-                .addSubActionView(sabKm)
                 .addSubActionView(sabFavoris)
                 .attachTo(actionButton)
                 .build();
 
-        DrawerLayout.LayoutParams layoutParamHori = new DrawerLayout.LayoutParams(500, 150);
-        sabSeekBar.setLayoutParams(layoutParamHori);
-
-
-        /*FloatingActionMenu actionkm = new FloatingActionMenu.Builder(MapsActivity.this)
-                .addSubActionView(sabSeekBar)
-                .attachTo(sabKm)
-                .build();*/
 
 
       /** Partie XP */
