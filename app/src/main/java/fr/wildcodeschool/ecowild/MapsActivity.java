@@ -222,7 +222,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvParameter = new Intent(MapsActivity.this, SettingsActivity.class);
+                Intent intentTvParameter = new Intent(MapsActivity.this, Settings.class);
                 startActivity(intentTvParameter);
             }
         });
@@ -230,7 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ivParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvParameter = new Intent(MapsActivity.this, SettingsActivity.class);
+                Intent intentIvParameter = new Intent(MapsActivity.this, Settings.class);
                 startActivity(intentIvParameter);
             }
         });
@@ -284,14 +284,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
         }
-
-        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentMap = new Intent(MapsActivity.this, MemberActivity.class);
-                MapsActivity.this.startActivity(intentMap);
-            }
-        });
 
         ImageView glassFilter = findViewById(R.id.iv_glass_filter);
         ImageView plasticFilter = findViewById(R.id.iv_plastic_filter);
