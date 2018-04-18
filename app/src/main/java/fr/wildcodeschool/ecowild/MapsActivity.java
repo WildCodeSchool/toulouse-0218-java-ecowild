@@ -177,8 +177,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
-                popup.setTitle("Alert proximité");
-                popup.setMessage(" Vous êtes à moins de 2 mètres d'un lieu de collecte. Voulez vous recycler?");
+                popup.setTitle(R.string.alerte);
+                popup.setMessage(R.string.alert_message);
                 //popup.setNegativeButton("Non",);
                 popup.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
                     @Override
