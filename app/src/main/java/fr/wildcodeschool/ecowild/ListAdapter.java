@@ -1,9 +1,7 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,26 +28,24 @@ public class ListAdapter extends ArrayAdapter<ElementModel> {
 
         TextView address = convertView.findViewById(R.id.address);
         //TextView type = convertView.findViewById(R.id.type);
-       // TextView id = convertView.findViewById(R.id.smallid);
+        // TextView id = convertView.findViewById(R.id.smallid);
         LinearLayout list = convertView.findViewById(R.id.item_list);
 
         address.setText(gpsLocations.getAddress());
-       // type.setText(gpsLocations.getType());
-       // id.setText(gpsLocations.getId());
-
+        // type.setText(gpsLocations.getType());
+        // id.setText(gpsLocations.getId());
 
 
         ImageView ivType = convertView.findViewById(R.id.iv_type);
-        if (gpsLocations.getType().equals("Verre")){
+        if (gpsLocations.getType().equals("Verre")) {
             ivType.setBackgroundResource(R.drawable.verre);
             list.setBackgroundColor(Color.parseColor("#bce7ca"));
-        }
-        else {
+        } else {
             ivType.setBackgroundResource(R.drawable.papier);
             list.setBackgroundColor(Color.parseColor("#c7e0f6"));
         }
 
-        final ImageView itineraire= convertView.findViewById(R.id.iv_itineraire);
+        final ImageView itineraire = convertView.findViewById(R.id.iv_itineraire);
         itineraire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +59,7 @@ public class ListAdapter extends ArrayAdapter<ElementModel> {
 
             }
         });
-        
+
 
         return convertView;
     }

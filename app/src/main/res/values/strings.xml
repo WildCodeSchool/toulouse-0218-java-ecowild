@@ -22,6 +22,10 @@
     <string name="Verre">Dépôts de verre retirés de la carte</string>
     <string name="Papier">Dépôts de papier retirés de la carte</string>
     <string name="Toast">Tu as gagné un point d\'expérience !</string>
+    <string name="déconnection">Déconnection</string>
+    <string name="param_tres">Paramètres</string>
+    <string name="informations_utiles">Informations utiles</string>
+    <string name="favoris">Favoris</string>
     <string name="error">Vos mots de passent ne correspondent pas</string>
     <string name="confirmation">Veuillez confirmez votre mot de passe</string>
     <string name="setting">Parametres</string>
