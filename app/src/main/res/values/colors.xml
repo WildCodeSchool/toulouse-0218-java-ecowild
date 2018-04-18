@@ -3,11 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#001ac6</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorEcoWild">#6db278</color>
-    <color name="colorEcoWild2">#4377b2</color>
+    <color name="colorEcoWild">#b35950</color>
+    <color name="colorEcoWild2">#EAC67A</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorError">#FF4081</color>
-    <color name="gris">#b6aeae</color>
 </resources>
 
