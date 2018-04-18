@@ -117,21 +117,21 @@
     <!--Volet Gauche -->
 
     <android.support.constraint.ConstraintLayout
+
         android:layout_width="270dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="start"
-        android:background="#FFFFFFFF"
+        android:background="@drawable/border2"
         android:id="@+id/relative_layout_left"
         >
         <!---->
-
 
         <TextView
             android:id="@+id/tv_background"
             android:layout_width="270dp"
             android:layout_height="140dp"
-            android:background="#439dbb"
+            android:background="@drawable/border2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -158,7 +158,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/anonyme"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
             map:layout_constraintTop_toTopOf="parent"
@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="60dp"
-            android:text="Parametres"
+            android:text="@string/param_tres"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
-            android:text="Infos utiles"
+            android:text="@string/informations_utiles"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -213,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="55dp"
-            android:text="Favoris"
+            android:text="@string/favoris"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -252,6 +252,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="30dp"
             android:text=" Créer un compte"
+            android:background="@drawable/button"
             android:textSize="12sp"
             map:layout_constraintBottom_toBottomOf="@+id/tv_background"
             map:layout_constraintEnd_toEndOf="parent"
@@ -275,7 +276,7 @@
             android:layout_height="13dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:max="10"
             android:progressDrawable="@drawable/progressbar"
             map:layout_constraintEnd_toEndOf="parent"
@@ -296,7 +297,7 @@
             map:button_right_padding="20dp"
             map:button_top_padding="20dp"
             map:inner_text="@string/déconnection"
-            map:inner_text_background="@color/colorEcoWild"
+            map:inner_text_background="@drawable/button"
             map:inner_text_bottom_padding="18dp"
             map:inner_text_size="18sp"
             map:inner_text_top_padding="18dp"

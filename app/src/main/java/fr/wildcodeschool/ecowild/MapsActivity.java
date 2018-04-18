@@ -196,6 +196,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView rank = findViewById(R.id.tv_rank);
         final Button btnCreateAccount = findViewById(R.id.button_create_account);
         final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
+        final TextView tvParameter = findViewById(R.id.tv_parameter);
+        final TextView tvUsefulInformation = findViewById(R.id.tv_useful_information);
+        final TextView tvFavorite = findViewById(R.id.tv_favorite);
+        final ImageView ivParameter = findViewById(R.id.imageButton);
+        final ImageView ivUsefulInformation = findViewById(R.id.iv_information);
+        final ImageView ivFavorite = findViewById(R.id.iv_favorite);
+
+        tvParameter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentTvParameter = new Intent(MapsActivity.this, SettingsActivity.class);
+                startActivity(intentTvParameter);
+            }
+        });
+
+        ivParameter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentIvParameter = new Intent(MapsActivity.this, SettingsActivity.class);
+                startActivity(intentIvParameter);
+            }
+        });
+
+        tvUsefulInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentTvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+                startActivity(intentTvUsefulInformation);
+            }
+        });
+
+        ivUsefulInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentIvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+                startActivity(intentIvUsefulInformation);
+            }
+        });
+
+        tvFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentTvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+                startActivity(intentTvFavorite);
+            }
+        });
+
+        ivFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentIvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+                startActivity(intentIvFavorite);
+            }
+        });
 
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override

@@ -23,4 +23,7 @@
     <string name="Papier">Dépôts de papier retirés de la carte</string>
     <string name="Toast">Tu as gagné un point d\'expérience !</string>
     <string name="déconnection">Déconnection</string>
+    <string name="param_tres">Paramètres</string>
+    <string name="informations_utiles">Informations utiles</string>
+    <string name="favoris">Favoris</string>
 </resources>
