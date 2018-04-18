@@ -1,7 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,9 @@ import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
 
 public class Settings extends AppCompatActivity {
     int mPasswordVisibility = 1;
+    Bitmap mPhotography;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ public class Settings extends AppCompatActivity {
         final ImageView ivNewPassword = findViewById(R.id.image_view_new_password);
         final ImageView ivNewPassword2 = findViewById(R.id.image_view_validated_password2);
         final ImageView ivkey = findViewById(R.id.image_view_key);
+        final ImageView photo = findViewById(R.id.photograpy);
 
         //test image ronde
         final ImageView ivAvatar =findViewById(R.id.imageView_avatar);
@@ -130,22 +136,42 @@ public class Settings extends AppCompatActivity {
                 if(rbAvatar.isChecked()){
                     ivAvatar.setVisibility(View.VISIBLE);
                 }
-
-
             }
         });
 
+        /** PHOTO PART I (prise photo et sauvegarde image) **/
+        /** A noter faire une variable m pour le bouton et l'image (si pas firebase) **/
 
-
-
-
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+        });
 
     }
+
     public void visibleEt(EditText et1, EditText et2, EditText et3){
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.VISIBLE);
+    }
 
+    /** PHOTO PARTII (récuperation image et on set)  **/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ImageView photo = findViewById(R.id.photograpy);
+        mPhotography = (Bitmap) data.getExtras().get("data");
+
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(
+                Settings.this.getResources(), mPhotography);
+
+        /** on donne une forme ronde et on set l'image où on veut **/
+        roundedBitmapDrawable.setCircular(true);
+        photo.setImageDrawable(roundedBitmapDrawable);
     }
 
 }
