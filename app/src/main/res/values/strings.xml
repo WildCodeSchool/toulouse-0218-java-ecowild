@@ -35,4 +35,6 @@
     <string name="avatar">Avatar</string>
     <string name="name">Name</string>
     <string name="password2">Mot de passe</string>
+    <string name="alerte">Alerte proximité</string>
+    <string name="alert_message">Vous êtes à moins de 2 mètres d\'un lieu de collecte. Voulez vous recycler?</string>
 </resources>
