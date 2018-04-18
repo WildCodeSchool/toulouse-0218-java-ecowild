@@ -1,7 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
@@ -144,7 +146,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
 
 
-        MagicButton mbXp = findViewById(R.id.magic_button);
+        final MagicButton mbXp = findViewById(R.id.magic_button);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +171,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        /** Partie Popup**/
+        Button popup = findViewById(R.id.button_popup);
+        popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
+                popup.setTitle("Alert proximité");
+                popup.setMessage(" Vous êtes à moins de 2 mètres d'un lieu de collecte. Voulez vous recycler?");
+                //popup.setNegativeButton("Non",);
+                popup.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mbXp.setVisibility(View.VISIBLE);
+                    }
+                });
+                popup.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mbXp.setVisibility(View.GONE);
+                    }
+                });
+                popup.show();
+            }
+        });
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
