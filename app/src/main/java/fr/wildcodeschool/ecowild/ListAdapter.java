@@ -12,15 +12,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<ElementModel> {
+public class ListAdapter extends ArrayAdapter<MyItem> {
 
-    public ListAdapter(Context context, ArrayList<ElementModel> enemyGrid) {
-        super(context, 0, enemyGrid);
+    public ListAdapter(Context context, ArrayList<MyItem> items) {
+        super(context, 0, items);
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ElementModel gpsLocations = getItem(position);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        MyItem gpsMarker = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_model, parent, false);
@@ -31,13 +31,13 @@ public class ListAdapter extends ArrayAdapter<ElementModel> {
         // TextView id = convertView.findViewById(R.id.smallid);
         LinearLayout list = convertView.findViewById(R.id.item_list);
 
-        address.setText(gpsLocations.getAddress());
+        address.setText(gpsMarker.getAdress());
         // type.setText(gpsLocations.getType());
         // id.setText(gpsLocations.getId());
 
 
         ImageView ivType = convertView.findViewById(R.id.iv_type);
-        if (gpsLocations.getType().equals("Verre")) {
+        if (gpsMarker.getType().equals("Verre")) {
             ivType.setBackgroundResource(R.drawable.verre);
             list.setBackgroundColor(Color.parseColor("#bce7ca"));
         } else {
