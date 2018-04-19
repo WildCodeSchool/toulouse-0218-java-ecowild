@@ -23,6 +23,8 @@ public class MyItem implements ClusterItem, Parcelable {
     double lat;
     double lng;
 
+
+
     public MyItem(double lat, double lng, String adress, String type, boolean filtre) {
         this.lng = lng;
         this.lat= lat;
@@ -37,6 +39,10 @@ public class MyItem implements ClusterItem, Parcelable {
         filtre = in.readByte() != 0;
         lat = in.readDouble();
         lng = in.readDouble();
+    }
+
+    public void setFiltre(boolean filtre) {
+        this.filtre = filtre;
     }
 
     public static final Creator<MyItem> CREATOR = new Creator<MyItem>() {

@@ -318,7 +318,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          **/
 
         /**Map**/
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -349,9 +349,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 if (MapsActivity.this.mGlassFilter) {
-                    buttonRight.setBackgroundResource(R.drawable.papier);
                     MapsActivity.this.mGlassFilter = false;
-
 
 
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
@@ -371,15 +369,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 if (mPaperfilter) {
-                    buttonRight.setBackgroundResource(R.drawable.verre);
-                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+
+                    for ( int i=0; i < arrayFinal.size(); i++){
+                        arrayFinal.get(i).setFiltre(false);
+                    }
                     mPaperfilter = false;
-
-
+                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                 } else {
+
+                    for ( int i=0; i < arrayFinal.size(); i++){
+                        arrayFinal.get(i).setFiltre(true);
+                    }
                     mPaperfilter = true;
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
-
                 }
 
             }
@@ -548,7 +550,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=100";
+        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=50";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -574,7 +576,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Verre";
                                 String id = "v" + c;
-
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
                                 arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mGlassFilter));
@@ -604,7 +605,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueueTwo = Volley.newRequestQueue(this);
 
-        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=100";
+        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=50";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestTwo = new JsonObjectRequest(
@@ -670,20 +671,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
                 goList.putExtra("GPS_POSITIONS", arrayFinal);
                 startActivity(goList);
-
             }
         });
-
-
     }
-    /** Boutton mystere
+
+    /** Boutton mystere (comme la tarte Tin tin !)
      private void initUI(View v) {
      Button button1 = (Button) v.findViewById(R.id.button_connection);
      button1.setOnClickListener(new View.OnClickListener() {
 
     @Override public void onClick(View v) {
     //tu fais ce que tu veux dans le onClick
-    Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+    Intent intentCo = new Intent(MapsActivity.this, LaCasaBonita.Restaurant);
     MapsActivity.this.startActivity(intentCo);
     }
     });
