@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
         android:text="@string/conserver_mes_identifiants"
         android:textColor="@color/colorBlack"
