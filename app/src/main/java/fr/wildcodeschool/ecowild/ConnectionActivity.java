@@ -6,7 +6,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -106,7 +109,19 @@ public class ConnectionActivity extends AppCompatActivity {
                 final String editPassword2 = editTextPassword2.getText().toString();
 
                 if (editProfil.isEmpty() || editPassword.isEmpty()) {
-                    Toast.makeText(ConnectionActivity.this, getString(remplissez_tout_les_champs), Toast.LENGTH_SHORT).show();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast,
+                            (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                    textToast.setText(R.string.remplissez_tout_les_champs);
+
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+
                 } else {
                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                     intentMap.putExtra("username", editProfil);
@@ -145,11 +160,33 @@ public class ConnectionActivity extends AppCompatActivity {
                     ConnectionActivity.this.startActivity(intentMap);
                 }
                 if (!editPassword.equals(editPassword2) && !editPassword.isEmpty() && !editPassword2.isEmpty()) {
-                    Toast.makeText(ConnectionActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast,
+                            (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                    textToast.setText(R.string.error);
+
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
                 }
 
                 if (editPassword2.isEmpty() && !editPassword.isEmpty()) {
-                    Toast.makeText(ConnectionActivity.this, R.string.confirmation, Toast.LENGTH_SHORT).show();
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast,
+                            (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                    textToast.setText(R.string.confirmation);
+
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
                 }
 
 

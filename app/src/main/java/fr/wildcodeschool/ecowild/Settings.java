@@ -11,13 +11,10 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
@@ -32,7 +29,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        final EditText etPassword = findViewById(R.id.edit_text_password);
+        final EditText etPassword = findViewById(R.id.edit_text_pseudo);
         final EditText etNewPassword = findViewById(R.id.edit_text_new_password);
         final EditText etNewPassword2 = findViewById(R.id.edit_text_new_assword_confirm);
         final EditText etProfil = findViewById(R.id.edit_text_profil);

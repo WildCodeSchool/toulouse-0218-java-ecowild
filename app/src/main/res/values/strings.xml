@@ -26,8 +26,8 @@
     <string name="param_tres">Paramètres</string>
     <string name="informations_utiles">Informations utiles</string>
     <string name="favoris">Favoris</string>
-    <string name="error">Vos mots de passent ne correspondent pas</string>
-    <string name="confirmation">Veuillez confirmez votre mot de passe</string>
+    <string name="error">Vos mots de passe ne correspondent pas</string>
+    <string name="confirmation">Veuillez confirmer votre mot de passe</string>
     <string name="setting">Parametres</string>
     <string name="move_setting">Modifier les parametres de l\'application</string>
     <string name="move_profil">Modifier mon profil</string>
@@ -44,4 +44,5 @@
     <string name="connection">Connection</string>
     <string name="carte">Carte</string>
     <string name="liste">Liste</string>
+    <string name="pseudo">Pseudo</string>
 </resources>
