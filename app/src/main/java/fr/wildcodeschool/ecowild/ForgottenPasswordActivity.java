@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                 final String compteString = editTextCompte.getText().toString();
                 final String passwordString = editTextValidatedPassword.getText().toString();
 
-                if (compteString.isEmpty() || passwordString.isEmpty()){
+                if (compteString.isEmpty() || passwordString.isEmpty()) {
 
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast,
@@ -64,12 +65,12 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                     textToast.setText(R.string.remplissez_tout_les_champs);
 
                     Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setView(layout);
                     toast.show();
-                }
-
-                else {
+                } else {
 
                     Intent intentPassword = new Intent(ForgottenPasswordActivity.this, MapsActivity.class);
                     startActivity(intentPassword);
