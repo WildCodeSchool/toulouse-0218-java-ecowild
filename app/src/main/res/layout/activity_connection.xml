@@ -188,4 +188,14 @@
         app:layout_constraintTop_toBottomOf="@+id/button_log_in"
         app:srcCompat="@drawable/ligne" />
 
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?android:attr/textSelectHandle" />
+
 </android.support.constraint.ConstraintLayout>

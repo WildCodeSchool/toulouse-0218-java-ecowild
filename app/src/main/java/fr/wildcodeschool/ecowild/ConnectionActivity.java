@@ -3,6 +3,10 @@ package fr.wildcodeschool.ecowild;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -24,6 +28,7 @@ public class ConnectionActivity extends AppCompatActivity {
     public static final String CACHE_PASSWORD = "password";
     public static boolean CONNECTED = false;
     int mPasswordVisibility = PASSWORD_HIDDEN;
+    Bitmap mPhotography;
 
 
     @Override
@@ -41,6 +46,7 @@ public class ConnectionActivity extends AppCompatActivity {
         final ImageView ivLigneBis = findViewById(R.id.imageView_ligneBis);
         final TextView tvWhere = findViewById(R.id.textView_where);
         final TextView textViewForgottenPassword = findViewById(R.id.text_view_forgotten_password);
+        final ImageView ivPhoto = findViewById(R.id.iv_photo);
 
         final String editProfil = editTextProfil.getText().toString();
         final String editPassword = editTextPassword.getText().toString();
@@ -185,9 +191,36 @@ public class ConnectionActivity extends AppCompatActivity {
                     toast.setView(layout);
                     toast.show();
                 }
-
-
             }
         });
+
+        /** PHOTO PART I (prise photo et sauvegarde image) **/
+        /** A noter faire une variable m pour le bouton et l'image (si pas firebase) **/
+
+        ivPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    /**
+     * PHOTO PARTII (récuperation image et on set)
+     **/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ImageView photo = findViewById(R.id.iv_photo);
+        mPhotography = (Bitmap) data.getExtras().get("data");
+
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(
+                ConnectionActivity.this.getResources(), mPhotography);
+
+        /** on donne une forme ronde et on set l'image où on veut **/
+        roundedBitmapDrawable.setCircular(true);
+        photo.setImageDrawable(roundedBitmapDrawable);
     }
 }
