@@ -38,7 +38,7 @@ public class OwRenderingGlass extends DefaultClusterRenderer<MyItem> {
             //Bitmap config pour la taille du marqueur
             int height = 150;
             int width = 150;
-            BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
+            BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_papier);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
             bitmap2 = Bitmap.createScaledBitmap(glass, width, height, false);
             //ajout du bitmap

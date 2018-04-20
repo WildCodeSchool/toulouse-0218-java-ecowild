@@ -340,8 +340,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (MapsActivity.this.mGlassFilter) {
+                if (mGlassFilter) {
                     mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(),mMap, mClusterManager));
                     mGlassFilter = false;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
@@ -350,14 +349,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mGlassFilter = true;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                 }
-
             }
         });
 
         sabPapier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (mPaperfilter) {
                     mPaperfilter = false;
                     mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(),mMap, mClusterManager));
@@ -367,7 +364,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mPaperfilter = true;
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
                 }
-
             }
         });
 
@@ -534,7 +530,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=50";
+        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=150";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -589,7 +585,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueueTwo = Volley.newRequestQueue(this);
 
-        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=50";
+        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=150";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestTwo = new JsonObjectRequest(
