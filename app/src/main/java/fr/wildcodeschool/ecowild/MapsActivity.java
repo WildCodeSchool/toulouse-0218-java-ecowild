@@ -144,6 +144,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /** Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
+        final TextView rank = findViewById(R.id.tv_rank);
 
 
         final MagicButton mbXp = findViewById(R.id.magic_button);
@@ -151,9 +152,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getTriExperience());
                 pbTest.setProgress(10);
                 pbTest.setProgress(experienceModelModel.getExperience());
+
+                if (experienceModelModel.getExperience() == 10) {
+                    pbTest.setProgress(0);
+                }
 
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.toast,
@@ -207,7 +213,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
-        TextView rank = findViewById(R.id.tv_rank);
         final Button btnCreateAccount = findViewById(R.id.button_create_account);
         final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
         final TextView tvParameter = findViewById(R.id.tv_parameter);
