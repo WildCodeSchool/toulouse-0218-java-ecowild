@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -33,7 +31,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,11 +50,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -69,7 +63,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -349,16 +342,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 if (MapsActivity.this.mGlassFilter) {
-                    MapsActivity.this.mGlassFilter = false;
-
-
+                    mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(),mMap, mClusterManager));
+                    mGlassFilter = false;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
-
-
                 } else {
-                    MapsActivity.this.mGlassFilter = true;
+                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
+                    mGlassFilter = true;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
-
                 }
 
             }
@@ -369,17 +359,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 if (mPaperfilter) {
-
-                    for ( int i=0; i < arrayFinal.size(); i++){
-                        arrayFinal.get(i).setFiltre(false);
-                    }
                     mPaperfilter = false;
+                    mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(),mMap, mClusterManager));
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                 } else {
-
-                    for ( int i=0; i < arrayFinal.size(); i++){
-                        arrayFinal.get(i).setFiltre(true);
-                    }
+                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
                     mPaperfilter = true;
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
                 }
@@ -579,7 +563,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
                                 arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mGlassFilter));
-                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap,mClusterManager));
+                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
                                 mClusterManager.addItems(arrayFinal);
                             }
 
@@ -634,7 +618,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 //Cluster et Liste de celui ci pour aller aussi en liste
                                 arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mPaperfilter));
-                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap,mClusterManager));
+                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
                                 mClusterManager.addItems(arrayFinal);
                             }
 

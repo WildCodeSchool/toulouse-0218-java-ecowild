@@ -12,45 +12,42 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 /**
  * Created by wilder on 19/04/18.
-**/
+ **/
 
-public class OwRendering extends DefaultClusterRenderer<MyItem> {
+public class OwRenderingPaper extends DefaultClusterRenderer<MyItem> {
 
     Context mContext;
 
     /** Avec la precieuse aide de Bastien **/
 
-    public OwRendering(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager) {
+    public OwRenderingPaper(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager) {
         super(context, map, clusterManager);
         mContext = context;
     }
 
     protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
-        markerOptions.snippet(item.getType());
-        markerOptions.title(item.getAdress());
-        markerOptions.visible(item.getFiltre());
 
-        Bitmap bitmap;
+        Bitmap bitmap2;
 
-        // create bitpma ici au lieu de le generer à chaque fois.
+        // Filtre où le marqueur est créé si du bon type, sinon rien.
         if (item.getType().equals("Verre")){
+            markerOptions.snippet(item.getType());
+            markerOptions.title(item.getAdress());
+            markerOptions.visible(item.getFiltre());
+
             //Bitmap config pour la taille du marqueur
             int height = 150;
             int width = 150;
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap = Bitmap.createScaledBitmap(glass, width, height, false);
-        } else {
-            //Bitmap config pour la taille du marqueur
-            int height = 150;
-            int width = 150;
-            BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_papier);
-            Bitmap plastic = bitmapDrawablePlastic.getBitmap();
-            bitmap= Bitmap.createScaledBitmap(plastic, width, height, false);
+            bitmap2 = Bitmap.createScaledBitmap(glass, width, height, false);
+            //Mise en place du marqueur.
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap2));
         }
 
-
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+        if (item.getType().equals("Papier/Plastique")) {
+            markerOptions.visible(false);
+        }
 
         super.onBeforeClusterItemRendered(item, markerOptions);
     }
