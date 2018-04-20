@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:text="@string/ecowild"
         android:textColor="@color/colorEcoWild"
         android:textSize="40sp"
@@ -44,14 +44,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/nom_de_compte_connection"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_setting" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
     <EditText
         android:id="@+id/edit_text_password_connection"
@@ -190,12 +190,14 @@
 
     <ImageView
         android:id="@+id/iv_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?android:attr/textSelectHandle" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_setting"
+        app:srcCompat="@drawable/anonyme" />
 
 </android.support.constraint.ConstraintLayout>
