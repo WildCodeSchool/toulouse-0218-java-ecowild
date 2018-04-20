@@ -6,6 +6,7 @@ import com.google.maps.android.clustering.ClusterItem;
 
 public class MyItem implements ClusterItem {
     private final LatLng mPosition;
+    private boolean visible;
 
     public MyItem(double lat, double lng) {
         mPosition = new LatLng(lat, lng);
@@ -24,6 +25,10 @@ public class MyItem implements ClusterItem {
     @Override
     public String getSnippet() {
         return null;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }
 
