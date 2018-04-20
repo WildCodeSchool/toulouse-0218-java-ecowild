@@ -100,7 +100,7 @@
                 app:expandable_area_color="@color/colorEcoWild2"
                 app:hide_text="          Je viens de recycler"
                 app:hide_text_color="@color/colorBlack"
-                app:hide_text_size="8dp"
+                app:hide_text_size="7sp"
                 app:icon_button_color="@color/colorEcoWild"
                 app:magic_button_size="60dp"
                 map:layout_constraintBottom_toBottomOf="parent"

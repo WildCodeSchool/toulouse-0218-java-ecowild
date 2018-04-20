@@ -51,6 +51,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,9 +72,6 @@ import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
 
-    private ClusterManager<MyItem> mClusterManager;
-    private FusedLocationProviderClient mFusedLocationClient;
-    private GoogleMap mMap;
     private static int SPLASH_TIME_OUT = 100;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
@@ -536,6 +534,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        final Button buttonRight = findViewById(R.id.button_right);
+        final Button buttonLeft = findViewById(R.id.button_left);
+
         if (ConnectionActivity.CONNECTED) {
 
             String username = getIntent().getStringExtra("username");
@@ -544,14 +545,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
             imgCreationCompte.setImageBitmap(mPhotography);
+
             imgCreationCompte.setBackground(null);
             RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
             roundedBitmapDrawable.setCircular(true);
             imgCreationCompte.setImageDrawable(roundedBitmapDrawable);
         }
-
-        ImageView glassFilter = findViewById(R.id.iv_glass_filter);
-        ImageView plasticFilter = findViewById(R.id.iv_plastic_filter);
 
         if (!ConnectionActivity.CONNECTED) {
             Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
@@ -581,10 +580,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // Bouton slide ouverture droite et gauche
-
-        final Button buttonLeft = findViewById(R.id.button_left);
-
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -593,14 +588,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        final Button buttonRight = findViewById(R.id.button_right);
+
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
-
 
         /**Filtres verre et papier menu multiples droit**/
         sabVerre.setOnClickListener(new View.OnClickListener() {
@@ -633,7 +627,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
         sabFavoris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -649,7 +642,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
     }
-
 
     /**
      * Permissions
