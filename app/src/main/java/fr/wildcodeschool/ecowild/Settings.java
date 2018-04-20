@@ -11,13 +11,10 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
@@ -32,7 +29,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        final EditText etPassword = findViewById(R.id.edit_text_password);
+        final EditText etPassword = findViewById(R.id.edit_text_pseudo);
         final EditText etNewPassword = findViewById(R.id.edit_text_new_password);
         final EditText etNewPassword2 = findViewById(R.id.edit_text_new_assword_confirm);
         final EditText etProfil = findViewById(R.id.edit_text_profil);
@@ -47,16 +44,16 @@ public class Settings extends AppCompatActivity {
         final ImageView photo = findViewById(R.id.photograpy);
 
         //test image ronde
-        final ImageView ivAvatar =findViewById(R.id.imageView_avatar);
-        Bitmap bitmap= BitmapFactory.decodeResource(getResources(), R.drawable.jeter);
-        RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(),bitmap);
+        final ImageView ivAvatar = findViewById(R.id.imageView_avatar);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jeter);
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         roundedBitmapDrawable.setCircular(true);
         ivAvatar.setImageDrawable(roundedBitmapDrawable);
 
         final RadioButton rbAvatar = findViewById(R.id.radioButton_avatar);
         final RadioButton rbName = findViewById(R.id.radioButton_name);
-        final RadioButton rbPassword =findViewById(R.id.radioButton_password);
-        RadioGroup rG =findViewById(R.id.radio_group);
+        final RadioButton rbPassword = findViewById(R.id.radioButton_password);
+        RadioGroup rG = findViewById(R.id.radio_group);
 
         ivPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +114,8 @@ public class Settings extends AppCompatActivity {
                 ivkey.setVisibility(View.GONE);
                 ivAvatar.setVisibility(View.GONE);
 
-                if (rbPassword.isChecked()){
-                    visibleEt(etPassword,etNewPassword,etNewPassword2);
+                if (rbPassword.isChecked()) {
+                    visibleEt(etPassword, etNewPassword, etNewPassword2);
                     buttonMdp.setVisibility(View.VISIBLE);
                     ivPassword.setVisibility(View.VISIBLE);
                     ivNewPassword.setVisibility(View.VISIBLE);
@@ -127,13 +124,13 @@ public class Settings extends AppCompatActivity {
 
                 }
 
-                if(rbName.isChecked()){
-                   buttonMnc.setVisibility(View.VISIBLE);
-                    visibleEt(etProfil, etNewProfil,etNewProfil2);
+                if (rbName.isChecked()) {
+                    buttonMnc.setVisibility(View.VISIBLE);
+                    visibleEt(etProfil, etNewProfil, etNewProfil2);
 
                 }
 
-                if(rbAvatar.isChecked()){
+                if (rbAvatar.isChecked()) {
                     ivAvatar.setVisibility(View.VISIBLE);
                 }
             }
@@ -152,13 +149,15 @@ public class Settings extends AppCompatActivity {
 
     }
 
-    public void visibleEt(EditText et1, EditText et2, EditText et3){
+    public void visibleEt(EditText et1, EditText et2, EditText et3) {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.VISIBLE);
     }
 
-    /** PHOTO PARTII (récuperation image et on set)  **/
+    /**
+     * PHOTO PARTII (récuperation image et on set)
+     **/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

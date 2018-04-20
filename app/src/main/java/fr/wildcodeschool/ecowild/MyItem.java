@@ -22,9 +22,7 @@ public class MyItem implements ClusterItem, Parcelable {
     boolean filtre;
     double lat;
     double lng;
-
-
-
+  
     public MyItem(double lat, double lng, String adress, String type, boolean filtre) {
         this.lng = lng;
         this.lat= lat;
@@ -96,6 +94,6 @@ public class MyItem implements ClusterItem, Parcelable {
         parcel.writeByte((byte) (filtre ? 1 : 0));
         parcel.writeDouble(lat);
         parcel.writeDouble(lng);
+
     }
 }
-
