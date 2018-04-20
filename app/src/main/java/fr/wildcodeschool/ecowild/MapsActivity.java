@@ -70,17 +70,21 @@ import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
+
+    private ClusterManager<MyItem> mClusterManager;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private GoogleMap mMap;
     private static int SPLASH_TIME_OUT = 100;
-    final ArrayList<ElementModel> mGps = new ArrayList<>();
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
+
     // variable pour presentation en enlever apres
     int i = 0;
+
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
-
-    ArrayList<MyItem> arrayFinal = new ArrayList<>();
+    final ArrayList <MyItem> arrayFinal = new ArrayList<>();
     float dX;
     float dY;
     int lastAction;
@@ -95,10 +99,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+      
         final ImageView imgCreationCompte = findViewById(R.id.img_profil);
-
-
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -109,7 +111,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(iconMenu)
                 .build();
-
 
         SubActionButton.Builder listeBuilder = new SubActionButton.Builder(this);
 
@@ -126,8 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ImageView filtreFavoris = new ImageView(MapsActivity.this); // Create an icon
         filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
         SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
-
-
+      
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
         sabFavoris.setLayoutParams(layoutParam);
         sabPapier.setLayoutParams(layoutParam);
@@ -141,9 +141,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .attachTo(actionButton)
                 .build();
 
-
-        /** Partie XP */
-
+      /** Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
         final TextView rank = findViewById(R.id.tv_rank);
@@ -565,7 +563,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
             });
-
+          
             View snackBarView = snackbar.getView();
             TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
@@ -578,24 +576,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        /**Toast réutilisable plus tard**/
-        /**LayoutInflater inflater = getLayoutInflater();
-         View layout = inflater.inflate(R.layout.toast,
-         (ViewGroup) findViewById(R.id.custom_toast_container));
-
-         TextView textToast = (TextView) layout.findViewById(R.id.text);
-         textToast.setText(R.string.Toast);
-
-         Toast toast = new Toast(getApplicationContext());
-         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-         toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-         toast.setDuration(Toast.LENGTH_LONG);
-         toast.setView(layout);
-         toast.show();
-         **/
-
         /**Map**/
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -620,94 +602,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
-        /**Filtres verre et papier slide droit**/
-        glassFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (MapsActivity.this.mGlassFilter) {
-                    buttonRight.setBackgroundResource(R.drawable.papier);
-                    MapsActivity.this.mGlassFilter = false;
-                    mMap.clear();
-                    onMapReady(mMap);
-
-                } else {
-                    MapsActivity.this.mGlassFilter = true;
-                    mMap.clear();
-                    onMapReady(mMap);
-
-                }
-
-                Toast.makeText(MapsActivity.this, R.string.Verre, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        plasticFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (mPaperfilter) {
-                    buttonRight.setBackgroundResource(R.drawable.verre);
-
-                    mPaperfilter = false;
-
-                    mMap.clear();
-                    onMapReady(mMap);
-
-                } else {
-                    mPaperfilter = true;
-                    mMap.clear();
-                    onMapReady(mMap);
-
-                }
-                Toast.makeText(MapsActivity.this, R.string.Papier, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         /**Filtres verre et papier menu multiples droit**/
         sabVerre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (MapsActivity.this.mGlassFilter) {
-                    buttonRight.setBackgroundResource(R.drawable.papier);
-                    MapsActivity.this.mGlassFilter = false;
-                    mMap.clear();
-                    onMapReady(mMap);
+                if (mGlassFilter) {
+                    mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(),mMap, mClusterManager));
+                    mGlassFilter = false;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
-
-
                 } else {
-                    MapsActivity.this.mGlassFilter = true;
-                    mMap.clear();
-                    onMapReady(mMap);
+                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
+                    mGlassFilter = true;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
-
                 }
-
-
             }
         });
 
         sabPapier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (mPaperfilter) {
-                    buttonRight.setBackgroundResource(R.drawable.verre);
-                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                     mPaperfilter = false;
-                    mMap.clear();
-                    onMapReady(mMap);
-
+                    mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(),mMap, mClusterManager));
+                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                 } else {
+                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
                     mPaperfilter = true;
-                    mMap.clear();
-                    onMapReady(mMap);
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
-
                 }
-
             }
         });
 
@@ -850,9 +772,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             moveCameraOnUser(mLastLocation);
         }
 
-        WindowsInfoAdapter customInfoWindow = new WindowsInfoAdapter(MapsActivity.this);
-        mMap.setInfoWindowAdapter(customInfoWindow);
-
         // filtre afin de n'afficher que certaines données, en lien avec le json dans raw (créé).
         MapStyleOptions mapFilter = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
         googleMap.setMapStyle(mapFilter);
@@ -865,7 +784,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=100";
+        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=150";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -892,24 +811,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Verre";
                                 String id = "v" + c;
 
-                                int height = 150;
-                                int width = 150;
-                                BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) getResources().getDrawable(R.drawable.pointeur_verre);
-                                Bitmap glass = bitmapDrawableGlass.getBitmap();
-                                Bitmap finalGlass = Bitmap.createScaledBitmap(glass, width, height, false);
-
-                                mGps.add(new ElementModel(address, type, id));
-                                arrayFinal.add(new MyItem(valueOrdo, valueAbs));
+                                //Cluster et Liste de celui ci pour aller aussi en ArrayList
+                                arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mGlassFilter));
+                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
                                 mClusterManager.addItems(arrayFinal);
-
 
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -925,12 +836,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // On ajoute la requête à la file d'attente
         requestQueue.add(jsonObjectRequest);
 
-
         /** Partie Json Papier/plastique **/
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueueTwo = Volley.newRequestQueue(this);
 
-        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=100";
+        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=150";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestTwo = new JsonObjectRequest(
@@ -957,18 +867,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String type = "Papier/Plastique";
                                 String id = "p" + c;
 
-                                int height = 150;
-                                int width = 150;
-                                BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable) getResources().getDrawable(R.drawable.pointeur_papier);
-                                Bitmap plastic = bitmapDrawablePlastic.getBitmap();
-                                Bitmap finalPlastic = Bitmap.createScaledBitmap(plastic, width, height, false);
 
-                                mGps.add(new ElementModel(address, type, id));
-
-                                arrayFinal.add(new MyItem(valueOrdo, valueAbs));
+                               //Cluster et Liste de celui ci pour aller aussi en liste
+                                arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mPaperfilter));
+                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
                                 mClusterManager.addItems(arrayFinal);
-
-
                             }
 
                         } catch (JSONException e) {
@@ -997,34 +900,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //          CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
-
         Switch goList = findViewById(R.id.go_list);
         goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
-                goList.putExtra("GPS_POSITIONS", mGps);
+                goList.putExtra("GPS_POSITIONS", arrayFinal);
                 startActivity(goList);
-
             }
         });
-
-
     }
 
-    /** Boutton mystere
+    /** Bouton mystere (comme la tarte Tin tin !)
      private void initUI(View v) {
-     Button button1 = (Button) v.findViewById(R.id.button_connection);
+     Button button1 = (Button) v.findViewById(R.id.rob_the_bank);
      button1.setOnClickListener(new View.OnClickListener() {
 
     @Override public void onClick(View v) {
     //tu fais ce que tu veux dans le onClick
-    Intent intentCo = new Intent(MapsActivity.this, ConnectionActivity.class);
+    Intent intentCo = new Intent(MapsActivity.this, LaCasaBonita.Restaurant);
     MapsActivity.this.startActivity(intentCo);
     }
     });
      } */
-
-
 }
-
