@@ -1,28 +1,25 @@
 package fr.wildcodeschool.ecowild;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
-
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-
 import android.support.v4.content.ContextCompat;
-
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -78,36 +75,31 @@ import br.com.bloder.magic.view.MagicButton;
 import static android.view.MotionEvent.ACTION_UP;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
-    private ClusterManager<MyItem> mClusterManager;
-    private FusedLocationProviderClient mFusedLocationClient;
-    private GoogleMap mMap;
-    DrawerLayout mDrawerLayout;
+    private static int SPLASH_TIME_OUT = 100;
     final ArrayList<ElementModel> mGps = new ArrayList<>();
+    DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
     // variable pour presentation en enlever apres
     int i = 0;
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
-
-    ArrayList <MyItem> arrayFinal = new ArrayList<>();
-
+    ArrayList<MyItem> arrayFinal = new ArrayList<>();
     float dX;
     float dY;
     int lastAction;
+    private ClusterManager<MyItem> mClusterManager;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private GoogleMap mMap;
+    public boolean NOT_MOVE = true;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-
-
-
-
 
 
         /** Partie menu Circle**/
@@ -116,7 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
 
         //creation bouton Menu
-        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+        final FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(iconMenu)
                 .build();
 
@@ -152,7 +144,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-      /** Partie XP */
+        /** Partie XP */
         final MagicButton mbXp = findViewById(R.id.magic_button);
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
@@ -179,77 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
-
-        /** faire bouger boutton*/
-        //Dire ou on veut qu'on puisse faire une action
-        final View dragView = findViewById(R.id.button_left);
-        //l'ecouter et en fct de mouvement faire tel ou tel chose
-        dragView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-
-
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN:
-                        dX = view.getX() - event.getRawX();
-                        dY = view.getY() - event.getRawY();
-                        lastAction = MotionEvent.ACTION_DOWN;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        view.setY(event.getRawY() + dY);
-                        view.setX(event.getRawX() + dX);
-                        lastAction = MotionEvent.ACTION_MOVE;
-                        break;
-
-                    case ACTION_UP:
-
-                        break;
-
-
-                    default:
-                        return true;
-                }
-
-
-                return false;
-            }
-        });
-
-        final View dragViewActionButton = actionButton;
-        //l'ecouter et en fct de mouvement faire tel ou tel chose
-        dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-
-
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN:
-                        dX = view.getX() - event.getRawX();
-                        dY = view.getY() - event.getRawY();
-                        lastAction = MotionEvent.ACTION_DOWN;
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        view.setY(event.getRawY() + dY);
-                        view.setX(event.getRawX() + dX);
-                        lastAction = MotionEvent.ACTION_MOVE;
-                        break;
-
-                    case ACTION_UP:
-
-                        break;
-
-
-                    default:
-                        return true;
-                }
-
-
-                return false;
-            }
-        });
 
 
 
@@ -295,9 +216,256 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView tvParameter = findViewById(R.id.tv_parameter);
         final TextView tvUsefulInformation = findViewById(R.id.tv_useful_information);
         final TextView tvFavorite = findViewById(R.id.tv_favorite);
+        final TextView tvMove = findViewById(R.id.tv_move);
         final ImageView ivParameter = findViewById(R.id.imageButton);
         final ImageView ivUsefulInformation = findViewById(R.id.iv_information);
         final ImageView ivFavorite = findViewById(R.id.iv_favorite);
+        final ImageView ivMove = findViewById(R.id.iv_move);
+
+        tvMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (NOT_MOVE) {
+                    ivMove.setAlpha((float) 0.2);
+                    tvMove.setText("Verrouiller la position des icones");
+                    ObjectAnimator.ofFloat(actionButton, "translationX", 0, 30).setDuration(400).start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ObjectAnimator.ofFloat(actionButton, "translationX", 30, 0).setDuration(400).start();
+                        }
+                    }, SPLASH_TIME_OUT);
+                    ObjectAnimator.ofFloat(actionButton, "translationY", 0, 30).setDuration(400).start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ObjectAnimator.ofFloat(actionButton, "translationY", 30, 0).setDuration(400).start();
+                        }
+                    }, SPLASH_TIME_OUT);
+
+
+                    /** faire bouger boutton*/
+                    //Dire ou on veut qu'on puisse faire une action
+                    final View dragView = findViewById(R.id.button_left);
+                    //l'ecouter et en fct de mouvement faire tel ou tel chose
+                    dragView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent event) {
+
+
+                            switch (event.getActionMasked()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    dX = view.getX() - event.getRawX();
+                                    dY = view.getY() - event.getRawY();
+                                    lastAction = MotionEvent.ACTION_DOWN;
+                                    break;
+
+                                case MotionEvent.ACTION_MOVE:
+                                    view.setY(event.getRawY() + dY);
+                                    view.setX(event.getRawX() + dX);
+                                    lastAction = MotionEvent.ACTION_MOVE;
+                                    break;
+
+                                case ACTION_UP:
+
+                                    break;
+
+
+                                default:
+                                    return true;
+                            }
+
+
+                            return false;
+                        }
+                    });
+
+                    final View dragViewActionButton = actionButton;
+                    //l'ecouter et en fct de mouvement faire tel ou tel chose
+                    dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent event) {
+
+
+                            switch (event.getActionMasked()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    dX = view.getX() - event.getRawX();
+                                    dY = view.getY() - event.getRawY();
+                                    lastAction = MotionEvent.ACTION_DOWN;
+                                    break;
+
+                                case MotionEvent.ACTION_MOVE:
+                                    view.setY(event.getRawY() + dY);
+                                    view.setX(event.getRawX() + dX);
+                                    lastAction = MotionEvent.ACTION_MOVE;
+                                    break;
+
+                                case ACTION_UP:
+
+                                    break;
+
+
+                                default:
+                                    return true;
+                            }
+
+
+                            return false;
+                        }
+                    });
+
+
+                    NOT_MOVE = false;
+                }
+
+                else{
+                    ivMove.setAlpha((float)1.0);
+                    tvMove.setText("Déverrouiller la position des icones");
+                    NOT_MOVE=true;
+
+                    final View dragViewActionButton = actionButton;
+                    dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            return false;
+                        }
+                    });
+                    final View dragView = findViewById(R.id.button_left);
+                    dragView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            return false;
+                        }
+                    });
+
+                }
+
+
+            }
+        });
+
+        ivMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NOT_MOVE) {
+                    ivMove.setAlpha((float) 0.2);
+                    tvMove.setText("Verrouiller la position des icones");
+                    ObjectAnimator.ofFloat(actionButton, "translationX", 0, 30).setDuration(400).start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ObjectAnimator.ofFloat(actionButton, "translationX", 30, 0).setDuration(400).start();
+                        }
+                    }, SPLASH_TIME_OUT);
+                    ObjectAnimator.ofFloat(actionButton, "translationY", 0, 30).setDuration(400).start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ObjectAnimator.ofFloat(actionButton, "translationY", 30, 0).setDuration(400).start();
+                        }
+                    }, SPLASH_TIME_OUT);
+
+
+                    /** faire bouger boutton*/
+                    //Dire ou on veut qu'on puisse faire une action
+                    final View dragView = findViewById(R.id.button_left);
+                    //l'ecouter et en fct de mouvement faire tel ou tel chose
+                    dragView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent event) {
+
+
+                            switch (event.getActionMasked()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    dX = view.getX() - event.getRawX();
+                                    dY = view.getY() - event.getRawY();
+                                    lastAction = MotionEvent.ACTION_DOWN;
+                                    break;
+
+                                case MotionEvent.ACTION_MOVE:
+                                    view.setY(event.getRawY() + dY);
+                                    view.setX(event.getRawX() + dX);
+                                    lastAction = MotionEvent.ACTION_MOVE;
+                                    break;
+
+                                case ACTION_UP:
+
+                                    break;
+
+
+                                default:
+                                    return true;
+                            }
+
+
+                            return false;
+                        }
+                    });
+
+                    final View dragViewActionButton = actionButton;
+                    //l'ecouter et en fct de mouvement faire tel ou tel chose
+                    dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent event) {
+
+
+                            switch (event.getActionMasked()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    dX = view.getX() - event.getRawX();
+                                    dY = view.getY() - event.getRawY();
+                                    lastAction = MotionEvent.ACTION_DOWN;
+                                    break;
+
+                                case MotionEvent.ACTION_MOVE:
+                                    view.setY(event.getRawY() + dY);
+                                    view.setX(event.getRawX() + dX);
+                                    lastAction = MotionEvent.ACTION_MOVE;
+                                    break;
+
+                                case ACTION_UP:
+
+                                    break;
+
+
+                                default:
+                                    return true;
+                            }
+
+
+                            return false;
+                        }
+                    });
+
+
+                    NOT_MOVE = false;
+                }
+
+                else{
+                    ivMove.setAlpha((float)1.0);
+                    tvMove.setText("Déverrouiller la position des icones");
+                    NOT_MOVE=true;
+
+                    final View dragViewActionButton = actionButton;
+                    dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            return false;
+                        }
+                    });
+                    final View dragView = findViewById(R.id.button_left);
+                    dragView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            return false;
+                        }
+                    });
+
+                }
+
+
+            }
+        });
 
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -554,7 +722,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     /**
      * Permissions
      **/
@@ -608,10 +775,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mMap == null) {
             mIsWaitingForGoogleMap = true;
             mLastLocation = location;
-        } else if(location != null) {
+        } else if (location != null) {
 
-           LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-           CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
+            LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
@@ -684,11 +851,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.setMapStyle(mapFilter);
 
 
-
-
-
-
-
         /** Partie Json Verre**/
 
         final TextView testPosition = findViewById(R.id.test_position);
@@ -731,7 +893,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 mGps.add(new ElementModel(address, type, id));
 
-                                arrayFinal.add(new MyItem(valueOrdo,valueAbs));
+                                arrayFinal.add(new MyItem(valueOrdo, valueAbs));
                                 mClusterManager.addItems(arrayFinal);
 
                             }
@@ -755,8 +917,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // On ajoute la requête à la file d'attente
         requestQueue.add(jsonObjectRequest);
-
-
 
 
         /** Partie Json Papier/plastique **/
@@ -797,7 +957,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Bitmap finalPlastic = Bitmap.createScaledBitmap(plastic, width, height, false);
 
                                 mGps.add(new ElementModel(address, type, id));
-                                arrayFinal.add(new MyItem(valueOrdo,valueAbs));
+                                arrayFinal.add(new MyItem(valueOrdo, valueAbs));
                                 mClusterManager.addItems(arrayFinal);
 
                             }
