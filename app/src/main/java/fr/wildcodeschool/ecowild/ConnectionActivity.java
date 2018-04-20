@@ -47,6 +47,7 @@ public class ConnectionActivity extends AppCompatActivity {
         final TextView tvWhere = findViewById(R.id.textView_where);
         final TextView textViewForgottenPassword = findViewById(R.id.text_view_forgotten_password);
         final ImageView ivPhoto = findViewById(R.id.iv_photo);
+        final ImageView ivAppareilPhoto = findViewById(R.id.iv_appareil_photo);
 
         final String editProfil = editTextProfil.getText().toString();
         final String editPassword = editTextPassword.getText().toString();
@@ -147,6 +148,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 final String editPassword = editTextPassword.getText().toString();
                 final String editPassword2 = editTextPassword2.getText().toString();
                 final String editProfil = editTextProfil.getText().toString();
+                ivAppareilPhoto.setVisibility(View.VISIBLE);
                 editTextPassword2.setVisibility(View.VISIBLE);
                 imageViewPassword2.setVisibility(View.VISIBLE);
                 buttonToLogIn.setVisibility(View.GONE);
