@@ -28,7 +28,7 @@ public class ConnectionActivity extends AppCompatActivity {
     public static final String CACHE_PASSWORD = "password";
     public static boolean CONNECTED = false;
     int mPasswordVisibility = PASSWORD_HIDDEN;
-    Bitmap mPhotography;
+    static Bitmap mPhotography;
 
 
     @Override

@@ -91,6 +91,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        final ImageView imgCreationCompte = findViewById(R.id.img_profil);
+
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -137,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
-        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
+        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
 
 
         final MagicButton mbXp = findViewById(R.id.magic_button);
@@ -284,6 +286,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
+            imgCreationCompte.setImageBitmap(ConnectionActivity.mPhotography);
+            imgCreationCompte.setBackground(null);
         }
 
         ImageView glassFilter = findViewById(R.id.iv_glass_filter);

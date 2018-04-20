@@ -167,8 +167,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/anonyme"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
-            map:layout_constraintTop_toTopOf="parent"
-            map:srcCompat="@drawable/anonyme" />
+            map:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_rank"

@@ -2,21 +2,13 @@ package fr.wildcodeschool.ecowild;
 
 public class ExperienceModel {
 
-    int level;
     int experience;
     int triExperience;
+    int level;
 
-    public ExperienceModel(int level, int experience, int triExperience) {
-        this.level = level;
+    public ExperienceModel(int experience, int triExperience, int level) {
         this.experience = experience;
         this.triExperience = triExperience;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -35,6 +27,12 @@ public class ExperienceModel {
     public void setTriExperience(int triExperience) {
         this.triExperience = triExperience;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }
-
-
