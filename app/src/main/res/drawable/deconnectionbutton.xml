@@ -4,8 +4,8 @@
     android:shape="rectangle">
 
     <solid
-        android:color="@color/colorEcoWild2" />
+        android:color="@color/colorEcoWild" />
 
     <corners
-        android:radius="28dp" />
+        android:radius="35dp" />
 </shape>

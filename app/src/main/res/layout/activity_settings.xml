@@ -15,8 +15,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:text="@string/setting"
-        android:textColor="#439DBB"
+        android:text="@string/param_tres"
+        android:textColor="@color/colorEcoWild"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -137,7 +137,7 @@
     </RadioGroup>
     <!-- Partie mot de passe-->
     <EditText
-        android:id="@+id/edit_text_password"
+        android:id="@+id/edit_text_pseudo"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -168,7 +168,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_pseudo" />
 
     <EditText
         android:id="@+id/edit_text_new_assword_confirm"
@@ -197,9 +197,9 @@
         android:layout_marginTop="8dp"
 
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_password"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_password"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_password"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_pseudo"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_pseudo"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_pseudo"
         app:srcCompat="@drawable/icon_password" />
 
     <ImageView
@@ -241,7 +241,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_assword_confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_password"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_pseudo"
         app:srcCompat="@drawable/key" />
 
     <Button
@@ -277,7 +277,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_password" />
+        app:layout_constraintTop_toTopOf="@+id/edit_text_pseudo" />
 
     <EditText
         android:id="@+id/edit_text_new_profil"

@@ -23,6 +23,8 @@ import android.os.Bundle;
 
 import android.support.v4.content.ContextCompat;
 
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,7 +35,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,11 +54,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -71,6 +69,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import br.com.bloder.magic.view.MagicButton;
+
+import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -87,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
 
-    ArrayList <MyItem> arrayFinal = new ArrayList<>();
+    ArrayList<MyItem> arrayFinal = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -95,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-
+        final ImageView imgCreationCompte = findViewById(R.id.img_profil);
 
 
         /** Partie menu Circle**/
@@ -127,7 +127,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
 
 
-
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
         sabFavoris.setLayoutParams(layoutParam);
         sabPapier.setLayoutParams(layoutParam);
@@ -142,10 +141,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-
-      /** Partie XP */
+        /** Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
-        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
+        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
+        final TextView rank = findViewById(R.id.tv_rank);
 
 
         final MagicButton mbXp = findViewById(R.id.magic_button);
@@ -153,9 +152,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getTriExperience());
                 pbTest.setProgress(10);
                 pbTest.setProgress(experienceModelModel.getExperience());
+
+                if (experienceModelModel.getExperience() == 10) {
+                    pbTest.setProgress(0);
+                }
 
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.toast,
@@ -209,7 +213,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Volet gauche
         TextView pseudo = findViewById(R.id.tv_pseudo);
-        TextView rank = findViewById(R.id.tv_rank);
         final Button btnCreateAccount = findViewById(R.id.button_create_account);
         final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
         final TextView tvParameter = findViewById(R.id.tv_parameter);
@@ -271,8 +274,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onStateChange(boolean active) {
 
-                Intent test = new Intent(MapsActivity.this, ConnectionActivity.class);
-                startActivity(test);
+                Intent swipeButton = new Intent(MapsActivity.this, ConnectionActivity.class);
+                startActivity(swipeButton);
+            }
+        });
+
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent createAccount = new Intent(MapsActivity.this, ConnectionActivity.class);
+                startActivity(createAccount);
             }
         });
 
@@ -283,6 +295,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
+            imgCreationCompte.setImageBitmap(mPhotography);
+            imgCreationCompte.setBackground(null);
+            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
+            roundedBitmapDrawable.setCircular(true);
+            imgCreationCompte.setImageDrawable(roundedBitmapDrawable);
         }
 
         ImageView glassFilter = findViewById(R.id.iv_glass_filter);
@@ -299,13 +316,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
 
-/*
             View snackBarView = snackbar.getView();
-            TextView textView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
             textView.setMaxLines(3);
             textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             snackbar.setDuration(3500);
-            snackbar.show();*/
+            snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+            snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
+            snackbar.show();
 
         }
 
@@ -526,10 +545,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mMap == null) {
             mIsWaitingForGoogleMap = true;
             mLastLocation = location;
-        } else if(location != null) {
+        } else if (location != null) {
 
-           LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-           CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
+            LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
@@ -644,17 +663,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
-                               // Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address));
+                                // Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address));
                                 //        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.fromBitmap(finalGlass)));
 
-                                arrayFinal.add(new MyItem(valueOrdo,valueAbs));
+                                arrayFinal.add(new MyItem(valueOrdo, valueAbs));
 
-                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
-                               // mClusterManager = new ClusterManager<MyItem>(this, mMap);
-                               // mMap.setOnCameraIdleListener(mClusterManager);
-                               // mMap.setOnMarkerClickListener(mClusterManager);
+                                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+                                // mClusterManager = new ClusterManager<MyItem>(this, mMap);
+                                // mMap.setOnCameraIdleListener(mClusterManager);
+                                // mMap.setOnMarkerClickListener(mClusterManager);
                                 mClusterManager.addItems(arrayFinal);
-                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 11));
+                                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 11));
 
                             }
 
@@ -677,8 +696,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // On ajoute la requête à la file d'attente
         requestQueue.add(jsonObjectRequest);
-
-
 
 
         /** Partie Json Papier/plastique **/
@@ -721,12 +738,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 mGps.add(new ElementModel(address, type, id));
 
                                 // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
-                             // mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                              //          .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.fromBitmap(finalPlastic)));
+                                // mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
+                                //          .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.fromBitmap(finalPlastic)));
 
-                                arrayFinal.add(new MyItem(valueOrdo,valueAbs));
+                                arrayFinal.add(new MyItem(valueOrdo, valueAbs));
                                 mClusterManager.addItems(arrayFinal);
-                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 11));
+                                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 11));
                             }
 
                         } catch (JSONException e) {
@@ -748,19 +765,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestQueueTwo.add(jsonObjectRequestTwo);
 
         /**rajout list aux cluster*/
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 10));
+        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 10));
 
         //LatLng userLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation, 10));
-
-
+        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation, 10));
 
 
         mClusterManager = new ClusterManager<MyItem>(this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
         mClusterManager.addItems(arrayFinal);
-
 
 
         //          CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);

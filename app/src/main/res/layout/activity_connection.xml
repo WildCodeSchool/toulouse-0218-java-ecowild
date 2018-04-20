@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:text="@string/ecowild"
         android:textColor="@color/colorEcoWild"
         android:textSize="40sp"
@@ -44,14 +44,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/nom_de_compte_connection"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_setting" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
     <EditText
         android:id="@+id/edit_text_password_connection"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/button"
         android:text="@string/se_connecter_connection"
         android:textColor="@color/colorBlack"
@@ -89,9 +89,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorEcoWild"
+        android:background="@drawable/button"
         android:text="@string/devenir_membreActivity"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBlack"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
         android:text="@string/conserver_mes_identifiants"
         android:textColor="@color/colorBlack"
@@ -187,5 +187,31 @@
         app:layout_constraintEnd_toStartOf="@+id/textView_where"
         app:layout_constraintTop_toBottomOf="@+id/button_log_in"
         app:srcCompat="@drawable/ligne" />
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_setting"
+        app:srcCompat="@drawable/anonyme" />
+
+    <ImageView
+        android:id="@+id/iv_appareil_photo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="213dp"
+        android:src="@drawable/appareil_photo"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
