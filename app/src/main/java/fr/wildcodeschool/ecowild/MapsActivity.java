@@ -655,9 +655,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    /** Boutton mystere (comme la tarte Tin tin !)
+    /** Bouton mystere (comme la tarte Tin tin !)
      private void initUI(View v) {
-     Button button1 = (Button) v.findViewById(R.id.button_connection);
+     Button button1 = (Button) v.findViewById(R.id.rob_the_bank);
      button1.setOnClickListener(new View.OnClickListener() {
 
     @Override public void onClick(View v) {
