@@ -97,7 +97,7 @@
                 app:button_icon="@drawable/jeter"
                 app:button_icon_height="43dp"
                 app:button_icon_width="40dp"
-                app:expandable_area_color="#87abb7"
+                app:expandable_area_color="@color/colorEcoWild2"
                 app:hide_text="     Je viens de recycler"
                 app:hide_text_color="@color/colorBlack"
                 app:hide_text_size="5dp"
