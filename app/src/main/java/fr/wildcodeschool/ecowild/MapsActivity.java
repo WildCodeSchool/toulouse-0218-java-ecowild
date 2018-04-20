@@ -27,6 +27,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -69,8 +70,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 
 import br.com.bloder.magic.view.MagicButton;
+
+import static android.view.MotionEvent.ACTION_UP;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -89,11 +94,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     ArrayList <MyItem> arrayFinal = new ArrayList<>();
 
+    float dX;
+    float dY;
+    int lastAction;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+
 
 
 
@@ -121,11 +133,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
         SubActionButton sabPapier = listeBuilder.setContentView(filtrePapier).build();
 
-
         final ImageView filtreFavoris = new ImageView(MapsActivity.this); // Create an icon
         filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
         SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
-
 
 
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
@@ -142,14 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
 
-
       /** Partie XP */
+        final MagicButton mbXp = findViewById(R.id.magic_button);
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1);
-
-
-        final MagicButton mbXp = findViewById(R.id.magic_button);
-
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,6 +178,80 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 toast.show();
             }
         });
+
+
+
+        /** faire bouger boutton*/
+        //Dire ou on veut qu'on puisse faire une action
+        final View dragView = findViewById(R.id.button_left);
+        //l'ecouter et en fct de mouvement faire tel ou tel chose
+        dragView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        dX = view.getX() - event.getRawX();
+                        dY = view.getY() - event.getRawY();
+                        lastAction = MotionEvent.ACTION_DOWN;
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        view.setY(event.getRawY() + dY);
+                        view.setX(event.getRawX() + dX);
+                        lastAction = MotionEvent.ACTION_MOVE;
+                        break;
+
+                    case ACTION_UP:
+
+                        break;
+
+
+                    default:
+                        return true;
+                }
+
+
+                return false;
+            }
+        });
+
+        final View dragViewActionButton = actionButton;
+        //l'ecouter et en fct de mouvement faire tel ou tel chose
+        dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        dX = view.getX() - event.getRawX();
+                        dY = view.getY() - event.getRawY();
+                        lastAction = MotionEvent.ACTION_DOWN;
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        view.setY(event.getRawY() + dY);
+                        view.setX(event.getRawX() + dX);
+                        lastAction = MotionEvent.ACTION_MOVE;
+                        break;
+
+                    case ACTION_UP:
+
+                        break;
+
+
+                    default:
+                        return true;
+                }
+
+
+                return false;
+            }
+        });
+
+
 
         /** Partie Popup**/
         Button popup = findViewById(R.id.button_popup);
@@ -473,6 +553,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+
+
     /**
      * Permissions
      **/
@@ -601,6 +683,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MapStyleOptions mapFilter = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
         googleMap.setMapStyle(mapFilter);
 
+
+
+
+
+
+
         /** Partie Json Verre**/
 
         final TextView testPosition = findViewById(R.id.test_position);
@@ -643,18 +731,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 mGps.add(new ElementModel(address, type, id));
 
-                                // testPosition.append(valueAbs + " " + valueOrdo + address+ " \n ");
-                               // Marker verre = mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address));
-                                //        .snippet(type).visible(mGlassFilter).icon(BitmapDescriptorFactory.fromBitmap(finalGlass)));
-
                                 arrayFinal.add(new MyItem(valueOrdo,valueAbs));
-
-                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
-                               // mClusterManager = new ClusterManager<MyItem>(this, mMap);
-                               // mMap.setOnCameraIdleListener(mClusterManager);
-                               // mMap.setOnMarkerClickListener(mClusterManager);
                                 mClusterManager.addItems(arrayFinal);
-                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 11));
 
                             }
 
@@ -719,14 +797,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Bitmap finalPlastic = Bitmap.createScaledBitmap(plastic, width, height, false);
 
                                 mGps.add(new ElementModel(address, type, id));
-
-                                // testPosition.append(valueAbs + " " + valueOrdo + address + " \n ");
-                             // mMap.addMarker(new MarkerOptions().position(new LatLng(valueOrdo, valueAbs)).title(address)
-                              //          .snippet(type).visible(mPaperfilter).icon(BitmapDescriptorFactory.fromBitmap(finalPlastic)));
-
                                 arrayFinal.add(new MyItem(valueOrdo,valueAbs));
                                 mClusterManager.addItems(arrayFinal);
-                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 11));
+
                             }
 
                         } catch (JSONException e) {
@@ -748,19 +821,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestQueueTwo.add(jsonObjectRequestTwo);
 
         /**rajout list aux cluster*/
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.6014536, 1.4421452000000272), 10));
-
-        //LatLng userLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation, 10));
-
-
-
 
         mClusterManager = new ClusterManager<MyItem>(this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
         mClusterManager.addItems(arrayFinal);
 
+
+
+
+
+
+        /*/**test km
+        for (MyItem marker : arrayFinal) {
+            Location loc1 = new Location("");
+            loc1.setLatitude(mLastLocation.getLatitude());
+            loc1.setLongitude(mLastLocation.getLongitude());
+
+            Location loc2 = new Location("");
+            loc2.setLatitude(marker.getPosition().latitude);
+            loc2.setLongitude(marker.getPosition().longitude);
+
+            float distance = loc1.distanceTo(loc2);
+
+            marker.setVisible(distance < 400);
+
+
+        }*/
 
 
         //          CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
@@ -779,6 +866,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
     /** Boutton mystere
      private void initUI(View v) {
      Button button1 = (Button) v.findViewById(R.id.button_connection);
@@ -791,6 +879,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     });
      } */
+
 
 }
 
