@@ -4,10 +4,12 @@ public class ExperienceModel {
 
     int experience;
     int triExperience;
+    int level;
 
-    public ExperienceModel(int experience, int triExperience) {
+    public ExperienceModel(int experience, int triExperience, int level) {
         this.experience = experience;
         this.triExperience = triExperience;
+        this.level = level;
     }
 
     public int getExperience() {
@@ -24,5 +26,13 @@ public class ExperienceModel {
 
     public void setTriExperience(int triExperience) {
         this.triExperience = triExperience;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
