@@ -23,6 +23,8 @@ import android.os.Bundle;
 
 import android.support.v4.content.ContextCompat;
 
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,6 +69,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import br.com.bloder.magic.view.MagicButton;
+
+import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -286,8 +290,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
-            imgCreationCompte.setImageBitmap(ConnectionActivity.mPhotography);
+            imgCreationCompte.setImageBitmap(mPhotography);
             imgCreationCompte.setBackground(null);
+            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
+            roundedBitmapDrawable.setCircular(true);
+            imgCreationCompte.setImageDrawable(roundedBitmapDrawable);
         }
 
         ImageView glassFilter = findViewById(R.id.iv_glass_filter);
