@@ -10,11 +10,21 @@ import com.google.maps.android.clustering.ClusterItem;
 
 public class MyItem implements ClusterItem, Parcelable {
 
+    public static final Creator<MyItem> CREATOR = new Creator<MyItem>() {
+        @Override
+        public MyItem createFromParcel(Parcel in) {
+            return new MyItem(in);
+        }
+
+        @Override
+        public MyItem[] newArray(int size) {
+            return new MyItem[size];
+        }
+    };
     /**
      * Bitmap et position/LatLng INTERDIT
-     *
+     * <p>
      * Il faut sortir les elements et envoyer des doubles
-     *
      **/
 
     String adress;
@@ -22,10 +32,10 @@ public class MyItem implements ClusterItem, Parcelable {
     boolean filtre;
     double lat;
     double lng;
-  
+
     public MyItem(double lat, double lng, String adress, String type, boolean filtre) {
         this.lng = lng;
-        this.lat= lat;
+        this.lat = lat;
         this.adress = adress;
         this.type = type;
         this.filtre = filtre;
@@ -39,22 +49,6 @@ public class MyItem implements ClusterItem, Parcelable {
         lng = in.readDouble();
     }
 
-    public void setFiltre(boolean filtre) {
-        this.filtre = filtre;
-    }
-
-    public static final Creator<MyItem> CREATOR = new Creator<MyItem>() {
-        @Override
-        public MyItem createFromParcel(Parcel in) {
-            return new MyItem(in);
-        }
-
-        @Override
-        public MyItem[] newArray(int size) {
-            return new MyItem[size];
-        }
-    };
-
     @Override
     public LatLng getPosition() {
         return new LatLng(lat, lng);
@@ -66,6 +60,10 @@ public class MyItem implements ClusterItem, Parcelable {
 
     public Boolean getFiltre() {
         return filtre;
+    }
+
+    public void setFiltre(boolean filtre) {
+        this.filtre = filtre;
     }
 
     public String getAdress() {

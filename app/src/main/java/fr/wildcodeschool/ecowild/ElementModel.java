@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class ElementModel implements Parcelable {
 
+    public static final Creator<ElementModel> CREATOR = new Creator<ElementModel>() {
+        @Override
+        public ElementModel createFromParcel(Parcel in) {
+            return new ElementModel(in);
+        }
+
+        @Override
+        public ElementModel[] newArray(int size) {
+            return new ElementModel[size];
+        }
+    };
     String address;
     String type;
     String id;
@@ -20,18 +31,6 @@ public class ElementModel implements Parcelable {
         type = in.readString();
         id = in.readString();
     }
-
-    public static final Creator<ElementModel> CREATOR = new Creator<ElementModel>() {
-        @Override
-        public ElementModel createFromParcel(Parcel in) {
-            return new ElementModel(in);
-        }
-
-        @Override
-        public ElementModel[] newArray(int size) {
-            return new ElementModel[size];
-        }
-    };
 
     public String getAddress() {
         return address;

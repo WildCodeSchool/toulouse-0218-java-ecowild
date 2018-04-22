@@ -27,14 +27,9 @@ public class ListAdapter extends ArrayAdapter<MyItem> {
         }
 
         TextView address = convertView.findViewById(R.id.address);
-        //TextView type = convertView.findViewById(R.id.type);
-        // TextView id = convertView.findViewById(R.id.smallid);
         LinearLayout list = convertView.findViewById(R.id.item_list);
 
         address.setText(gpsMarker.getAdress());
-        // type.setText(gpsLocations.getType());
-        // id.setText(gpsLocations.getId());
-
 
         ImageView ivType = convertView.findViewById(R.id.iv_type);
         if (gpsMarker.getType().equals("Verre")) {
@@ -59,7 +54,6 @@ public class ListAdapter extends ArrayAdapter<MyItem> {
 
             }
         });
-
 
         return convertView;
     }

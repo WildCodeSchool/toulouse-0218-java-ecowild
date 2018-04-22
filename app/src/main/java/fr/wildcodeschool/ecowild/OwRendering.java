@@ -12,13 +12,15 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 /**
  * Created by wilder on 19/04/18.
-**/
+ **/
 
 public class OwRendering extends DefaultClusterRenderer<MyItem> {
 
     Context mContext;
 
-    /** Avec la precieuse aide de Bastien **/
+    /**
+     * Avec la precieuse aide de Bastien
+     **/
 
     public OwRendering(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager) {
         super(context, map, clusterManager);
@@ -33,7 +35,7 @@ public class OwRendering extends DefaultClusterRenderer<MyItem> {
         Bitmap bitmap;
 
         // create bitpma ici au lieu de le generer à chaque fois.
-        if (item.getType().equals("Verre")){
+        if (item.getType().equals("Verre")) {
             //Bitmap config pour la taille du marqueur
             int height = 150;
             int width = 150;
@@ -46,9 +48,8 @@ public class OwRendering extends DefaultClusterRenderer<MyItem> {
             int width = 150;
             BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_papier);
             Bitmap plastic = bitmapDrawablePlastic.getBitmap();
-            bitmap= Bitmap.createScaledBitmap(plastic, width, height, false);
+            bitmap = Bitmap.createScaledBitmap(plastic, width, height, false);
         }
-
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 

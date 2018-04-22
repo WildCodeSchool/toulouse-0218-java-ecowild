@@ -45,4 +45,7 @@
     <string name="carte">Carte</string>
     <string name="liste">Liste</string>
     <string name="pseudo">Pseudo</string>
+    <string name="geoloc_refused">Vous avez refusé la géolocalisation.</string>
+    <string name="geoloc_off">Géolocalisation désactivée</string>
+    <string name="je_viens_de_recycler">Je viens de recycler</string>
 </resources>

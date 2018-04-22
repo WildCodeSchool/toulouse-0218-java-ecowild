@@ -27,9 +27,8 @@ public class ConnectionActivity extends AppCompatActivity {
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
     public static boolean CONNECTED = false;
-    int mPasswordVisibility = PASSWORD_HIDDEN;
     static Bitmap mPhotography;
-
+    int mPasswordVisibility = PASSWORD_HIDDEN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

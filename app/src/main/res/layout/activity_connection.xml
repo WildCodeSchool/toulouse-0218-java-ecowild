@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.wildcodeschool.ecowild.ConnectionActivity"
-    >
+    tools:context="fr.wildcodeschool.ecowild.ConnectionActivity">
 
     <TextView
         android:id="@+id/text_view_setting"
@@ -135,11 +134,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.788"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_box_connection"
-
-            />
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/check_box_connection" />
 
     <ImageView
         android:id="@+id/image_view_password2"

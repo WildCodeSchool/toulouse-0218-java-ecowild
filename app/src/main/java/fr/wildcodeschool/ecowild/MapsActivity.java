@@ -6,8 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -36,6 +34,7 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -51,7 +50,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,12 +57,15 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Map;
+
 import br.com.bloder.magic.view.MagicButton;
+
 import static android.view.MotionEvent.ACTION_UP;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 
@@ -73,23 +74,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
 
     private static int SPLASH_TIME_OUT = 100;
+    final ArrayList<MyItem> arrayFinal = new ArrayList<>();
+    public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
-
     // variable pour presentation en enlever apres
     int i = 0;
-
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
-    final ArrayList <MyItem> arrayFinal = new ArrayList<>();
     float dX;
     float dY;
     int lastAction;
     private ClusterManager<MyItem> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
-    public boolean NOT_MOVE = true;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -97,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-      
+
         final ImageView imgCreationCompte = findViewById(R.id.img_profil);
 
         /** Partie menu Circle**/
@@ -125,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ImageView filtreFavoris = new ImageView(MapsActivity.this); // Create an icon
         filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
         SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
-      
+
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
         sabFavoris.setLayoutParams(layoutParam);
         sabPapier.setLayoutParams(layoutParam);
@@ -139,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .attachTo(actionButton)
                 .build();
 
-      /** Partie XP */
+        /** Partie XP */
         final ProgressBar pbTest = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
         final TextView rank = findViewById(R.id.tv_rank);
@@ -172,9 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 toast.show();
             }
         });
-
-
-
 
         /** Partie Popup**/
         Button popup = findViewById(R.id.button_popup);
@@ -318,12 +314,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                     NOT_MOVE = false;
-                }
-
-                else{
-                    ivMove.setAlpha((float)1.0);
+                } else {
+                    ivMove.setAlpha((float) 1.0);
                     tvMove.setText("Déverrouiller la position des icones");
-                    NOT_MOVE=true;
+                    NOT_MOVE = true;
 
                     final View dragViewActionButton = actionButton;
                     dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
@@ -440,12 +434,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                     NOT_MOVE = false;
-                }
-
-                else{
-                    ivMove.setAlpha((float)1.0);
+                } else {
+                    ivMove.setAlpha((float) 1.0);
                     tvMove.setText("Déverrouiller la position des icones");
-                    NOT_MOVE=true;
+                    NOT_MOVE = true;
 
                     final View dragViewActionButton = actionButton;
                     dragViewActionButton.setOnTouchListener(new View.OnTouchListener() {
@@ -463,7 +455,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     });
 
                 }
-
 
             }
         });
@@ -562,7 +553,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
             });
-          
+
             View snackBarView = snackbar.getView();
             TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
@@ -601,11 +592,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 if (mGlassFilter) {
-                    mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(),mMap, mClusterManager));
+                    mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = false;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
                 } else {
-                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
+                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = true;
                     filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                 }
@@ -617,10 +608,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 if (mPaperfilter) {
                     mPaperfilter = false;
-                    mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(),mMap, mClusterManager));
+                    mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                 } else {
-                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
+                    mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mPaperfilter = true;
                     filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
                 }
@@ -684,7 +675,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 } else {
 
-                    Toast.makeText(this, "Vous avez refusé la géolocalisation.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.geoloc_refused, Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
@@ -749,7 +740,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 5, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 5, locationListener);
             } else {
-                Toast.makeText(this, "Géolocalisation désactivée", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.geoloc_off, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -804,8 +795,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String id = "v" + c;
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
-                                arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mGlassFilter));
-                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
+                                arrayFinal.add(new MyItem(valueOrdo, valueAbs, address, type, mGlassFilter));
+                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(arrayFinal);
 
                             }
@@ -860,9 +851,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String id = "p" + c;
 
 
-                               //Cluster et Liste de celui ci pour aller aussi en liste
-                                arrayFinal.add(new MyItem(valueOrdo,valueAbs,address,type,mPaperfilter));
-                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(),mMap, mClusterManager));
+                                //Cluster et Liste de celui ci pour aller aussi en liste
+                                arrayFinal.add(new MyItem(valueOrdo, valueAbs, address, type, mPaperfilter));
+                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(arrayFinal);
                             }
 
@@ -889,8 +880,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
         mClusterManager.addItems(arrayFinal);
-
-        //          CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
         Switch goList = findViewById(R.id.go_list);
         goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
