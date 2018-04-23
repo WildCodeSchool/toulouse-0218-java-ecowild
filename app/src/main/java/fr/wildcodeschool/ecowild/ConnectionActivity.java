@@ -20,6 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ConnectionActivity extends AppCompatActivity {
 
     public static final int PASSWORD_HIDDEN = 1;
@@ -35,6 +41,8 @@ public class ConnectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference utilisateursRef = database.getReference("utilisateurs");
 
         final EditText editTextProfil = findViewById(R.id.edit_text_profil_connection);
         final EditText editTextPassword = findViewById(R.id.edit_text_password_connection);
@@ -51,6 +59,7 @@ public class ConnectionActivity extends AppCompatActivity {
         final String editProfil = editTextProfil.getText().toString();
         final String editPassword = editTextPassword.getText().toString();
         final String editPassword2 = editTextPassword2.getText().toString();
+        final String passwordU;
 
 
         final Button buttonToLogIn = findViewById(R.id.button_log_in);
@@ -126,9 +135,41 @@ public class ConnectionActivity extends AppCompatActivity {
                     toast.show();
 
                 } else {
-                    Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                    intentMap.putExtra("username", editProfil);
-                    ConnectionActivity.this.startActivity(intentMap);
+
+                    /**Partie recuperation firebase**/
+                    DatabaseReference myRef = database.getReference("utilisateurs");
+
+                    myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                    UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
+                                    String passwordRecup = utilisateurRecup.getPassword();
+                                   
+                                    //Toast.makeText(ConnectionActivity.this, passwordRecup, Toast.LENGTH_SHORT).show();
+
+                                    if(passwordRecup.equals(editPassword)){
+                                        Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
+                                        intentMap.putExtra("username", editProfil);
+                                        ConnectionActivity.this.startActivity(intentMap);
+                                    }
+                                    else{
+                                        Toast.makeText(ConnectionActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
+
+                    
+                   
+
+
+
+                    
                 }
 
                 if (checkBoxToLogIn.isChecked()) {
@@ -161,6 +202,12 @@ public class ConnectionActivity extends AppCompatActivity {
                     CONNECTED = true;
                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                     intentMap.putExtra("username", editProfil);
+
+                    /**Partie Firease**/
+                    UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword,0, null);
+
+                    String utilisateurKey = utilisateursRef.push().getKey();
+                    utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
                     ConnectionActivity.this.startActivity(intentMap);
                 }
                 if (!editPassword.equals(editPassword2) && !editPassword.isEmpty() && !editPassword2.isEmpty()) {
@@ -205,6 +252,13 @@ public class ConnectionActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+
+
+
+
+
+
+
     }
 
     /**
