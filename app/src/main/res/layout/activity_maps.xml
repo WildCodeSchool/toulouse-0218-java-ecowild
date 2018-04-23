@@ -1,114 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true">
-
-
+    android:layout_alignParentTop="true">
 
     <!--Page centre -->
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/relative_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintEnd_toStartOf="@+id/buttonright"
-                map:layout_constraintHorizontal_bias="0.151"
-                map:layout_constraintStart_toEndOf="@+id/button_left"
-                map:layout_constraintTop_toTopOf="parent"
-                map:layout_constraintVertical_bias="0.0"
-                tools:context="fr.wildcodeschool.ecowild.MapsActivity" />
-
-            <Switch
-                android:id="@+id/go_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/test_position"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/map_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toStartOf="@+id/button_right"
+            map:layout_constraintHorizontal_bias="0.151"
+            map:layout_constraintStart_toEndOf="@+id/button_left"
+            map:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintVertical_bias="0.0"
+            tools:context="fr.wildcodeschool.ecowild.MapsActivity" />
+
+        <Switch
+            android:id="@+id/go_list"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.398"
+            map:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/test_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
 
-            <Button
-                android:id="@+id/button_right"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:alpha="0.7"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/button_right"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.7"
+            android:background="@drawable/verre_et_papierok"
+            android:visibility="gone"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent" />
 
-            <Button
-                android:id="@+id/button_left"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintStart_toStartOf="parent"
-                android:alpha="0.7"/>
+        <Button
+            android:id="@+id/button_test"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:alpha="0.7"
+            android:background="@drawable/personne_poubelle"
+            android:visibility="gone"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_profil"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/profil"
-                map:layout_constraintBottom_toBottomOf="@+id/button_left"
-                map:layout_constraintEnd_toEndOf="@+id/button_left"
-                map:layout_constraintStart_toStartOf="@+id/button_left"
-                map:layout_constraintTop_toTopOf="@+id/button_left" />
+        <Button
+            android:id="@+id/button_left"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            android:background="@drawable/icon_avatar"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
 
-        </android.support.constraint.ConstraintLayout>
+        <br.com.bloder.magic.view.MagicButton
+            android:id="@+id/magic_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="16dp"
+            android:visibility="gone"
+            app:button_icon="@drawable/jeter"
+            app:button_icon_height="43dp"
+            app:button_icon_width="40dp"
+            app:expandable_area_color="@color/colorEcoWild2"
+            app:hide_text="@string/je_viens_de_recycler"
+            app:hide_text_color="@color/colorBlack"
+            app:hide_text_size="7sp"
+            app:icon_button_color="@color/colorEcoWild"
+            app:magic_button_size="60dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/popup"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toTopOf="@+id/map" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <!--Volet Gauche -->
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="300dp"
+
+        android:id="@+id/relative_layout_left"
+        android:layout_width="270dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:orientation="vertical"
-        android:background="#FFFFFFFF"
-        android:id="@+id/relative_layout_left"
-        >
-        <!--  -->
-
+        android:background="#ffffff"
+        android:orientation="vertical">
+        <!-- Commentary used for Editing (put layout gravity inside) -->
 
         <TextView
             android:id="@+id/tv_background"
-            android:layout_width="300dp"
+            android:layout_width="270dp"
             android:layout_height="140dp"
-            android:background="#439dbb"
+            android:background="@color/colorEcoWild"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -120,7 +147,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="Pseudo"
+            android:shadowColor="@color/colorBlack"
+            android:shadowRadius="20"
+            android:text="@string/pseudo"
             android:textColor="#f8dc81"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -130,14 +159,13 @@
 
         <ImageView
             android:id="@+id/img_profil"
-            android:layout_width="109dp"
-            android:layout_height="109dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/anonyme"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
-            map:layout_constraintTop_toTopOf="parent"
-            map:srcCompat="@drawable/anonyme" />
+            map:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_rank"
@@ -145,7 +173,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Rang et Level"
+            android:shadowColor="@color/colorBlack"
+            android:shadowRadius="20"
+            android:text="@string/rang_et_level"
             android:textColor="#f8dc81"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -157,22 +187,35 @@
             android:id="@+id/tv_parameter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
-            android:text="Parametres"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="53dp"
+            android:text="@string/param_tres"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/iv_parameter"
+            map:layout_constraintStart_toEndOf="@+id/imageButton"
             map:layout_constraintTop_toBottomOf="@+id/tv_favorite" />
+
+        <TextView
+            android:id="@+id/tv_move"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/unlock_button"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            map:layout_constraintStart_toEndOf="@+id/iv_move"
+            map:layout_constraintTop_toBottomOf="@+id/tv_parameter" />
 
         <TextView
             android:id="@+id/tv_useful_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="40dp"
-            android:text="Infos utiles"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="70dp"
+            android:text="@string/informations_utiles"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -183,9 +226,9 @@
             android:id="@+id/tv_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="55dp"
-            android:text="Favoris"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="42dp"
+            android:text="@string/favoris"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -195,211 +238,270 @@
         <ImageButton
             android:id="@+id/iv_favorite"
             style="@android:style/Widget.ImageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:background="@android:drawable/btn_star_big_on"
-            app:srcCompat="@android:drawable/btn_star_big_on"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/favorite"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/iv_information" />
-
-        <ImageButton
-            android:id="@+id/iv_parameter"
-            style="@android:style/Widget.ImageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:background="@android:drawable/ic_menu_preferences"
-            app:srcCompat="@android:drawable/ic_menu_preferences"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
 
         <ImageButton
             android:id="@+id/iv_information"
             style="@android:style/Widget.ImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="58dp"
             android:background="?android:attr/actionModeFindDrawable"
             app:srcCompat="?android:attr/actionModeFindDrawable"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/tv_background" />
 
-        <ImageButton
-            android:id="@+id/iv_disconnect"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="32dp"
-            android:background="@android:drawable/ic_lock_power_off"
-            android:src="@android:drawable/ic_lock_power_off"
-            map:layout_constraintBottom_toBottomOf="parent"
-            map:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_disconnect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginStart="8dp"
-            android:text="Deconnexion"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            map:layout_constraintBottom_toBottomOf="parent"
-            map:layout_constraintStart_toEndOf="@+id/iv_disconnect" />
-
         <Button
             android:id="@+id/button_create_account"
-            android:layout_width="wrap_content"
+            android:layout_width="145dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button"
+            android:text="@string/connection"
+            android:textSize="12sp"
+            map:layout_constraintBottom_toBottomOf="@+id/tv_background"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/parametres"
+            app:srcCompat="@drawable/parametres"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
+
+        <ProgressBar
+            android:id="@+id/pb_xp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="75dp"
+            android:layout_height="13dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text=" Creer un compte"
-            android:textSize="12sp"
-            map:layout_constraintStart_toEndOf="@+id/iv_create_account"
-            map:layout_constraintTop_toBottomOf="@+id/button_connection" />
+            android:max="10"
+            android:progressDrawable="@drawable/progressbar"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.0"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/img_profil" />
+
+        <com.ebanx.swipebtn.SwipeButton
+            android:id="@+id/swipe_btn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="8dp"
+            map:button_background="@drawable/deconnectionbutton"
+            map:button_bottom_padding="20dp"
+            map:button_image_disabled="@drawable/ic_lock_open_black_24dp"
+            map:button_image_enabled="@drawable/ic_lock_outline_black_24dp"
+            map:button_left_padding="20dp"
+            map:button_right_padding="20dp"
+            map:button_top_padding="20dp"
+            map:inner_text="@string/déconnection"
+            map:inner_text_background="@drawable/button"
+            map:inner_text_bottom_padding="18dp"
+            map:inner_text_color="@color/colorBlack"
+            map:inner_text_size="18sp"
+            map:inner_text_top_padding="18dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/imageButton"
+            map:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-            android:id="@+id/iv_to_log_in"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/connexionok"
-            app:srcCompat="@drawable/connexionok"
-            map:layout_constraintStart_toEndOf="@+id/img_profil"
-            map:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_connection"
-            android:layout_width="wrap_content"
+            android:id="@+id/iv_move"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:text="Se connecter"
-            android:textSize="12sp"
-            map:layout_constraintStart_toEndOf="@+id/iv_to_log_in"
-            map:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_create_account"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/ajoutcompte"
-            app:srcCompat="@drawable/ajoutcompte"
-            map:layout_constraintStart_toEndOf="@+id/img_profil"
-            map:layout_constraintTop_toBottomOf="@+id/iv_to_log_in" />
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/move"
+            app:srcCompat="@drawable/move"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     </android.support.constraint.ConstraintLayout>
 
     <!--Volet Droite -->
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/relative_layout_right"
+        android:layout_width="150dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:orientation="vertical"
         android:background="#FFFFFFFF"
-        android:id="@+id/relative_layout_right">
-        <!---->
+        android:orientation="vertical">
+
+        <!-- Commentary used for editing-->
 
         <TextView
-            android:id="@+id/tv_filter_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_background_2"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
+            android:background="#439dbb"
+            app:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_map_img"
+            android:layout_width="140dp"
+            android:layout_height="112dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:text="Parametres Carte"
-            android:textColor="@color/colorBlack"
-            android:textSize="24sp"
-            android:textStyle="normal|bold"
-            map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/carte"
+            app:layout_constraintBottom_toBottomOf="@id/tv_background_2"
+            app:layout_constraintEnd_toEndOf="@id/tv_background_2"
+            app:layout_constraintStart_toStartOf="@+id/tv_background_2"
+            app:srcCompat="@drawable/carte"
             map:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_kilometer"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:text="Kilometres"
+            android:id="@+id/tv_filter_title"
+            android:layout_width="131dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="24dp"
+            android:text="Parametres "
             android:textColor="@color/colorBlack"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/sb_kilometer"
-            map:layout_constraintTop_toBottomOf="@+id/tv_filter_title" />
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_plastic_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:text="Filtres Plastique"
+            android:id="@+id/tv_filter_title_carte"
+            android:layout_width="78dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="44dp"
+            android:text="Carte"
             android:textColor="@color/colorBlack"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/iv_plastic_filter"
-            map:layout_constraintTop_toBottomOf="@+id/tv_glass_filter" />
-
-        <TextView
-            android:id="@+id/tv_glass_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="29dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
-            android:text="Filtres verre"
-            android:textColor="@color/colorBlack"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/iv_plastic_filter"
-            map:layout_constraintTop_toBottomOf="@+id/tv_kilometer" />
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toTopOf="parent" />
 
         <SeekBar
             android:id="@+id/sb_kilometer"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="32dp"
             android:max="10"
             android:progress="3"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/tv_filter_title" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/imag_view_11"
+            map:layout_constraintTop_toBottomOf="@+id/switch_papier" />
 
         <ImageView
-
-            android:id="@+id/iv_plastic_filter"
+            android:id="@+id/imageView_icone_favoris"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="32dp"
-            android:background="@color/colorEcoWild"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/iv_glass_filter"
-            map:srcCompat="@android:color/holo_blue_dark" />
+            android:background="@android:drawable/btn_star_big_on"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_info"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            map:layout_constraintEnd_toEndOf="parent"
+            />
 
         <ImageView
             android:id="@+id/iv_glass_filter"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="32dp"
-            android:background="@android:color/holo_green_dark"
-            app:srcCompat="@android:color/holo_green_dark"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/sb_kilometer" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/verre"
+            app:srcCompat="@drawable/verre"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/imageView_icone_favoris" />
 
+        <ImageView
+            android:id="@+id/iv_plastic_filter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/papier"
+            app:srcCompat="@drawable/papier"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/iv_glass_filter" />
+
+        <ImageView
+            android:id="@+id/image_view_magnifying_glass"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/loupe"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_map_img"
+            app:layout_constraintTop_toTopOf="@+id/image_view_map_img"
+            app:srcCompat="@drawable/loupe"
+            map:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <Switch
+            android:id="@+id/switch_verre"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="60dp"
+            map:layout_constraintEnd_toStartOf="@+id/iv_glass_filter"
+            map:layout_constraintTop_toBottomOf="@+id/switch_favoris" />
+
+        <Switch
+            android:id="@+id/switch_papier"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="60dp"
+            map:layout_constraintEnd_toStartOf="@+id/iv_plastic_filter"
+            map:layout_constraintTop_toBottomOf="@+id/switch_verre" />
+
+        <Switch
+            android:id="@+id/switch_favoris"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="45dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_info"
+            map:layout_constraintEnd_toStartOf="@+id/imageView_icone_favoris"
+            />
+
+        <TextView
+            android:id="@+id/text_view_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="50dp"
+            android:text="Filtrer par :"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_background_2"
+            map:layout_constraintEnd_toEndOf="parent"
+            />
 
     </android.support.constraint.ConstraintLayout>
-
 
 </android.support.v4.widget.DrawerLayout>

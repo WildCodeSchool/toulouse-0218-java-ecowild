@@ -21,11 +21,11 @@ public class ListLocationActivity extends AppCompatActivity {
 
         ListView locationList = findViewById(R.id.location_list);
 
-        Switch goMap = findViewById(R.id.goMap);
+        Switch goMap = findViewById(R.id.go_Map);
 
-        ArrayList gps = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("GPS_POSITIONS");
+        ArrayList listData = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("GPS_POSITIONS");
 
-        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, gps);
+        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, listData);
         locationList.setAdapter(adapter);
 
         goMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -39,8 +39,8 @@ public class ListLocationActivity extends AppCompatActivity {
         locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ElementModel localisation = adapter.getItem(i);
-                String address = localisation.getAddress();
+                ClusterModel location = adapter.getItem(i);
+                String address = location.getAddress();
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse("google.navigation:q=" + address + "&mode=b"));
