@@ -18,7 +18,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ConnectionActivity" />
         <activity
             android:name=".ForgottenPasswordActivity"
@@ -47,7 +46,9 @@
         <activity android:name=".ListLocationActivity" />
         <activity android:name=".UsefulInformationActivity" />
         <activity android:name=".Settings" />
-
+        <activity android:name=".PageGaucheInformation" />
+        <activity android:name=".PageDroiteInformation" />
+        <activity android:name=".PageMilieuInformation"></activity>
     </application>
 
 </manifest>
