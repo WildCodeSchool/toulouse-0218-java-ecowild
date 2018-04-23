@@ -74,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
 
     private static int SPLASH_TIME_OUT = 100;
-    final ArrayList<CusterModel> mClusterMarker = new ArrayList<>();
+    final ArrayList<ClusterModel> mClusterMarker = new ArrayList<>();
     public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
@@ -84,7 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     float dX;
     float dY;
     int lastAction;
-    private ClusterManager<CusterModel> mClusterManager;
+    private ClusterManager<ClusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
 
@@ -777,7 +777,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String id = "v" + c;
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
-                                mClusterMarker.add(new CusterModel(valueOrdo, valueAbs, address, type, mGlassFilter));
+                                mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type, mGlassFilter));
                                 mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(mClusterMarker);
 
@@ -834,7 +834,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                                 //Cluster et Liste de celui ci pour aller aussi en liste
-                                mClusterMarker.add(new CusterModel(valueOrdo, valueAbs, address, type, mPaperfilter));
+                                mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type, mPaperfilter));
                                 mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(mClusterMarker);
                             }
@@ -858,7 +858,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestPaperQueue.add(jsonObjectRequestPaper);
 
         /**rajout list aux cluster*/
-        mClusterManager = new ClusterManager<CusterModel>(this, mMap);
+        mClusterManager = new ClusterManager<ClusterModel>(this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
         mClusterManager.addItems(mClusterMarker);

@@ -7,17 +7,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 
-public class CusterModel implements ClusterItem, Parcelable {
+public class ClusterModel implements ClusterItem, Parcelable {
 
-    public static final Creator<CusterModel> CREATOR = new Creator<CusterModel>() {
+    public static final Creator<ClusterModel> CREATOR = new Creator<ClusterModel>() {
         @Override
-        public CusterModel createFromParcel(Parcel in) {
-            return new CusterModel(in);
+        public ClusterModel createFromParcel(Parcel in) {
+            return new ClusterModel(in);
         }
 
         @Override
-        public CusterModel[] newArray(int size) {
-            return new CusterModel[size];
+        public ClusterModel[] newArray(int size) {
+            return new ClusterModel[size];
         }
     };
     /**
@@ -32,7 +32,7 @@ public class CusterModel implements ClusterItem, Parcelable {
     double lat;
     double lng;
 
-    public CusterModel(double lat, double lng, String address, String type, boolean filter) {
+    public ClusterModel(double lat, double lng, String address, String type, boolean filter) {
         this.lng = lng;
         this.lat = lat;
         this.address = address;
@@ -40,7 +40,7 @@ public class CusterModel implements ClusterItem, Parcelable {
         this.filter = filter;
     }
 
-    protected CusterModel(Parcel in) {
+    protected ClusterModel(Parcel in) {
         address = in.readString();
         type = in.readString();
         filter = in.readByte() != 0;

@@ -39,7 +39,7 @@ public class ListLocationActivity extends AppCompatActivity {
         locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CusterModel location = adapter.getItem(i);
+                ClusterModel location = adapter.getItem(i);
                 String address = location.getAddress();
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,

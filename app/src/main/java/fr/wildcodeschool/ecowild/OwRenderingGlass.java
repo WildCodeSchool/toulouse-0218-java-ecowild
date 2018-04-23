@@ -14,18 +14,18 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
  * Created by wilder on 19/04/18.
  **/
 
-public class OwRenderingGlass extends DefaultClusterRenderer<CusterModel> {
+public class OwRenderingGlass extends DefaultClusterRenderer<ClusterModel> {
 
     Context mContext;
 
     /** Avec la precieuse aide de Bastien **/
 
-    public OwRenderingGlass(Context context, GoogleMap map, ClusterManager<CusterModel> clusterManager) {
+    public OwRenderingGlass(Context context, GoogleMap map, ClusterManager<ClusterModel> clusterManager) {
         super(context, map, clusterManager);
         mContext = context;
     }
 
-    protected void onBeforeClusterItemRendered(CusterModel item, MarkerOptions markerOptions) {
+    protected void onBeforeClusterItemRendered(ClusterModel item, MarkerOptions markerOptions) {
 
         Bitmap bitmap2;
 

@@ -12,15 +12,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<CusterModel> {
+public class ListAdapter extends ArrayAdapter<ClusterModel> {
 
-    public ListAdapter(Context context, ArrayList<CusterModel> items) {
+    public ListAdapter(Context context, ArrayList<ClusterModel> items) {
         super(context, 0, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CusterModel gpsMarker = getItem(position);
+        ClusterModel gpsMarker = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_model, parent, false);
