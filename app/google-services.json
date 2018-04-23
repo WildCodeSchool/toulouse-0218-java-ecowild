@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "1075096559597",
+    "firebase_url": "https://toulouse-0218-java-ecowild.firebaseio.com",
+    "project_id": "toulouse-0218-java-ecowild",
+    "storage_bucket": "toulouse-0218-java-ecowild.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075096559597:android:907fbc1f7fa5c94b",
+        "android_client_info": {
+          "package_name": "fr.wildcodeschool.ecowild"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075096559597-ats2c9ij1q4vhqgdsvahhbukrgbsqr80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.ecowild",
+            "certificate_hash": "5af72ffa95c5433ec923fb9081e885c3a5dec83a"
+          }
+        },
+        {
+          "client_id": "1075096559597-j9i1pec146aaumjibr81deh35q2e353f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.ecowild",
+            "certificate_hash": "c2225026a45915b57fe136e31b96be77c301bd92"
+          }
+        },
+        {
+          "client_id": "1075096559597-8esd0besk4fu9nti45moa2ek6kq2kj8j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.ecowild",
+            "certificate_hash": "811a21748b93074705aa8bdc1e7034f14fc45db2"
+          }
+        },
+        {
+          "client_id": "1075096559597-bhe7qp11ouj5fmdivlijuh3jeq5carod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDD8JlV1h-2UeJYi98dQY0PjaQLEc-LnM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075096559597-bhe7qp11ouj5fmdivlijuh3jeq5carod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
