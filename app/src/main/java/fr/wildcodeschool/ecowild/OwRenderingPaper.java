@@ -14,26 +14,26 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
  * Created by wilder on 19/04/18.
  **/
 
-public class OwRenderingPaper extends DefaultClusterRenderer<MyItem> {
+public class OwRenderingPaper extends DefaultClusterRenderer<CusterModel> {
 
     Context mContext;
 
     /** Avec la precieuse aide de Bastien **/
 
-    public OwRenderingPaper(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager) {
+    public OwRenderingPaper(Context context, GoogleMap map, ClusterManager<CusterModel> clusterManager) {
         super(context, map, clusterManager);
         mContext = context;
     }
 
-    protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
+    protected void onBeforeClusterItemRendered(CusterModel item, MarkerOptions markerOptions) {
 
         Bitmap bitmap2;
 
         // Filtre où le marqueur est créé si du bon type, sinon rien.
         if (item.getType().equals("Verre")){
             markerOptions.snippet(item.getType());
-            markerOptions.title(item.getAdress());
-            markerOptions.visible(item.getFiltre());
+            markerOptions.title(item.getAddress());
+            markerOptions.visible(item.getFilter());
 
             //Bitmap config pour la taille du marqueur
             int height = 150;

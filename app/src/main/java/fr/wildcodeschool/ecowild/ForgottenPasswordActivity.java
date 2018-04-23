@@ -52,10 +52,10 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final String compteString = editTextCompte.getText().toString();
+                final String accountString = editTextCompte.getText().toString();
                 final String passwordString = editTextValidatedPassword.getText().toString();
 
-                if (compteString.isEmpty() || passwordString.isEmpty()) {
+                if (accountString.isEmpty() || passwordString.isEmpty()) {
 
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast,

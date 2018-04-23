@@ -31,7 +31,7 @@ public class Settings extends AppCompatActivity {
 
         final EditText etPassword = findViewById(R.id.edit_text_pseudo);
         final EditText etNewPassword = findViewById(R.id.edit_text_new_password);
-        final EditText etNewPassword2 = findViewById(R.id.edit_text_new_assword_confirm);
+        final EditText etNewPassword2 = findViewById(R.id.edit_text_new_password_confirm);
         final EditText etProfil = findViewById(R.id.edit_text_profil);
         final EditText etNewProfil = findViewById(R.id.edit_text_new_profil);
         final EditText etNewProfil2 = findViewById(R.id.edit_text_new_profil_confirm);
@@ -44,16 +44,16 @@ public class Settings extends AppCompatActivity {
         final ImageView photo = findViewById(R.id.photograpy);
 
         //test image ronde
-        final ImageView ivAvatar = findViewById(R.id.imageView_avatar);
+        final ImageView ivAvatar = findViewById(R.id.image_view_avatar);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jeter);
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         roundedBitmapDrawable.setCircular(true);
         ivAvatar.setImageDrawable(roundedBitmapDrawable);
 
-        final RadioButton rbAvatar = findViewById(R.id.radioButton_avatar);
-        final RadioButton rbName = findViewById(R.id.radioButton_name);
-        final RadioButton rbPassword = findViewById(R.id.radioButton_password);
-        RadioGroup rG = findViewById(R.id.radio_group);
+        final RadioButton rbAvatar = findViewById(R.id.radio_button_avatar);
+        final RadioButton rbName = findViewById(R.id.radio_button_name);
+        final RadioButton rbPassword = findViewById(R.id.radio_button_password);
+        RadioGroup rbOptionGroup = findViewById(R.id.radio_group);
 
         ivPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +97,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        rG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rbOptionGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 etPassword.setVisibility(View.GONE);

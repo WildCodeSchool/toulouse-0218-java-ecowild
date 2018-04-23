@@ -1,6 +1,5 @@
 package fr.wildcodeschool.ecowild;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,17 +7,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 
-public class MyItem implements ClusterItem, Parcelable {
+public class CusterModel implements ClusterItem, Parcelable {
 
-    public static final Creator<MyItem> CREATOR = new Creator<MyItem>() {
+    public static final Creator<CusterModel> CREATOR = new Creator<CusterModel>() {
         @Override
-        public MyItem createFromParcel(Parcel in) {
-            return new MyItem(in);
+        public CusterModel createFromParcel(Parcel in) {
+            return new CusterModel(in);
         }
 
         @Override
-        public MyItem[] newArray(int size) {
-            return new MyItem[size];
+        public CusterModel[] newArray(int size) {
+            return new CusterModel[size];
         }
     };
     /**
@@ -27,24 +26,24 @@ public class MyItem implements ClusterItem, Parcelable {
      * Il faut sortir les elements et envoyer des doubles
      **/
 
-    String adress;
+    String address;
     String type;
-    boolean filtre;
+    boolean filter;
     double lat;
     double lng;
 
-    public MyItem(double lat, double lng, String adress, String type, boolean filtre) {
+    public CusterModel(double lat, double lng, String address, String type, boolean filter) {
         this.lng = lng;
         this.lat = lat;
-        this.adress = adress;
+        this.address = address;
         this.type = type;
-        this.filtre = filtre;
+        this.filter = filter;
     }
 
-    protected MyItem(Parcel in) {
-        adress = in.readString();
+    protected CusterModel(Parcel in) {
+        address = in.readString();
         type = in.readString();
-        filtre = in.readByte() != 0;
+        filter = in.readByte() != 0;
         lat = in.readDouble();
         lng = in.readDouble();
     }
@@ -58,16 +57,16 @@ public class MyItem implements ClusterItem, Parcelable {
         return type;
     }
 
-    public Boolean getFiltre() {
-        return filtre;
+    public Boolean getFilter() {
+        return filter;
     }
 
-    public void setFiltre(boolean filtre) {
-        this.filtre = filtre;
+    public void setFilter(boolean filter) {
+        this.filter = filter;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     @Override
@@ -87,9 +86,9 @@ public class MyItem implements ClusterItem, Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(adress);
+        parcel.writeString(address);
         parcel.writeString(type);
-        parcel.writeByte((byte) (filtre ? 1 : 0));
+        parcel.writeByte((byte) (filter ? 1 : 0));
         parcel.writeDouble(lat);
         parcel.writeDouble(lng);
 

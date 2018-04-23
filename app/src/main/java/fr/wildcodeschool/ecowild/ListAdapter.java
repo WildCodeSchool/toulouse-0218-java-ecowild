@@ -12,15 +12,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<MyItem> {
+public class ListAdapter extends ArrayAdapter<CusterModel> {
 
-    public ListAdapter(Context context, ArrayList<MyItem> items) {
+    public ListAdapter(Context context, ArrayList<CusterModel> items) {
         super(context, 0, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MyItem gpsMarker = getItem(position);
+        CusterModel gpsMarker = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_model, parent, false);
@@ -29,7 +29,7 @@ public class ListAdapter extends ArrayAdapter<MyItem> {
         TextView address = convertView.findViewById(R.id.address);
         LinearLayout list = convertView.findViewById(R.id.item_list);
 
-        address.setText(gpsMarker.getAdress());
+        address.setText(gpsMarker.getAddress());
 
         ImageView ivType = convertView.findViewById(R.id.iv_type);
         if (gpsMarker.getType().equals("Verre")) {
@@ -40,15 +40,15 @@ public class ListAdapter extends ArrayAdapter<MyItem> {
             list.setBackgroundColor(Color.parseColor("#c7e0f6"));
         }
 
-        final ImageView itineraire = convertView.findViewById(R.id.iv_itineraire);
-        itineraire.setOnClickListener(new View.OnClickListener() {
+        final ImageView itinerary = convertView.findViewById(R.id.iv_itineraire);
+        itinerary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itineraire.setBackgroundResource(R.drawable.papier);
-                itineraire.setOnClickListener(new View.OnClickListener() {
+                itinerary.setBackgroundResource(R.drawable.papier);
+                itinerary.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        itineraire.setBackgroundResource(R.drawable.itineraire);
+                        itinerary.setBackgroundResource(R.drawable.itineraire);
                     }
                 });
 

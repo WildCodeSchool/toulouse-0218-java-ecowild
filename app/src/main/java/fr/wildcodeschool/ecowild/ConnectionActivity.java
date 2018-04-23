@@ -41,9 +41,9 @@ public class ConnectionActivity extends AppCompatActivity {
         final EditText editTextPassword2 = findViewById(R.id.edit_text_password2);
         final ImageView imageViewPassword = findViewById(R.id.image_view_password_connection);
         final ImageView imageViewPassword2 = findViewById(R.id.image_view_password2);
-        final ImageView ivLigne = findViewById(R.id.imageView_ligne);
-        final ImageView ivLigneBis = findViewById(R.id.imageView_ligneBis);
-        final TextView tvWhere = findViewById(R.id.textView_where);
+        final ImageView ivLigne = findViewById(R.id.image_view_ligne);
+        final ImageView ivLigneBis = findViewById(R.id.image_view_ligneBis);
+        final TextView tvWhere = findViewById(R.id.text_view_where);
         final TextView textViewForgottenPassword = findViewById(R.id.text_view_forgotten_password);
         final ImageView ivPhoto = findViewById(R.id.iv_photo);
         final ImageView ivAppareilPhoto = findViewById(R.id.iv_appareil_photo);

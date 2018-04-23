@@ -39,8 +39,8 @@ public class ListLocationActivity extends AppCompatActivity {
         locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                MyItem localisation = adapter.getItem(i);
-                String address = localisation.getAdress();
+                CusterModel location = adapter.getItem(i);
+                String address = location.getAddress();
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse("google.navigation:q=" + address + "&mode=b"));

@@ -74,19 +74,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
 
     private static int SPLASH_TIME_OUT = 100;
-    final ArrayList<MyItem> arrayFinal = new ArrayList<>();
+    final ArrayList<CusterModel> mClusterMarker = new ArrayList<>();
     public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
-    // variable pour presentation en enlever apres
-    int i = 0;
     boolean mIsWaitingForGoogleMap = false;
     Location mLastLocation = null;
     float dX;
     float dY;
     int lastAction;
-    private ClusterManager<MyItem> mClusterManager;
+    private ClusterManager<CusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
 
@@ -97,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        final ImageView imgCreationCompte = findViewById(R.id.img_profil);
+        final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -112,34 +110,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SubActionButton.Builder listeBuilder = new SubActionButton.Builder(this);
 
         //Creation image sous menu
-        final ImageView filtreVerre = new ImageView(this); // Create an icon
-        filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
+        final ImageView glassFilterImg = new ImageView(this); // Create an icon
+        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
         //envoit sous bouton au menu
-        final SubActionButton sabVerre = listeBuilder.setContentView(filtreVerre).build();
+        final SubActionButton sabGlass = listeBuilder.setContentView(glassFilterImg).build();
 
-        final ImageView filtrePapier = new ImageView(this); // Create an icon
-        filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
-        SubActionButton sabPapier = listeBuilder.setContentView(filtrePapier).build();
+        final ImageView paperFilterGlass = new ImageView(this); // Create an icon
+        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+        SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        final ImageView filtreFavoris = new ImageView(MapsActivity.this); // Create an icon
-        filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
-        SubActionButton sabFavoris = listeBuilder.setContentView(filtreFavoris).build();
+        final ImageView favFilter = new ImageView(MapsActivity.this); // Create an icon
+        favFilter.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
+        SubActionButton sabFavorite = listeBuilder.setContentView(favFilter).build();
 
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
-        sabFavoris.setLayoutParams(layoutParam);
-        sabPapier.setLayoutParams(layoutParam);
-        sabVerre.setLayoutParams(layoutParam);
+        sabFavorite.setLayoutParams(layoutParam);
+        sabPaper.setLayoutParams(layoutParam);
+        sabGlass.setLayoutParams(layoutParam);
 
         //Creation bouton sous menu
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
-                .addSubActionView(sabVerre)
-                .addSubActionView(sabPapier)
-                .addSubActionView(sabFavoris)
+                .addSubActionView(sabGlass)
+                .addSubActionView(sabPaper)
+                .addSubActionView(sabFavorite)
                 .attachTo(actionButton)
                 .build();
 
         /** Partie XP */
-        final ProgressBar pbTest = findViewById(R.id.pb_xp);
+        final ProgressBar pbXpImg = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
         final TextView rank = findViewById(R.id.tv_rank);
         final MagicButton mbXp = findViewById(R.id.magic_button);
@@ -148,12 +146,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getTriExperience());
-                pbTest.setProgress(10);
-                pbTest.setProgress(experienceModelModel.getExperience());
+                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getExperienceGain());
+                pbXpImg.setProgress(10);
+                pbXpImg.setProgress(experienceModelModel.getExperience());
 
                 if (experienceModelModel.getExperience() == 10) {
-                    pbTest.setProgress(0);
+                    pbXpImg.setProgress(0);
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -163,7 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 TextView textToast = (TextView) layout.findViewById(R.id.text);
                 textToast.setText(R.string.Toast);
 
-                Toast toast = new Toast(getApplicationContext());
+                Toast toast = new Toast(MapsActivity.this);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.setDuration(Toast.LENGTH_LONG);
@@ -180,14 +178,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
                 popup.setTitle(R.string.alerte);
                 popup.setMessage(R.string.alert_message);
-                //popup.setNegativeButton("Non",);
-                popup.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                popup.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mbXp.setVisibility(View.VISIBLE);
                     }
                 });
-                popup.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                popup.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mbXp.setVisibility(View.GONE);
@@ -225,7 +222,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (NOT_MOVE) {
                     ivMove.setAlpha((float) 0.2);
-                    tvMove.setText("Verrouiller la position des icones");
+                    tvMove.setText(R.string.lock_buttons);
                     ObjectAnimator.ofFloat(actionButton, "translationX", 0, 30).setDuration(400).start();
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -345,7 +342,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if (NOT_MOVE) {
                     ivMove.setAlpha((float) 0.2);
-                    tvMove.setText("Verrouiller la position des icones");
+                    tvMove.setText(R.string.lock_buttons);
                     ObjectAnimator.ofFloat(actionButton, "translationX", 0, 30).setDuration(400).start();
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -436,7 +433,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     NOT_MOVE = false;
                 } else {
                     ivMove.setAlpha((float) 1.0);
-                    tvMove.setText("Déverrouiller la position des icones");
+                    tvMove.setText(R.string.unlock_button);
                     NOT_MOVE = true;
 
                     final View dragViewActionButton = actionButton;
@@ -535,12 +532,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
-            imgCreationCompte.setImageBitmap(mPhotography);
+            accountImgCreation.setImageBitmap(mPhotography);
 
-            imgCreationCompte.setBackground(null);
+            accountImgCreation.setBackground(null);
             RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
             roundedBitmapDrawable.setCircular(true);
-            imgCreationCompte.setImageDrawable(roundedBitmapDrawable);
+            accountImgCreation.setImageDrawable(roundedBitmapDrawable);
         }
 
         if (!ConnectionActivity.CONNECTED) {
@@ -588,50 +585,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         /**Filtres verre et papier menu multiples droit**/
-        sabVerre.setOnClickListener(new View.OnClickListener() {
+        sabGlass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mGlassFilter) {
                     mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = false;
-                    filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+                    glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
                 } else {
                     mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = true;
-                    filtreVerre.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
+                    glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                 }
             }
         });
 
-        sabPapier.setOnClickListener(new View.OnClickListener() {
+        sabPaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mPaperfilter) {
                     mPaperfilter = false;
                     mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
-                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                    paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                 } else {
                     mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mPaperfilter = true;
-                    filtrePapier.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+                    paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
                 }
             }
         });
-
-        sabFavoris.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // i pour presentation a retirer apres av les filtre
-                if (i == 0) {
-                    filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoilesansfond));
-                    i = 1;
-                } else if (i == 1) {
-                    filtreFavoris.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
-                    i = 0;
-                }
-            }
-        });
-
     }
 
     /**
@@ -755,7 +737,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             moveCameraOnUser(mLastLocation);
         }
 
-        // filtre afin de n'afficher que certaines données, en lien avec le json dans raw (créé).
+        // filter afin de n'afficher que certaines données, en lien avec le json dans raw (créé).
         MapStyleOptions mapFilter = MapStyleOptions.loadRawResourceStyle(MapsActivity.this, R.raw.map_style);
         googleMap.setMapStyle(mapFilter);
 
@@ -765,13 +747,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView testPosition = findViewById(R.id.test_position);
 
         // Crée une file d'attente pour les requêtes vers l'API
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestGlassQueue = Volley.newRequestQueue(this);
 
-        String url = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=150";
+        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=150";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, url, null,
+        JsonObjectRequest jsonObjectRequestGlass = new JsonObjectRequest(
+                Request.Method.GET, urlGlass, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -795,9 +777,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String id = "v" + c;
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
-                                arrayFinal.add(new MyItem(valueOrdo, valueAbs, address, type, mGlassFilter));
+                                mClusterMarker.add(new CusterModel(valueOrdo, valueAbs, address, type, mGlassFilter));
                                 mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
-                                mClusterManager.addItems(arrayFinal);
+                                mClusterManager.addItems(mClusterMarker);
 
                             }
 
@@ -817,17 +799,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         );
 
         // On ajoute la requête à la file d'attente
-        requestQueue.add(jsonObjectRequest);
+        requestGlassQueue.add(jsonObjectRequestGlass);
 
         /** Partie Json Papier/plastique **/
         // Crée une file d'attente pour les requêtes vers l'API
-        RequestQueue requestQueueTwo = Volley.newRequestQueue(this);
+        RequestQueue requestPaperQueue = Volley.newRequestQueue(this);
 
-        String urlTwo = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=150";
+        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=150";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
-        JsonObjectRequest jsonObjectRequestTwo = new JsonObjectRequest(
-                Request.Method.GET, urlTwo, null,
+        JsonObjectRequest jsonObjectRequestPaper = new JsonObjectRequest(
+                Request.Method.GET, urlPaper, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -852,9 +834,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                                 //Cluster et Liste de celui ci pour aller aussi en liste
-                                arrayFinal.add(new MyItem(valueOrdo, valueAbs, address, type, mPaperfilter));
+                                mClusterMarker.add(new CusterModel(valueOrdo, valueAbs, address, type, mPaperfilter));
                                 mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
-                                mClusterManager.addItems(arrayFinal);
+                                mClusterManager.addItems(mClusterMarker);
                             }
 
                         } catch (JSONException e) {
@@ -873,20 +855,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         );
 
         // On ajoute la requête à la file d'attente
-        requestQueueTwo.add(jsonObjectRequestTwo);
+        requestPaperQueue.add(jsonObjectRequestPaper);
 
         /**rajout list aux cluster*/
-        mClusterManager = new ClusterManager<MyItem>(this, mMap);
+        mClusterManager = new ClusterManager<CusterModel>(this, mMap);
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
-        mClusterManager.addItems(arrayFinal);
+        mClusterManager.addItems(mClusterMarker);
 
         Switch goList = findViewById(R.id.go_list);
         goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
-                goList.putExtra("GPS_POSITIONS", arrayFinal);
+                goList.putExtra("GPS_POSITIONS", mClusterMarker);
                 startActivity(goList);
             }
         });

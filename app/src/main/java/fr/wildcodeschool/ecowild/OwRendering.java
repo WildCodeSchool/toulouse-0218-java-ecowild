@@ -14,7 +14,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
  * Created by wilder on 19/04/18.
  **/
 
-public class OwRendering extends DefaultClusterRenderer<MyItem> {
+public class OwRendering extends DefaultClusterRenderer<CusterModel> {
 
     Context mContext;
 
@@ -22,15 +22,15 @@ public class OwRendering extends DefaultClusterRenderer<MyItem> {
      * Avec la precieuse aide de Bastien
      **/
 
-    public OwRendering(Context context, GoogleMap map, ClusterManager<MyItem> clusterManager) {
+    public OwRendering(Context context, GoogleMap map, ClusterManager<CusterModel> clusterManager) {
         super(context, map, clusterManager);
         mContext = context;
     }
 
-    protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
+    protected void onBeforeClusterItemRendered(CusterModel item, MarkerOptions markerOptions) {
         markerOptions.snippet(item.getType());
-        markerOptions.title(item.getAdress());
-        markerOptions.visible(item.getFiltre());
+        markerOptions.title(item.getAddress());
+        markerOptions.visible(item.getFilter());
 
         Bitmap bitmap;
 
