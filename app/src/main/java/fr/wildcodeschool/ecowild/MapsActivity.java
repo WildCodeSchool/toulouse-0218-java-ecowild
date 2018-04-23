@@ -313,7 +313,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     NOT_MOVE = false;
                 } else {
                     ivMove.setAlpha((float) 1.0);
-                    tvMove.setText("Déverrouiller la position des icones");
+                    tvMove.setText(R.string.unlock_button);
                     NOT_MOVE = true;
 
                     final View dragViewActionButton = actionButton;
