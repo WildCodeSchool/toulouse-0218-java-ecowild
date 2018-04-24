@@ -48,7 +48,6 @@ public class ConnectionActivity extends AppCompatActivity {
     public static final int PASSWORD_VISIBLE = 2;
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 800;
     public static boolean CONNECTED = false;
     static Bitmap mPhotography;
@@ -378,7 +377,6 @@ public class ConnectionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView mImageView = findViewById(R.id.iv_photo);
-
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(ConnectionActivity.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
