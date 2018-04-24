@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -166,7 +167,8 @@ public class ConnectionActivity extends AppCompatActivity {
                                 String passwordRecup = utilisateurRecup.getPassword();
                                 String avatar = utilisateurRecup.getAvatar();
                                 ImageView mImageView = findViewById(R.id.iv_photo);
-                                Glide.with(ConnectionActivity.this).load(avatar).into(mImageView);
+                                Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
+
 
                                 if (passwordRecup.equals(editPassword)) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
@@ -250,6 +252,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            /**si il ne trouve pas de correspondance il envoit les infos*/
                             if (dataSnapshot.getChildrenCount() == 0) {
                                 if (mPhotoUri == null) {
                                     /**Partie Firease envoit si il ne prend pas de photo*/
@@ -290,6 +293,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 }
                                 return;
                             }
+                            /** si il y a une correspondance**/
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
                                 String name = utilisateurRecup.getName();
@@ -374,8 +378,9 @@ public class ConnectionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView mImageView = findViewById(R.id.iv_photo);
+
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Glide.with(ConnectionActivity.this).load(mPhotoUri).into(mImageView);
+            Glide.with(ConnectionActivity.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
 
         }
