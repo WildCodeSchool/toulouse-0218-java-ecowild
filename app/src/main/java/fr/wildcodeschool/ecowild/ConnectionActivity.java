@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +25,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,17 +47,16 @@ public class ConnectionActivity extends AppCompatActivity {
     public static final int PASSWORD_VISIBLE = 2;
     public static final String CACHE_USERNAME = "username";
     public static final String CACHE_PASSWORD = "password";
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 800;
     public static boolean CONNECTED = false;
     static Bitmap mPhotography;
     int mPasswordVisibility = PASSWORD_HIDDEN;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
-    static final int REQUEST_TAKE_PHOTO = 1;
+    private Uri mPhotoUri = null;
+    private StorageReference mStorageRef;
 
-
-
-
-
+    //TODO mot de passe en crypter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +95,7 @@ public class ConnectionActivity extends AppCompatActivity {
         final String password = sharedPreferencesPassword.getString(CACHE_PASSWORD, "");
         editTextPassword.setText(password);
 
+        /**cryptage mot de passe**/
         imageViewPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,15 +110,6 @@ public class ConnectionActivity extends AppCompatActivity {
             }
         });
 
-        textViewForgottenPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentForgottenPassword = new Intent(ConnectionActivity.this, ForgottenPasswordActivity.class);
-                ConnectionActivity.this.startActivity(intentForgottenPassword);
-            }
-        });
-
-
         imageViewPassword2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +123,16 @@ public class ConnectionActivity extends AppCompatActivity {
                 }
             }
         });
+        /**Mot de passe oublier*/
+        textViewForgottenPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentForgottenPassword = new Intent(ConnectionActivity.this, ForgottenPasswordActivity.class);
+                ConnectionActivity.this.startActivity(intentForgottenPassword);
+            }
+        });
 
+        /**Partie se Connecter*/
         buttonToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,26 +147,25 @@ public class ConnectionActivity extends AppCompatActivity {
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast,
                             (ViewGroup) findViewById(R.id.custom_toast_container));
-
                     TextView textToast = (TextView) layout.findViewById(R.id.text);
                     textToast.setText(R.string.remplissez_tout_les_champs);
-
                     Toast toast = new Toast(getApplicationContext());
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setView(layout);
                     toast.show();
 
                 } else {
-
-                    /**Partie recuperation firebase**/
+                    /**Partie recuperation firebase si deja inscrit pour verification du mot de passe**/
                     DatabaseReference myRef = database.getReference("utilisateurs");
-
                     myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
                                 String passwordRecup = utilisateurRecup.getPassword();
+                                String avatar = utilisateurRecup.getAvatar();
+                                ImageView mImageView = findViewById(R.id.iv_photo);
+                                Glide.with(ConnectionActivity.this).load(avatar).into(mImageView);
 
                                 if (passwordRecup.equals(editPassword)) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
@@ -188,6 +195,7 @@ public class ConnectionActivity extends AppCompatActivity {
             }
         });
 
+        /**Partie devenir membre*/
         buttonMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,21 +212,21 @@ public class ConnectionActivity extends AppCompatActivity {
                 tvWhere.setVisibility(View.GONE);
                 textViewForgottenPassword.setVisibility(View.GONE);
 
+                if (editPassword2.isEmpty() || editPassword.isEmpty()) {
+                } else if (editPassword2.isEmpty()) {
 
-                if (editPassword.equals(editPassword2) && !editPassword.isEmpty() && !editPassword2.isEmpty()) {
-                    CONNECTED = true;
-                    Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                    intentMap.putExtra("username", editProfil);
 
-                    /**Partie Firease envoit**/
-                    UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword,mCurrentPhotoPath, 0, null);
-                    String utilisateurKey = utilisateursRef.push().getKey();
-                    utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast,
+                            (ViewGroup) findViewById(R.id.custom_toast_container));
 
-                    ConnectionActivity.this.startActivity(intentMap);
-                }
-                if (!editPassword.equals(editPassword2) && !editPassword.isEmpty() && !editPassword2.isEmpty()) {
-
+                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                    textToast.setText(R.string.confirmation);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
+                } else if (!editPassword.equals(editPassword2)) {
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast,
                             (ViewGroup) findViewById(R.id.custom_toast_container));
@@ -230,130 +238,143 @@ public class ConnectionActivity extends AppCompatActivity {
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setView(layout);
                     toast.show();
-                }
+                } else {
+                    CONNECTED = true;
+                    final Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
+                    intentMap.putExtra("username", editProfil);
 
-                if (editPassword2.isEmpty() && !editPassword.isEmpty()) {
 
-                    LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.toast,
-                            (ViewGroup) findViewById(R.id.custom_toast_container));
 
-                    TextView textToast = (TextView) layout.findViewById(R.id.text);
-                    textToast.setText(R.string.confirmation);
 
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.setView(layout);
-                    toast.show();
-                }
-            }
-        });
+                    /**Partie recuperation firebase pour verif si name n'est pas pris**/
+                    DatabaseReference myRef = database.getReference("utilisateurs");
+                    myRef.orderByChild("name").equalTo(editProfil).limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
+                                String name = utilisateurRecup.getName();
 
-        /** PHOTO PART I (prise photo et sauvegarde image) **/
-        /** A noter faire une variable m pour le bouton et l'image (si pas firebase) **/
+                                if (name.equals(editProfil)) {
+                                    Toast.makeText(ConnectionActivity.this, "Nom d'utilisateur déjà utilisé", Toast.LENGTH_LONG).show();
+                                } else {
+                                    if (mPhotoUri == null) {
+                                        /**Partie Firease envoit si il ne prend pas de photo*/
+                                        UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, null, 0, null);
+                                        String utilisateurKey = utilisateursRef.push().getKey();
+                                        utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                                        ConnectionActivity.this.startActivity(intentMap);
+                                    } else {
+                                        /**Partie Firebase envoit avec photo*/
 
-        /** ancien code
-        ivPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-                }
+                                        //sockage dans firebase avec Uri
+                                        mStorageRef = FirebaseStorage.getInstance().getReference();
 
-            }
-        }); **/
+                                        StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
+                                        UploadTask uploadTask = photoRef.putFile(mPhotoUri);
 
-        ivPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                                        // Register observers to listen for when the download is done or if it fails
+                                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                Toast.makeText(ConnectionActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                    //transformation de la photo en String
-                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                    String imageFileName = "JPEG_" + timeStamp + "_";
-                    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                    File image = null;
-                    try {
-                        image = File.createTempFile(
-                                imageFileName,  /* prefix */
-                                ".jpg",         /* suffix */
-                                storageDir      /* directory */
-                        );
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                                                UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, downloadUrl.toString(), 0, null);
+                                                String utilisateurKey = utilisateursRef.push().getKey();
+                                                utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                                                ConnectionActivity.this.startActivity(intentMap);
+                                            }
+                                        });
 
-                    // Save a file: path for use with ACTION_VIEW intents
-                    mCurrentPhotoPath = image.getAbsolutePath();
-                }
-            }
-        });
 
-        Button test = findViewById(R.id.button2);
-        /**Partie recuperation firebase**/
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseReference myRef = database.getReference("utilisateurs");
-
-                myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
-                            String passwordRecup = utilisateurRecup.getPassword();
-
-                            String avatar = utilisateurRecup.getAvatar();
-                            ImageView mImageView = findViewById(R.id.iv_photo);
-                            Glide.with(ConnectionActivity.this).load(avatar).into(mImageView);
+                                    }
+                                }
+                            }
 
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                        }
+                    });
 
+
+                }
+
+
+            }
+        });
+
+
+        ivPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //qd click sur avatar lance toutes les methodes
+                dispatchTakePictureIntent();
             }
         });
 
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ImageView mImageView = findViewById(R.id.iv_photo);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
+    // apl le app photo intent photo
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
 
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                mPhotoUri = FileProvider.getUriForFile(this,
+                        "fr.wildcodeschool.ecowild.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
         }
     }
 
 
+    // creation de limage dans le stockage local
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
 
-    /**ancien code
-     * PHOTO PARTII (récuperation image et on set)
-
+    //recuperer le resultat de la photo stocker en local
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        ImageView mImageView = findViewById(R.id.iv_photo);
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            Glide.with(ConnectionActivity.this).load(mPhotoUri).into(mImageView);
 
-        ImageView photo = findViewById(R.id.iv_photo);
-        mPhotography = (Bitmap) data.getExtras().get("data");
 
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(
-                ConnectionActivity.this.getResources(), mPhotography);
+        }
+    }
 
-        /** on donne une forme ronde et on set l'image où on veut
-        roundedBitmapDrawable.setCircular(true);
-        photo.setImageDrawable(roundedBitmapDrawable);
-    } **/
 }
