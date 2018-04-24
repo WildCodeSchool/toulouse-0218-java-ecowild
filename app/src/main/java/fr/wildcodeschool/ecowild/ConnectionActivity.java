@@ -9,8 +9,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -64,7 +62,7 @@ public class ConnectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connection);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference utilisateursRef = database.getReference("utilisateurs");
+        final DatabaseReference userRef = database.getReference("utilisateurs");
 
         final EditText editTextProfil = findViewById(R.id.edit_text_profil_connection);
         final EditText editTextPassword = findViewById(R.id.edit_text_password_connection);
@@ -162,9 +160,9 @@ public class ConnectionActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
-                                String passwordRecup = utilisateurRecup.getPassword();
-                                String avatar = utilisateurRecup.getAvatar();
+                                UserModel userModel = snapshot.getValue(UserModel.class);
+                                String passwordRecup = userModel.getPassword();
+                                String avatar = userModel.getAvatar();
                                 ImageView mImageView = findViewById(R.id.iv_photo);
                                 Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
@@ -255,9 +253,9 @@ public class ConnectionActivity extends AppCompatActivity {
                             if (dataSnapshot.getChildrenCount() == 0) {
                                 if (mPhotoUri == null) {
                                     /**Partie Firease envoit si il ne prend pas de photo*/
-                                    UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, null, 0, null);
-                                    String utilisateurKey = utilisateursRef.push().getKey();
-                                    utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                                    UserModel userModel = new UserModel(editProfil, editPassword, null, 0, null);
+                                    String userKey = userRef.push().getKey();
+                                    userRef.child(userKey).setValue(userModel);
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     /**Partie Firebase envoit avec photo*/
@@ -280,9 +278,9 @@ public class ConnectionActivity extends AppCompatActivity {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                                            UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, downloadUrl.toString(), 0, null);
-                                            String utilisateurKey = utilisateursRef.push().getKey();
-                                            utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                                            UserModel userModel = new UserModel(editProfil, editPassword, downloadUrl.toString(), 0, null);
+                                            String userKey = userRef.push().getKey();
+                                            userRef.child(userKey).setValue(userModel);
                                             ConnectionActivity.this.startActivity(intentMap);
                                         }
                                     });
@@ -294,11 +292,11 @@ public class ConnectionActivity extends AppCompatActivity {
                             }
                             /** si il y a une correspondance**/
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
-                                String name = utilisateurRecup.getName();
+                                UserModel userModel = snapshot.getValue(UserModel.class);
+                                String name = userModel.getName();
 
                                 if (name.equals(editProfil)) {
-                                    Toast.makeText(ConnectionActivity.this, "Nom d'utilisateur déjà utilisé", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ConnectionActivity.this, R.string.repeat, Toast.LENGTH_LONG).show();
                                 }
 
                             }

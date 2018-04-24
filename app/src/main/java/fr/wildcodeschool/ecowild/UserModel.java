@@ -6,23 +6,23 @@ import android.graphics.Bitmap;
  * Created by wilder on 23/04/18.
  */
 
-public class UtilisateurModel {
+public class UserModel {
     String name;
     String password;
     String avatar;
     int xp;
-    String favoris;
+    String favorites;
 
 
 
-    public UtilisateurModel(){}
+    public UserModel(){}
 
-    public UtilisateurModel(String name, String password, String avatar,int xp, String favoris) {
+    public UserModel(String name, String password, String avatar, int xp, String favorites) {
         this.name = name;
         this.password = password;
         this.avatar = avatar;
         this.xp = xp;
-        this.favoris = favoris;
+        this.favorites = favorites;
     }
 
     public String getName() {
@@ -57,12 +57,12 @@ public class UtilisateurModel {
         this.xp = xp;
     }
 
-    public String getFavoris() {
-        return favoris;
+    public String getFavorites() {
+        return favorites;
     }
 
-    public void setFavoris(String favoris) {
-        this.favoris = favoris;
+    public void setFavorites(String favorites) {
+        this.favorites = favorites;
     }
 }
 
