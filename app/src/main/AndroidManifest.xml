@@ -26,6 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="fr.wildcodeschool.ecowild.fileprovider"
@@ -35,7 +36,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
 
         <activity android:name=".ConnectionActivity" />
         <activity
@@ -65,7 +65,9 @@
         <activity android:name=".ListLocationActivity" />
         <activity android:name=".UsefulInformationActivity" />
         <activity android:name=".Settings" />
-
+        <activity android:name=".PageGaucheInformation" />
+        <activity android:name=".PageDroiteInformation" />
+        <activity android:name=".PageMilieuInformation"></activity>
     </application>
 
 </manifest>
