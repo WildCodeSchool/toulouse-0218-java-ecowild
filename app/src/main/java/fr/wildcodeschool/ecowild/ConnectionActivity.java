@@ -56,6 +56,7 @@ public class ConnectionActivity extends AppCompatActivity {
     private Uri mPhotoUri = null;
     private StorageReference mStorageRef;
 
+
     //TODO mot de passe en crypter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
 
         final Button buttonToLogIn = findViewById(R.id.button_log_in);
-        Button buttonMember = findViewById(R.id.button_create);
+        final Button buttonMember = findViewById(R.id.button_create);
         final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
 
         final SharedPreferences sharedPrefProfil = this.getPreferences(Context.MODE_PRIVATE);
@@ -244,58 +245,61 @@ public class ConnectionActivity extends AppCompatActivity {
                     intentMap.putExtra("username", editProfil);
 
 
-
-
                     /**Partie recuperation firebase pour verif si name n'est pas pris**/
                     DatabaseReference myRef = database.getReference("utilisateurs");
-                    myRef.orderByChild("name").equalTo(editProfil).limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                    myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getChildrenCount() == 0) {
+                                if (mPhotoUri == null) {
+                                    /**Partie Firease envoit si il ne prend pas de photo*/
+                                    UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, null, 0, null);
+                                    String utilisateurKey = utilisateursRef.push().getKey();
+                                    utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                                    ConnectionActivity.this.startActivity(intentMap);
+                                } else {
+                                    /**Partie Firebase envoit avec photo*/
+
+                                    //sockage dans firebase avec Uri
+                                    mStorageRef = FirebaseStorage.getInstance().getReference();
+
+                                    StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
+                                    UploadTask uploadTask = photoRef.putFile(mPhotoUri);
+
+                                    // Register observers to listen for when the download is done or if it fails
+                                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            Toast.makeText(ConnectionActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                                            UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, downloadUrl.toString(), 0, null);
+                                            String utilisateurKey = utilisateursRef.push().getKey();
+                                            utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+                                            ConnectionActivity.this.startActivity(intentMap);
+                                        }
+                                    });
+
+
+
+                                }
+                                return;
+                            }
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
                                 String name = utilisateurRecup.getName();
 
                                 if (name.equals(editProfil)) {
                                     Toast.makeText(ConnectionActivity.this, "Nom d'utilisateur déjà utilisé", Toast.LENGTH_LONG).show();
-                                } else {
-                                    if (mPhotoUri == null) {
-                                        /**Partie Firease envoit si il ne prend pas de photo*/
-                                        UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, null, 0, null);
-                                        String utilisateurKey = utilisateursRef.push().getKey();
-                                        utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
-                                        ConnectionActivity.this.startActivity(intentMap);
-                                    } else {
-                                        /**Partie Firebase envoit avec photo*/
-
-                                        //sockage dans firebase avec Uri
-                                        mStorageRef = FirebaseStorage.getInstance().getReference();
-
-                                        StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
-                                        UploadTask uploadTask = photoRef.putFile(mPhotoUri);
-
-                                        // Register observers to listen for when the download is done or if it fails
-                                        uploadTask.addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception exception) {
-                                                Toast.makeText(ConnectionActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-                                                UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword, downloadUrl.toString(), 0, null);
-                                                String utilisateurKey = utilisateursRef.push().getKey();
-                                                utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
-                                                ConnectionActivity.this.startActivity(intentMap);
-                                            }
-                                        });
-
-
-                                    }
                                 }
+
                             }
+
 
                         }
 
