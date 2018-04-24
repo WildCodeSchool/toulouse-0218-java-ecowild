@@ -33,7 +33,6 @@ public class OwRenderingGlass extends DefaultClusterRenderer<ClusterModel> {
         if (item.getType().equals("Papier/Plastique")){
             markerOptions.snippet(item.getType());
             markerOptions.title(item.getAddress());
-            markerOptions.visible(item.getFilter());
 
             //Bitmap config pour la taille du marqueur
             int height = 150;

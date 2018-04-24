@@ -777,7 +777,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 String id = "v" + c;
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
-                                mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type, mGlassFilter));
+                                mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type));
                                 mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(mClusterMarker);
 
@@ -834,7 +834,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                                 //Cluster et Liste de celui ci pour aller aussi en liste
-                                mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type, mPaperfilter));
+                                mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type));
                                 mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(mClusterMarker);
                             }

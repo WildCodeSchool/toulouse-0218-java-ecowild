@@ -30,7 +30,6 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
     protected void onBeforeClusterItemRendered(ClusterModel item, MarkerOptions markerOptions) {
         markerOptions.snippet(item.getType());
         markerOptions.title(item.getAddress());
-        markerOptions.visible(item.getFilter());
 
         Bitmap bitmap;
 

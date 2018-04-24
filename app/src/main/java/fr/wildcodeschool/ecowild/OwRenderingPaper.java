@@ -33,7 +33,7 @@ public class OwRenderingPaper extends DefaultClusterRenderer<ClusterModel> {
         if (item.getType().equals("Verre")){
             markerOptions.snippet(item.getType());
             markerOptions.title(item.getAddress());
-            markerOptions.visible(item.getFilter());
+
 
             //Bitmap config pour la taille du marqueur
             int height = 150;
