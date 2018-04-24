@@ -45,8 +45,7 @@
         </activity>
         <activity android:name=".ListLocationActivity" />
         <activity
-            android:name=".UsefulInformationActivity"
-            android:screenOrientation="landscape" />
+            android:name=".UsefulInformationActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".PageUneInformation" />
         <activity android:name=".PageTroisInformation" />
