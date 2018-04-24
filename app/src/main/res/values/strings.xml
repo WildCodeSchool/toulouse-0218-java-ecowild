@@ -54,4 +54,5 @@
     <string name="unlock_button">Déverrouiller la position des îcones</string>
     <string name="popup">Popup</string>
     <string name="rang_et_level">Rang et Level</string>
+    <string name="error_identification">Votre mot de passe ou votre nom utilisateur n\'est pas correct</string>
 </resources>

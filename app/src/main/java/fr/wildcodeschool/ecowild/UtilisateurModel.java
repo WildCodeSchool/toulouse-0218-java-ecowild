@@ -9,14 +9,15 @@ import android.graphics.Bitmap;
 public class UtilisateurModel {
     String name;
     String password;
-    Bitmap avatar;
+    String avatar;
     int xp;
     String favoris;
 
 
+
     public UtilisateurModel(){}
 
-    public UtilisateurModel(String name, String password, int xp, String favoris) {
+    public UtilisateurModel(String name, String password, String avatar,int xp, String favoris) {
         this.name = name;
         this.password = password;
         this.avatar = avatar;
@@ -40,11 +41,11 @@ public class UtilisateurModel {
         this.password = password;
     }
 
-    public Bitmap getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Bitmap avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

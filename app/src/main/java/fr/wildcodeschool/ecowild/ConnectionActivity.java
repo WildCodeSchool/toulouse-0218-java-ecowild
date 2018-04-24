@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -20,11 +21,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ConnectionActivity extends AppCompatActivity {
 
@@ -35,6 +42,13 @@ public class ConnectionActivity extends AppCompatActivity {
     public static boolean CONNECTED = false;
     static Bitmap mPhotography;
     int mPasswordVisibility = PASSWORD_HIDDEN;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    String mCurrentPhotoPath;
+    static final int REQUEST_TAKE_PHOTO = 1;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,34 +156,27 @@ public class ConnectionActivity extends AppCompatActivity {
                     myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                                    UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
-                                    String passwordRecup = utilisateurRecup.getPassword();
-                                   
-                                    //Toast.makeText(ConnectionActivity.this, passwordRecup, Toast.LENGTH_SHORT).show();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
+                                String passwordRecup = utilisateurRecup.getPassword();
 
-                                    if(passwordRecup.equals(editPassword)){
-                                        Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                                        intentMap.putExtra("username", editProfil);
-                                        ConnectionActivity.this.startActivity(intentMap);
-                                    }
-                                    else{
-                                        Toast.makeText(ConnectionActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                                    }
+                                if (passwordRecup.equals(editPassword)) {
+                                    Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
+                                    intentMap.putExtra("username", editProfil);
+                                    ConnectionActivity.this.startActivity(intentMap);
+                                } else {
+                                    Toast.makeText(ConnectionActivity.this, R.string.error_identification, Toast.LENGTH_SHORT).show();
                                 }
+                            }
 
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {}
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
 
-                    
-                   
 
-
-
-                    
                 }
 
                 if (checkBoxToLogIn.isChecked()) {
@@ -203,11 +210,11 @@ public class ConnectionActivity extends AppCompatActivity {
                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                     intentMap.putExtra("username", editProfil);
 
-                    /**Partie Firease**/
-                    UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword,0, null);
-
+                    /**Partie Firease envoit**/
+                    UtilisateurModel utilisateurs = new UtilisateurModel(editProfil, editPassword,mCurrentPhotoPath, 0, null);
                     String utilisateurKey = utilisateursRef.push().getKey();
                     utilisateursRef.child(utilisateurKey).setValue(utilisateurs);
+
                     ConnectionActivity.this.startActivity(intentMap);
                 }
                 if (!editPassword.equals(editPassword2) && !editPassword.isEmpty() && !editPassword2.isEmpty()) {
@@ -245,25 +252,96 @@ public class ConnectionActivity extends AppCompatActivity {
         /** PHOTO PART I (prise photo et sauvegarde image) **/
         /** A noter faire une variable m pour le bouton et l'image (si pas firebase) **/
 
+        /** ancien code
         ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                }
+
+            }
+        }); **/
+
+        ivPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+                    //transformation de la photo en String
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                    String imageFileName = "JPEG_" + timeStamp + "_";
+                    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    File image = null;
+                    try {
+                        image = File.createTempFile(
+                                imageFileName,  /* prefix */
+                                ".jpg",         /* suffix */
+                                storageDir      /* directory */
+                        );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Save a file: path for use with ACTION_VIEW intents
+                    mCurrentPhotoPath = image.getAbsolutePath();
+                }
+            }
+        });
+
+        Button test = findViewById(R.id.button2);
+        /**Partie recuperation firebase**/
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference myRef = database.getReference("utilisateurs");
+
+                myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            UtilisateurModel utilisateurRecup = snapshot.getValue(UtilisateurModel.class);
+                            String passwordRecup = utilisateurRecup.getPassword();
+
+                            String avatar = utilisateurRecup.getAvatar();
+                            ImageView mImageView = findViewById(R.id.iv_photo);
+                            Glide.with(ConnectionActivity.this).load(avatar).into(mImageView);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
             }
         });
 
 
-
-
-
-
-
     }
 
-    /**
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ImageView mImageView = findViewById(R.id.iv_photo);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageView.setImageBitmap(imageBitmap);
+
+        }
+    }
+
+
+
+
+    /**ancien code
      * PHOTO PARTII (récuperation image et on set)
-     **/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -274,8 +352,8 @@ public class ConnectionActivity extends AppCompatActivity {
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(
                 ConnectionActivity.this.getResources(), mPhotography);
 
-        /** on donne une forme ronde et on set l'image où on veut **/
+        /** on donne une forme ronde et on set l'image où on veut
         roundedBitmapDrawable.setCircular(true);
         photo.setImageDrawable(roundedBitmapDrawable);
-    }
+    } **/
 }
