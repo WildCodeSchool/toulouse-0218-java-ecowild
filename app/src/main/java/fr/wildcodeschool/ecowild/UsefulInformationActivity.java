@@ -27,7 +27,6 @@ public class UsefulInformationActivity extends FragmentActivity {
         fragments.add(Fragment.instantiate(this,PageTroisInformation.class.getName()));
         fragments.add(Fragment.instantiate(this,PageQuatreInformation.class.getName()));
         fragments.add(Fragment.instantiate(this,PageCinqInformation.class.getName()));
-        fragments.add(Fragment.instantiate(this,PageSixInformation.class.getName()));
 
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
         // Fragments
