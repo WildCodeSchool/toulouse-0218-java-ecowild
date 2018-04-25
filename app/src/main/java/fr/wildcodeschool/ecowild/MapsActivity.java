@@ -138,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Partie XP */
         final ProgressBar pbXpImg = findViewById(R.id.pb_xp);
-        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
+        final ExperienceModel experienceModel = new ExperienceModel(0, 1, 1);
         final TextView rank = findViewById(R.id.tv_rank);
         final MagicButton mbXp = findViewById(R.id.magic_button);
 
@@ -146,12 +146,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getExperienceGain());
-                pbXpImg.setProgress(10);
-                pbXpImg.setProgress(experienceModelModel.getExperience());
+                experienceModel.setExperience(experienceModel.getExperience() + experienceModel.getExperienceGain());
 
-                if (experienceModelModel.getExperience() == 10) {
+               int currentXp = experienceModel.getExperience()%10;
+
+                pbXpImg.setProgress(currentXp);
+
+                if (experienceModel.getExperience()%10 == 0) {
                     pbXpImg.setProgress(0);
+                    experienceModel.setLevel(experienceModel.getLevel() + 1);
+                }
+
+                if (experienceModel.getLevel() >= 10) {
+                    rank.setText(R.string.rang5);
+                }
+
+                else if (experienceModel.getLevel() >= 7) {
+                    rank.setText(R.string.rang4);
+                }
+
+                else if (experienceModel.getLevel() >= 5) {
+                    rank.setText(R.string.rang3);
+                }
+
+                else if (experienceModel.getLevel() >= 3) {
+                    rank.setText(R.string.rang2);
+                }
+
+                else if (experienceModel.getLevel() >= 1) {
+                    rank.setText(R.string.rang1);
                 }
 
                 LayoutInflater inflater = getLayoutInflater();

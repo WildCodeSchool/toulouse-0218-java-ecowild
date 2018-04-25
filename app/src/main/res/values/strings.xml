@@ -53,5 +53,10 @@
     <string name="lock_buttons">Verrouiller la position des îcones</string>
     <string name="unlock_button">Déverrouiller la position des îcones</string>
     <string name="popup">Popup</string>
-    <string name="rang_et_level">Rang et Level</string>
+    <string name="rang">EcoNoob</string>
+    <string name="rang1">EcoNoob</string>
+    <string name="rang2">EcoCool</string>
+    <string name="rang3">EcoFan</string>
+    <string name="rang4">EcoWild</string>
+    <string name="rang5">EcoGod</string>
 </resources>

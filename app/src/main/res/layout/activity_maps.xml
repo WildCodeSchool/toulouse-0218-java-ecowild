@@ -175,7 +175,7 @@
             android:layout_marginTop="8dp"
             android:shadowColor="@color/colorBlack"
             android:shadowRadius="20"
-            android:text="@string/rang_et_level"
+            android:text="@string/rang"
             android:textColor="#f8dc81"
             android:textSize="24sp"
             android:textStyle="bold"
