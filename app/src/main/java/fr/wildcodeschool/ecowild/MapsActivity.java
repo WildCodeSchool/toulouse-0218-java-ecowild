@@ -536,7 +536,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
+
             accountImgCreation.setBackground(null);
+
 
         }
 
