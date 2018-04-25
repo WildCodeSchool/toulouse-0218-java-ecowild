@@ -37,25 +37,13 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/papier"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_favoris"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_favoris"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/etoile"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_itineraire"
+            app:layout_constraintStart_toEndOf="@+id/address"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView

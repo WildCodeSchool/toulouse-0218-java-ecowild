@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.util.ArrayList;
+
 
 public class ClusterModel implements ClusterItem, Parcelable {
 
@@ -28,22 +30,19 @@ public class ClusterModel implements ClusterItem, Parcelable {
 
     String address;
     String type;
-    boolean filter;
     double lat;
     double lng;
 
-    public ClusterModel(double lat, double lng, String address, String type, boolean filter) {
+    public ClusterModel(double lat, double lng, String address, String type) {
         this.lng = lng;
         this.lat = lat;
         this.address = address;
         this.type = type;
-        this.filter = filter;
     }
 
     protected ClusterModel(Parcel in) {
         address = in.readString();
         type = in.readString();
-        filter = in.readByte() != 0;
         lat = in.readDouble();
         lng = in.readDouble();
     }
@@ -55,14 +54,6 @@ public class ClusterModel implements ClusterItem, Parcelable {
 
     public String getType() {
         return type;
-    }
-
-    public Boolean getFilter() {
-        return filter;
-    }
-
-    public void setFilter(boolean filter) {
-        this.filter = filter;
     }
 
     public String getAddress() {
@@ -88,9 +79,13 @@ public class ClusterModel implements ClusterItem, Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(address);
         parcel.writeString(type);
-        parcel.writeByte((byte) (filter ? 1 : 0));
         parcel.writeDouble(lat);
         parcel.writeDouble(lng);
 
+    }
+
+    public ClusterModel clone() {
+        ClusterModel clone = new ClusterModel(lat, lng, address, type);
+        return clone;
     }
 }

@@ -62,12 +62,11 @@
     <string name="niveau">Niveau : 1</string>
     <string name="lvl">Niveau : %d</string>
     <string name="rang_et_level">Rang et Level</string>
-
     <string name="error_identification">Votre mot de passe ou votre nom utilisateur n\'est pas correct</string>
-
     <string name="page_de_droite">Page de droite</string>
     <string name="page_de_gauche">Page de gauche</string>
     <string name="page_du_milieu">Page du milieu</string>
+    <string name="filter_alert">Merci de garder un filtre activé</string>
     <string name="repeat">Nom d\'utilisateur déjà utilisé</string>
 
 </resources>
