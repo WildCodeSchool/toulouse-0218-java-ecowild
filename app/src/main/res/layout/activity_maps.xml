@@ -29,7 +29,8 @@
             map:layout_constraintStart_toEndOf="@+id/button_left"
             map:layout_constraintTop_toTopOf="parent"
             map:layout_constraintVertical_bias="0.0"
-            tools:context="fr.wildcodeschool.ecowild.MapsActivity" />
+            tools:context="fr.wildcodeschool.ecowild.MapsActivity"
+            app:layout_constraintStart_toEndOf="@+id/iv_left" />
 
         <Switch
             android:id="@+id/go_list"
@@ -75,16 +76,18 @@
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/button_left"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:alpha="1"
             android:background="@drawable/icon_avatar"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
+
+
 
         <br.com.bloder.magic.view.MagicButton
             android:id="@+id/magic_button"

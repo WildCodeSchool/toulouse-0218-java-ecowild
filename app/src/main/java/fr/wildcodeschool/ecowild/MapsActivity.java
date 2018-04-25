@@ -18,8 +18,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -69,7 +67,6 @@ import java.util.ArrayList;
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
-import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -255,7 +252,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     /** faire bouger boutton*/
                     //Dire ou on veut qu'on puisse faire une action
-                    final View dragView = findViewById(R.id.button_left);
+                    final View dragView = findViewById(R.id.iv_left);
                     //l'ecouter et en fct de mouvement faire tel ou tel chose
                     dragView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
@@ -337,7 +334,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             return false;
                         }
                     });
-                    final View dragView = findViewById(R.id.button_left);
+                    final View dragView = findViewById(R.id.iv_left);
                     dragView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
@@ -375,7 +372,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     /** faire bouger boutton*/
                     //Dire ou on veut qu'on puisse faire une action
-                    final View dragView = findViewById(R.id.button_left);
+                    final View dragView = findViewById(R.id.iv_left);
                     //l'ecouter et en fct de mouvement faire tel ou tel chose
                     dragView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
@@ -457,7 +454,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             return false;
                         }
                     });
-                    final View dragView = findViewById(R.id.button_left);
+                    final View dragView = findViewById(R.id.iv_left);
                     dragView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
@@ -520,7 +517,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         final Button buttonRight = findViewById(R.id.button_right);
-        final Button buttonLeft = findViewById(R.id.button_left);
+        final ImageView buttonLeft = findViewById(R.id.iv_left);
 
         if (ConnectionActivity.CONNECTED) {
 
@@ -530,6 +527,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             level.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
+            Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
 
             accountImgCreation.setBackground(null);
 
