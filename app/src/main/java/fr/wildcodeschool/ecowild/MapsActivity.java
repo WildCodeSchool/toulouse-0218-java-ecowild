@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         /**initi singleton*/
-        UserSingleton userSingleton=UserSingleton.getInstance();
+        UserSingleton userSingleton = UserSingleton.getInstance();
 
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 

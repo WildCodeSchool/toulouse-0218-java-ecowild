@@ -83,8 +83,6 @@ public class ConnectionActivity extends AppCompatActivity {
         final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
 
 
-
-
         final SharedPreferences sharedPrefProfil = this.getPreferences(Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
         editTextProfil.setText(username);
@@ -105,7 +103,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     mPasswordVisibility = PASSWORD_HIDDEN;
                 }
-             }
+            }
         });
 
         imageViewPassword2.setOnClickListener(new View.OnClickListener() {
@@ -163,9 +161,9 @@ public class ConnectionActivity extends AppCompatActivity {
                                 UserModel userModel = snapshot.getValue(UserModel.class);
                                 String passwordRecup = userModel.getPassword();
                                 String avatar = userModel.getAvatar();
-                                String name= userModel.getName();
-                                int xp=userModel.getXp();
-                                int level=userModel.getLevel();
+                                String name = userModel.getName();
+                                int xp = userModel.getXp();
+                                int level = userModel.getLevel();
 
                                 ImageView mImageView = findViewById(R.id.iv_photo);
                                 Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
@@ -174,7 +172,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 if (passwordRecup.equals(editPassword)) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                                     /** partie Singleton*/
-                                    userModelSingleton(name,passwordRecup,avatar,xp,level);
+                                    userModelSingleton(name, passwordRecup, avatar, xp, level);
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     Toast.makeText(ConnectionActivity.this, R.string.error_identification, Toast.LENGTH_SHORT).show();
@@ -262,7 +260,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                     userRef.child(userKey).setValue(userModel);
 
                                     /**Partie Singleton*/
-                                    userModelSingleton(editProfil, editPassword,null,0,1 );
+                                    userModelSingleton(editProfil, editPassword, null, 0, 1);
 
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
@@ -291,13 +289,12 @@ public class ConnectionActivity extends AppCompatActivity {
                                             userRef.child(userKey).setValue(userModel);
 
                                             /**Partie Singleton*/
-                                            userModelSingleton(editProfil, editPassword,downloadUrl.toString(),0,1 );
+                                            userModelSingleton(editProfil, editPassword, downloadUrl.toString(), 0, 1);
 
 
                                             ConnectionActivity.this.startActivity(intentMap);
                                         }
                                     });
-
 
 
                                 }
@@ -395,8 +392,8 @@ public class ConnectionActivity extends AppCompatActivity {
         }
     }
 
-    public void userModelSingleton(String textName, String textPassword, String textAvatar, int intXp, int intLevel){
-        UserSingleton userSingleton=UserSingleton.getInstance();
+    public void userModelSingleton(String textName, String textPassword, String textAvatar, int intXp, int intLevel) {
+        UserSingleton userSingleton = UserSingleton.getInstance();
         userSingleton.setTextName(textName);
         userSingleton.setTextPassword(textPassword);
         userSingleton.setTextAvatar(textAvatar);
