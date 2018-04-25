@@ -60,4 +60,5 @@
     <string name="rang4">EcoWild</string>
     <string name="rang5">EcoGod</string>
     <string name="niveau">Niveau : 1</string>
+    <string name="lvl">Niveau : %d</string>
 </resources>

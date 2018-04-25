@@ -156,7 +156,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (experienceModel.getExperience() % 10 == 0) {
                     pbXpImg.setProgress(0);
                     experienceModel.setLevel(experienceModel.getLevel() + 1);
-                    level.setText(String.format("Niveau : %d", experienceModel.getLevel()));
+                    level.setText(String.format(getString(R.string.lvl), experienceModel.getLevel()));
                 }
 
                 if (experienceModel.getLevel() >= 10) {
