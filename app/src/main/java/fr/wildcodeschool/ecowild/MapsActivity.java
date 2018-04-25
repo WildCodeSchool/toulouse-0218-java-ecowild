@@ -41,6 +41,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -94,6 +96,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        /**initi singleton*/
+        UserSingleton userSingleton=UserSingleton.getInstance();
 
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
@@ -527,17 +532,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (ConnectionActivity.CONNECTED) {
 
-            String username = getIntent().getStringExtra("username");
-            pseudo.setText(username);
+            pseudo.setText(userSingleton.getTextName());
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
-            accountImgCreation.setImageBitmap(mPhotography);
-
+            Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
             accountImgCreation.setBackground(null);
-            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
-            roundedBitmapDrawable.setCircular(true);
-            accountImgCreation.setImageDrawable(roundedBitmapDrawable);
+
         }
 
         if (!ConnectionActivity.CONNECTED) {

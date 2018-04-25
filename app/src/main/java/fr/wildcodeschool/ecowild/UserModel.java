@@ -11,18 +11,19 @@ public class UserModel {
     String password;
     String avatar;
     int xp;
-    String favorites;
+    int level;
+
 
 
 
     public UserModel(){}
 
-    public UserModel(String name, String password, String avatar, int xp, String favorites) {
+    public UserModel(String name, String password, String avatar, int xp, int level) {
         this.name = name;
         this.password = password;
         this.avatar = avatar;
         this.xp = xp;
-        this.favorites = favorites;
+        this.level =level;
     }
 
     public String getName() {
@@ -57,13 +58,10 @@ public class UserModel {
         this.xp = xp;
     }
 
-    public String getFavorites() {
-        return favorites;
-    }
+    public int getLevel(){return level;}
 
-    public void setFavorites(String favorites) {
-        this.favorites = favorites;
-    }
+    public void setLevel(){this.level=level;}
+
 }
 
 
