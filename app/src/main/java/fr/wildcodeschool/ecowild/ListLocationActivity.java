@@ -32,6 +32,7 @@ public class ListLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listlocationactivity);
 
         ListView locationList = findViewById(R.id.location_list);
+        final ImageView itinary = findViewById(R.id.iv_itineraire);
 
         Switch goMap = findViewById(R.id.go_Map);
 
@@ -48,17 +49,16 @@ public class ListLocationActivity extends AppCompatActivity {
             }
         });
 
-        locationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ClusterModel location = adapter.getItem(i);
-                String address = location.getAddress();
 
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("google.navigation:q=" + address + "&mode=b"));
-                startActivity(intent);
-            }
-        });
+        /**
+         ClusterModel location = adapter.getItem(listElement);
+         String address = locatiion.getAddress();
+
+         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+         Uri.parse("google.navigation:q=" + address + "&mode=b"));
+         startActivity(intent);
+         **/
+
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -82,12 +82,7 @@ public class ListLocationActivity extends AppCompatActivity {
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
         SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        final ImageView favFilter = new ImageView(ListLocationActivity.this); // Create an icon
-        favFilter.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
-        SubActionButton sabFavorite = listeBuilder.setContentView(favFilter).build();
-
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
-        sabFavorite.setLayoutParams(layoutParam);
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
@@ -95,7 +90,6 @@ public class ListLocationActivity extends AppCompatActivity {
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(ListLocationActivity.this)
                 .addSubActionView(sabGlass)
                 .addSubActionView(sabPaper)
-                .addSubActionView(sabFavorite)
                 .attachTo(actionButton)
                 .build();
 
@@ -103,17 +97,62 @@ public class ListLocationActivity extends AppCompatActivity {
         sabPaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mGlassFilter) {
-                    for (int i = 0; i < mlistData.size(); i++) {
-                        if (mlistData.get(i).getType().equals("Papier/Plastique")) {
-                        }
-                    }
-                    mGlassFilter = false;
-                    paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
-                } else {
 
-                    mGlassFilter = true;
+                if (mPaperfilter) {
+
+                    mPaperfilter = false;
+
+                    if ((!mPaperfilter) & (!mGlassFilter)) {
+
+                        Toast.makeText(ListLocationActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_LONG).show();
+                        mPaperfilter = true;
+                    } else {
+
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                        adapter.filterList("Verre");
+
+                    }
+
+                } else {
+                    mPaperfilter = true;
                     paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+                    adapter.filterList(null);
+
+                }
+            }
+        });
+
+        sabGlass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if ((!mPaperfilter) & (!mGlassFilter)) {
+
+                    Toast.makeText(ListLocationActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_SHORT).show();
+                }
+
+                if (mGlassFilter) {
+
+                    mGlassFilter = false;
+
+                    if ((!mPaperfilter) & (!mGlassFilter)) {
+
+                        Toast.makeText(ListLocationActivity.this, "Please keep one filter active", Toast.LENGTH_SHORT).show();
+                        mGlassFilter = true;
+                    } else {
+
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+
+                        adapter.filterList("Papier/Plastique");
+
+                    }
+
+                } else {
+                    mGlassFilter = true;
+                    adapter.filterList(null);
+
+
+                    glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                 }
             }
         });

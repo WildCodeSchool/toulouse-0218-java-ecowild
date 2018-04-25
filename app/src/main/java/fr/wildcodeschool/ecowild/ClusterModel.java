@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.util.ArrayList;
+
 
 public class ClusterModel implements ClusterItem, Parcelable {
 
@@ -80,5 +82,10 @@ public class ClusterModel implements ClusterItem, Parcelable {
         parcel.writeDouble(lat);
         parcel.writeDouble(lng);
 
+    }
+
+    public ClusterModel clone() {
+        ClusterModel clone = new ClusterModel(lat, lng, address, type);
+        return clone;
     }
 }

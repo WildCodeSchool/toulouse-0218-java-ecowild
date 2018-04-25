@@ -119,12 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
         SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        final ImageView favFilter = new ImageView(MapsActivity.this); // Create an icon
-        favFilter.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.etoile));
-        SubActionButton sabFavorite = listeBuilder.setContentView(favFilter).build();
-
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
-        sabFavorite.setLayoutParams(layoutParam);
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
@@ -132,7 +127,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabGlass)
                 .addSubActionView(sabPaper)
-                .addSubActionView(sabFavorite)
                 .attachTo(actionButton)
                 .build();
 
@@ -589,9 +583,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 if (mGlassFilter) {
-                    mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
+
                     mGlassFilter = false;
-                    glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+
+                    if ((!mPaperfilter) & (!mGlassFilter)) {
+                        Toast.makeText(MapsActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_LONG).show();
+                        mGlassFilter = true;
+                    } else {
+                        mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+                    }
+
                 } else {
                     mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = true;
@@ -605,8 +607,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 if (mPaperfilter) {
                     mPaperfilter = false;
-                    mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
-                    paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                    if ((!mPaperfilter) & (!mGlassFilter)) {
+                        Toast.makeText(MapsActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_LONG).show();
+                        mPaperfilter = true;
+                    } else {
+                        mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                    }
+
                 } else {
                     mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mPaperfilter = true;
