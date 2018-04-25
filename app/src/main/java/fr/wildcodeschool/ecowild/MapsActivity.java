@@ -143,20 +143,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Partie XP */
         final ProgressBar pbXpImg = findViewById(R.id.pb_xp);
-        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
+        final ExperienceModel experienceModel = new ExperienceModel(0, 1, 1);
         final TextView rank = findViewById(R.id.tv_rank);
+        final TextView level = findViewById(R.id.tv_level);
         final MagicButton mbXp = findViewById(R.id.magic_button);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getExperienceGain());
-                pbXpImg.setProgress(10);
-                pbXpImg.setProgress(experienceModelModel.getExperience());
+                experienceModel.setExperience(experienceModel.getExperience() + experienceModel.getExperienceGain());
 
-                if (experienceModelModel.getExperience() == 10) {
+                int currentXp = experienceModel.getExperience() % 10;
+
+                pbXpImg.setProgress(currentXp);
+
+                if (experienceModel.getExperience() % 10 == 0) {
                     pbXpImg.setProgress(0);
+                    experienceModel.setLevel(experienceModel.getLevel() + 1);
+                    level.setText(String.format(getString(R.string.lvl), experienceModel.getLevel()));
+                }
+
+                if (experienceModel.getLevel() >= 10) {
+                    rank.setText(R.string.rang5);
+                }
+
+                else if (experienceModel.getLevel() >= 7) {
+                    rank.setText(R.string.rang4);
+                }
+
+                else if (experienceModel.getLevel() >= 5) {
+                    rank.setText(R.string.rang3);
+                }
+
+                else if (experienceModel.getLevel() >= 3) {
+                    rank.setText(R.string.rang2);
+                }
+
+                else if (experienceModel.getLevel() >= 1) {
+                    rank.setText(R.string.rang1);
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -214,11 +239,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
         final TextView tvParameter = findViewById(R.id.tv_parameter);
         final TextView tvUsefulInformation = findViewById(R.id.tv_useful_information);
-        final TextView tvFavorite = findViewById(R.id.tv_favorite);
         final TextView tvMove = findViewById(R.id.tv_move);
         final ImageView ivParameter = findViewById(R.id.imageButton);
         final ImageView ivUsefulInformation = findViewById(R.id.iv_information);
-        final ImageView ivFavorite = findViewById(R.id.iv_favorite);
         final ImageView ivMove = findViewById(R.id.iv_move);
 
         tvMove.setOnClickListener(new View.OnClickListener() {
@@ -493,21 +516,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        tvFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(intentFavorite);
-            }
-        });
-
-        ivFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intentFavorite);
-            }
-        });
-
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
@@ -534,6 +542,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setText(userSingleton.getTextName());
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            level.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
 

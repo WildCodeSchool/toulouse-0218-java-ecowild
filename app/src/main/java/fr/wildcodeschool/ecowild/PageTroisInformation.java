@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PageGaucheInformation extends Fragment {
+public class PageTroisInformation extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.page_gauche_layout, container, false);
+        return inflater.inflate(R.layout.page_trois_layout, container, false);
     }
 }
