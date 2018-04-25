@@ -18,8 +18,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -69,7 +67,6 @@ import java.util.ArrayList;
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
-import static fr.wildcodeschool.ecowild.ConnectionActivity.mPhotography;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -140,6 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ExperienceModel experienceModel = new ExperienceModel(0, 1, 1);
         final TextView rank = findViewById(R.id.tv_rank);
         final TextView level = findViewById(R.id.tv_level);
+        final TextView xp = findViewById(R.id.tv_xp);
         final MagicButton mbXp = findViewById(R.id.magic_button);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
@@ -156,6 +154,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     pbXpImg.setProgress(0);
                     experienceModel.setLevel(experienceModel.getLevel() + 1);
                     level.setText(String.format(getString(R.string.lvl), experienceModel.getLevel()));
+                    xp.setText("0/10");
+                }
+
+                if (experienceModel.getExperience() % 10 != 0) {
+                    xp.setText(String.format(getString(R.string.xp_progress), experienceModel.getExperience() % 10));
                 }
 
                 if (experienceModel.getLevel() >= 10) {
@@ -537,6 +540,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             level.setVisibility(View.VISIBLE);
+            xp.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
 

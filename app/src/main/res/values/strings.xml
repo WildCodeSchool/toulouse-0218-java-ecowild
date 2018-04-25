@@ -68,5 +68,7 @@
     <string name="page_du_milieu">Page du milieu</string>
     <string name="filter_alert">Merci de garder un filtre activé</string>
     <string name="repeat">Nom d\'utilisateur déjà utilisé</string>
+    <string name="xp_base">0/10</string>
+    <string name="xp_progress">%d/10</string>
 
 </resources>
