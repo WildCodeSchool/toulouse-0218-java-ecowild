@@ -26,6 +26,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +39,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -136,6 +139,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 CONNECTED = true;
                 final String editProfil = editTextProfil.getText().toString();
                 final String editPassword = editTextPassword.getText().toString();
+                final HashCode hashCode = Hashing.sha256().hashString(editPassword, Charset.defaultCharset());
                 final String editPassword2 = editTextPassword2.getText().toString();
 
 
@@ -169,7 +173,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
 
-                                if (passwordRecup.equals(editPassword)) {
+                                if (passwordRecup.equals(hashCode.toString())) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                                     /** partie Singleton*/
                                     userModelSingleton(name, passwordRecup, avatar, xp, level);
@@ -204,6 +208,8 @@ public class ConnectionActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String editPassword = editTextPassword.getText().toString();
+                final HashCode hashCode = Hashing.sha256().hashString(editPassword, Charset.defaultCharset());
+
                 final String editPassword2 = editTextPassword2.getText().toString();
                 final String editProfil = editTextProfil.getText().toString();
                 ivAppareilPhoto.setVisibility(View.VISIBLE);
@@ -255,12 +261,12 @@ public class ConnectionActivity extends AppCompatActivity {
 
                                 if (mPhotoUri == null) {
                                     /**Partie Firease envoit si il ne prend pas de photo*/
-                                    UserModel userModel = new UserModel(editProfil, editPassword, null, 0, 1);
+                                    UserModel userModel = new UserModel(editProfil, hashCode.toString(), null, 0, 1);
                                     String userKey = userRef.push().getKey();
                                     userRef.child(userKey).setValue(userModel);
 
                                     /**Partie Singleton*/
-                                    userModelSingleton(editProfil, editPassword, null, 0, 1);
+                                    userModelSingleton(editProfil, hashCode.toString(), null, 0, 1);
 
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
@@ -284,12 +290,12 @@ public class ConnectionActivity extends AppCompatActivity {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                                            UserModel userModel = new UserModel(editProfil, editPassword, downloadUrl.toString(), 0, 1);
+                                            UserModel userModel = new UserModel(editProfil, hashCode.toString(), downloadUrl.toString(), 0, 1);
                                             String userKey = userRef.push().getKey();
                                             userRef.child(userKey).setValue(userModel);
 
                                             /**Partie Singleton*/
-                                            userModelSingleton(editProfil, editPassword, downloadUrl.toString(), 0, 1);
+                                            userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), 0, 1);
 
 
                                             ConnectionActivity.this.startActivity(intentMap);
