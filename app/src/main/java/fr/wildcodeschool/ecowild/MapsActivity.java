@@ -41,6 +41,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -94,6 +96,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        /**initi singleton*/
+        UserSingleton userSingleton = UserSingleton.getInstance();
 
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
@@ -478,36 +483,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-
+        final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
+        final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+        final Intent intentFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvParameter = new Intent(MapsActivity.this, Settings.class);
-                startActivity(intentTvParameter);
+
+                startActivity(intentParameter);
             }
         });
 
         ivParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvParameter = new Intent(MapsActivity.this, Settings.class);
-                startActivity(intentIvParameter);
+                startActivity(intentParameter);
             }
         });
 
         tvUsefulInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentTvUsefulInformation);
+
+                startActivity(intentUsefulInformation);
             }
         });
 
         ivUsefulInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentIvUsefulInformation);
+                startActivity(intentUsefulInformation);
             }
         });
 
@@ -534,18 +539,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (ConnectionActivity.CONNECTED) {
 
-            String username = getIntent().getStringExtra("username");
-            pseudo.setText(username);
+            pseudo.setText(userSingleton.getTextName());
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             level.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
-            accountImgCreation.setImageBitmap(mPhotography);
+            Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
 
             accountImgCreation.setBackground(null);
-            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
-            roundedBitmapDrawable.setCircular(true);
-            accountImgCreation.setImageDrawable(roundedBitmapDrawable);
+
+
         }
 
         if (!ConnectionActivity.CONNECTED) {
@@ -757,7 +760,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestGlassQueue = Volley.newRequestQueue(this);
 
-        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=150";
+        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=50";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestGlass = new JsonObjectRequest(
@@ -813,7 +816,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestPaperQueue = Volley.newRequestQueue(this);
 
-        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=150";
+        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=50";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestPaper = new JsonObjectRequest(
