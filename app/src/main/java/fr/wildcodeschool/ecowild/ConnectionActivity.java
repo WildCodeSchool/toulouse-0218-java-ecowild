@@ -61,6 +61,7 @@ public class ConnectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("utilisateurs");
 
@@ -76,15 +77,11 @@ public class ConnectionActivity extends AppCompatActivity {
         final ImageView ivPhoto = findViewById(R.id.iv_photo);
         final ImageView ivAppareilPhoto = findViewById(R.id.iv_appareil_photo);
 
-        final String editProfil = editTextProfil.getText().toString();
-        final String editPassword = editTextPassword.getText().toString();
-        final String editPassword2 = editTextPassword2.getText().toString();
-        final String passwordU;
-
 
         final Button buttonToLogIn = findViewById(R.id.button_log_in);
         final Button buttonMember = findViewById(R.id.button_create);
         final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
+
 
         final SharedPreferences sharedPrefProfil = this.getPreferences(Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
@@ -141,6 +138,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 final String editPassword = editTextPassword.getText().toString();
                 final String editPassword2 = editTextPassword2.getText().toString();
 
+
                 if (editProfil.isEmpty() || editPassword.isEmpty()) {
 
                     LayoutInflater inflater = getLayoutInflater();
@@ -163,13 +161,18 @@ public class ConnectionActivity extends AppCompatActivity {
                                 UserModel userModel = snapshot.getValue(UserModel.class);
                                 String passwordRecup = userModel.getPassword();
                                 String avatar = userModel.getAvatar();
+                                String name = userModel.getName();
+                                int xp = userModel.getXp();
+                                int level = userModel.getLevel();
+
                                 ImageView mImageView = findViewById(R.id.iv_photo);
                                 Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
 
                                 if (passwordRecup.equals(editPassword)) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                                    intentMap.putExtra("username", editProfil);
+                                    /** partie Singleton*/
+                                    userModelSingleton(name, passwordRecup, avatar, xp, level);
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     Toast.makeText(ConnectionActivity.this, R.string.error_identification, Toast.LENGTH_SHORT).show();
@@ -241,8 +244,6 @@ public class ConnectionActivity extends AppCompatActivity {
                 } else {
                     CONNECTED = true;
                     final Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
-                    intentMap.putExtra("username", editProfil);
-
 
                     /**Partie recuperation firebase pour verif si name n'est pas pris**/
                     DatabaseReference myRef = database.getReference("utilisateurs");
@@ -251,11 +252,16 @@ public class ConnectionActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             /**si il ne trouve pas de correspondance il envoit les infos*/
                             if (dataSnapshot.getChildrenCount() == 0) {
+
                                 if (mPhotoUri == null) {
                                     /**Partie Firease envoit si il ne prend pas de photo*/
-                                    UserModel userModel = new UserModel(editProfil, editPassword, null, 0, null);
+                                    UserModel userModel = new UserModel(editProfil, editPassword, null, 0, 1);
                                     String userKey = userRef.push().getKey();
                                     userRef.child(userKey).setValue(userModel);
+
+                                    /**Partie Singleton*/
+                                    userModelSingleton(editProfil, editPassword, null, 0, 1);
+
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     /**Partie Firebase envoit avec photo*/
@@ -278,13 +284,17 @@ public class ConnectionActivity extends AppCompatActivity {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                                            UserModel userModel = new UserModel(editProfil, editPassword, downloadUrl.toString(), 0, null);
+                                            UserModel userModel = new UserModel(editProfil, editPassword, downloadUrl.toString(), 0, 1);
                                             String userKey = userRef.push().getKey();
                                             userRef.child(userKey).setValue(userModel);
+
+                                            /**Partie Singleton*/
+                                            userModelSingleton(editProfil, editPassword, downloadUrl.toString(), 0, 1);
+
+
                                             ConnectionActivity.this.startActivity(intentMap);
                                         }
                                     });
-
 
 
                                 }
@@ -380,6 +390,15 @@ public class ConnectionActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public void userModelSingleton(String textName, String textPassword, String textAvatar, int intXp, int intLevel) {
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        userSingleton.setTextName(textName);
+        userSingleton.setTextPassword(textPassword);
+        userSingleton.setTextAvatar(textAvatar);
+        userSingleton.setIntXp(intXp);
+        userSingleton.setIntLevel(intLevel);
     }
 
 }
