@@ -160,21 +160,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (experienceModel.getLevel() >= 10) {
                     rank.setText(R.string.rang5);
-                }
-
-                else if (experienceModel.getLevel() >= 7) {
+                } else if (experienceModel.getLevel() >= 7) {
                     rank.setText(R.string.rang4);
-                }
-
-                else if (experienceModel.getLevel() >= 5) {
+                } else if (experienceModel.getLevel() >= 5) {
                     rank.setText(R.string.rang3);
-                }
-
-                else if (experienceModel.getLevel() >= 3) {
+                } else if (experienceModel.getLevel() >= 3) {
                     rank.setText(R.string.rang2);
-                }
-
-                else if (experienceModel.getLevel() >= 1) {
+                } else if (experienceModel.getLevel() >= 1) {
                     rank.setText(R.string.rang1);
                 }
 
@@ -479,7 +471,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
         final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-        final Intent intentFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+        final Intent account = new Intent(MapsActivity.this, ConnectionActivity.class);
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -514,8 +506,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onStateChange(boolean active) {
 
-                Intent swipeButton = new Intent(MapsActivity.this, ConnectionActivity.class);
-                startActivity(swipeButton);
+                startActivity(account);
             }
         });
 
@@ -523,8 +514,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                Intent createAccount = new Intent(MapsActivity.this, ConnectionActivity.class);
-                startActivity(createAccount);
+
+                startActivity(account);
             }
         });
 
@@ -598,7 +589,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mGlassFilter = false;
 
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this,  R.string.filter_alert, Toast.LENGTH_LONG).show();
+                        Toast.makeText(MapsActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
                         mGlassFilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
