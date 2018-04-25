@@ -50,7 +50,8 @@ public class ListLocationActivity extends AppCompatActivity {
         });
 
 
-        /**
+        /**Itineraire vers location, à integrer**
+         *
          ClusterModel location = adapter.getItem(listElement);
          String address = locatiion.getAddress();
 
