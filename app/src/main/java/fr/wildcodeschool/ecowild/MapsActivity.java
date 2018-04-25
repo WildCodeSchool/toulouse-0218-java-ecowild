@@ -149,11 +149,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 experienceModel.setExperience(experienceModel.getExperience() + experienceModel.getExperienceGain());
 
-               int currentXp = experienceModel.getExperience()%10;
+                int currentXp = experienceModel.getExperience() % 10;
 
                 pbXpImg.setProgress(currentXp);
 
-                if (experienceModel.getExperience()%10 == 0) {
+                if (experienceModel.getExperience() % 10 == 0) {
                     pbXpImg.setProgress(0);
                     experienceModel.setLevel(experienceModel.getLevel() + 1);
                     level.setText(String.format("Niveau : %d", experienceModel.getLevel()));
