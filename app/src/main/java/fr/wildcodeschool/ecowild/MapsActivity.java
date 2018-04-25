@@ -140,6 +140,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ProgressBar pbXpImg = findViewById(R.id.pb_xp);
         final ExperienceModel experienceModel = new ExperienceModel(0, 1, 1);
         final TextView rank = findViewById(R.id.tv_rank);
+        final TextView level = findViewById(R.id.tv_level);
         final MagicButton mbXp = findViewById(R.id.magic_button);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
@@ -155,6 +156,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (experienceModel.getExperience()%10 == 0) {
                     pbXpImg.setProgress(0);
                     experienceModel.setLevel(experienceModel.getLevel() + 1);
+                    level.setText(String.format("Niveau : %d", experienceModel.getLevel()));
                 }
 
                 if (experienceModel.getLevel() >= 10) {
@@ -232,11 +234,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
         final TextView tvParameter = findViewById(R.id.tv_parameter);
         final TextView tvUsefulInformation = findViewById(R.id.tv_useful_information);
-        final TextView tvFavorite = findViewById(R.id.tv_favorite);
         final TextView tvMove = findViewById(R.id.tv_move);
         final ImageView ivParameter = findViewById(R.id.imageButton);
         final ImageView ivUsefulInformation = findViewById(R.id.iv_information);
-        final ImageView ivFavorite = findViewById(R.id.iv_favorite);
         final ImageView ivMove = findViewById(R.id.iv_move);
 
         tvMove.setOnClickListener(new View.OnClickListener() {
@@ -511,22 +511,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        tvFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentTvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentTvFavorite);
-            }
-        });
-
-        ivFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentIvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentIvFavorite);
-            }
-        });
-
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
@@ -554,6 +538,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             pseudo.setText(username);
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            level.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
             accountImgCreation.setImageBitmap(mPhotography);
 

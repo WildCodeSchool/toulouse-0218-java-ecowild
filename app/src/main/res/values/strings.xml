@@ -59,4 +59,5 @@
     <string name="rang3">EcoFan</string>
     <string name="rang4">EcoWild</string>
     <string name="rang5">EcoGod</string>
+    <string name="niveau">Niveau : 1</string>
 </resources>
