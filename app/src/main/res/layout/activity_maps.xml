@@ -29,8 +29,7 @@
             map:layout_constraintStart_toEndOf="@+id/iv_left"
             map:layout_constraintTop_toTopOf="parent"
             map:layout_constraintVertical_bias="0.0"
-            tools:context="fr.wildcodeschool.ecowild.MapsActivity"
-            app:layout_constraintStart_toEndOf="@+id/iv_left" />
+            tools:context="fr.wildcodeschool.ecowild.MapsActivity"/>
 
         <Switch
             android:id="@+id/go_list"
