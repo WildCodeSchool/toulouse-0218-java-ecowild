@@ -41,6 +41,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -95,6 +97,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        /**initi singleton*/
+        UserSingleton userSingleton = UserSingleton.getInstance();
+
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
         /** Partie menu Circle**/
@@ -132,20 +137,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Partie XP */
         final ProgressBar pbXpImg = findViewById(R.id.pb_xp);
-        final ExperienceModel experienceModelModel = new ExperienceModel(0, 1, 0);
+        final ExperienceModel experienceModel = new ExperienceModel(0, 1, 1);
         final TextView rank = findViewById(R.id.tv_rank);
+        final TextView level = findViewById(R.id.tv_level);
         final MagicButton mbXp = findViewById(R.id.magic_button);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                experienceModelModel.setExperience(experienceModelModel.getExperience() + experienceModelModel.getExperienceGain());
-                pbXpImg.setProgress(10);
-                pbXpImg.setProgress(experienceModelModel.getExperience());
+                experienceModel.setExperience(experienceModel.getExperience() + experienceModel.getExperienceGain());
 
-                if (experienceModelModel.getExperience() == 10) {
+                int currentXp = experienceModel.getExperience() % 10;
+
+                pbXpImg.setProgress(currentXp);
+
+                if (experienceModel.getExperience() % 10 == 0) {
                     pbXpImg.setProgress(0);
+                    experienceModel.setLevel(experienceModel.getLevel() + 1);
+                    level.setText(String.format(getString(R.string.lvl), experienceModel.getLevel()));
+                }
+
+                if (experienceModel.getLevel() >= 10) {
+                    rank.setText(R.string.rang5);
+                }
+
+                else if (experienceModel.getLevel() >= 7) {
+                    rank.setText(R.string.rang4);
+                }
+
+                else if (experienceModel.getLevel() >= 5) {
+                    rank.setText(R.string.rang3);
+                }
+
+                else if (experienceModel.getLevel() >= 3) {
+                    rank.setText(R.string.rang2);
+                }
+
+                else if (experienceModel.getLevel() >= 1) {
+                    rank.setText(R.string.rang1);
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -203,11 +233,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final SwipeButton swipeButton = findViewById(R.id.swipe_btn);
         final TextView tvParameter = findViewById(R.id.tv_parameter);
         final TextView tvUsefulInformation = findViewById(R.id.tv_useful_information);
-        final TextView tvFavorite = findViewById(R.id.tv_favorite);
         final TextView tvMove = findViewById(R.id.tv_move);
         final ImageView ivParameter = findViewById(R.id.imageButton);
         final ImageView ivUsefulInformation = findViewById(R.id.iv_information);
-        final ImageView ivFavorite = findViewById(R.id.iv_favorite);
         final ImageView ivMove = findViewById(R.id.iv_move);
 
         tvMove.setOnClickListener(new View.OnClickListener() {
@@ -449,52 +477,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-
+        final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
+        final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+        final Intent intentFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvParameter = new Intent(MapsActivity.this, Settings.class);
-                startActivity(intentTvParameter);
+
+                startActivity(intentParameter);
             }
         });
 
         ivParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvParameter = new Intent(MapsActivity.this, Settings.class);
-                startActivity(intentIvParameter);
+                startActivity(intentParameter);
             }
         });
 
         tvUsefulInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentTvUsefulInformation);
+
+                startActivity(intentUsefulInformation);
             }
         });
 
         ivUsefulInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentIvUsefulInformation);
-            }
-        });
-
-        tvFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentTvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentTvFavorite);
-            }
-        });
-
-        ivFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentIvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentIvFavorite);
+                startActivity(intentUsefulInformation);
             }
         });
 
@@ -521,17 +533,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (ConnectionActivity.CONNECTED) {
 
-            String username = getIntent().getStringExtra("username");
-            pseudo.setText(username);
+            pseudo.setText(userSingleton.getTextName());
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            level.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
-            accountImgCreation.setImageBitmap(mPhotography);
+            Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
 
             accountImgCreation.setBackground(null);
-            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(MapsActivity.this.getResources(), mPhotography);
-            roundedBitmapDrawable.setCircular(true);
-            accountImgCreation.setImageDrawable(roundedBitmapDrawable);
+
+
         }
 
         if (!ConnectionActivity.CONNECTED) {
@@ -757,7 +768,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestGlassQueue = Volley.newRequestQueue(this);
 
-        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=150";
+        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=50";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestGlass = new JsonObjectRequest(
@@ -813,7 +824,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestPaperQueue = Volley.newRequestQueue(this);
 
-        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=150";
+        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=50";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestPaper = new JsonObjectRequest(

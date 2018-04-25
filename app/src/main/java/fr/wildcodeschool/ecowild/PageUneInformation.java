@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PageDroiteInformation extends Fragment {
+public class PageUneInformation extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.page_droite_layout, container, false);
+        return inflater.inflate(R.layout.page_une_layout, container, false);
     }
 }
