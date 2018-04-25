@@ -1,10 +1,14 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -57,14 +61,28 @@ public class ListAdapter extends ArrayAdapter<ClusterModel> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ClusterModel gpsMarker = getItem(position);
+        final ClusterModel gpsMarker = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_model, parent, false);
         }
 
-        TextView address = convertView.findViewById(R.id.address);
-        LinearLayout list = convertView.findViewById(R.id.item_list);
+        final TextView address = convertView.findViewById(R.id.address);
+        final LinearLayout list = convertView.findViewById(R.id.item_list);
+        ImageView itinary = convertView.findViewById(R.id.iv_itineraire);
+
+        itinary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                list.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                String address = gpsMarker.getAddress();
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q=" + address + "&mode=b"));
+                getContext().startActivity(intent);
+            }
+        });
 
         address.setText(gpsMarker.getAddress());
 

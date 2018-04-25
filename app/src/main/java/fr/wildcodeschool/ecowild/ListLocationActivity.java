@@ -32,7 +32,6 @@ public class ListLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listlocationactivity);
 
         ListView locationList = findViewById(R.id.location_list);
-        final ImageView itinary = findViewById(R.id.iv_itineraire);
 
         Switch goMap = findViewById(R.id.go_Map);
 
@@ -49,19 +48,8 @@ public class ListLocationActivity extends AppCompatActivity {
             }
         });
 
-
-        /**Itineraire vers location, à integrer**
-         *
-         ClusterModel location = adapter.getItem(listElement);
-         String address = locatiion.getAddress();
-
-         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-         Uri.parse("google.navigation:q=" + address + "&mode=b"));
-         startActivity(intent);
-         **/
-
-
         /** Partie menu Circle**/
+
         //Image bouton Menu
         ImageView iconMenu = new ImageView(this); // Create an icon
         iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
@@ -105,7 +93,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
                     if ((!mPaperfilter) & (!mGlassFilter)) {
 
-                        Toast.makeText(ListLocationActivity.this,  R.string.filter_alert, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ListLocationActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
                         mPaperfilter = true;
                     } else {
 
@@ -129,7 +117,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
                 if ((!mPaperfilter) & (!mGlassFilter)) {
 
-                    Toast.makeText(ListLocationActivity.this,  R.string.filter_alert, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListLocationActivity.this, R.string.filter_alert, Toast.LENGTH_SHORT).show();
                 }
 
                 if (mGlassFilter) {
@@ -138,7 +126,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
                     if ((!mPaperfilter) & (!mGlassFilter)) {
 
-                        Toast.makeText(ListLocationActivity.this,  R.string.filter_alert, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ListLocationActivity.this, R.string.filter_alert, Toast.LENGTH_SHORT).show();
                         mGlassFilter = true;
                     } else {
 
