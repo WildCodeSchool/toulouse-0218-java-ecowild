@@ -587,7 +587,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mGlassFilter = false;
 
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MapsActivity.this,  R.string.filter_alert, Toast.LENGTH_LONG).show();
                         mGlassFilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
@@ -608,7 +608,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (mPaperfilter) {
                     mPaperfilter = false;
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MapsActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
                         mPaperfilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));

@@ -104,7 +104,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
                     if ((!mPaperfilter) & (!mGlassFilter)) {
 
-                        Toast.makeText(ListLocationActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ListLocationActivity.this,  R.string.filter_alert, Toast.LENGTH_LONG).show();
                         mPaperfilter = true;
                     } else {
 
@@ -128,7 +128,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
                 if ((!mPaperfilter) & (!mGlassFilter)) {
 
-                    Toast.makeText(ListLocationActivity.this, "Merci de garder un filtre activé", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListLocationActivity.this,  R.string.filter_alert, Toast.LENGTH_SHORT).show();
                 }
 
                 if (mGlassFilter) {
@@ -137,7 +137,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
                     if ((!mPaperfilter) & (!mGlassFilter)) {
 
-                        Toast.makeText(ListLocationActivity.this, "Please keep one filter active", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ListLocationActivity.this,  R.string.filter_alert, Toast.LENGTH_SHORT).show();
                         mGlassFilter = true;
                     } else {
 
