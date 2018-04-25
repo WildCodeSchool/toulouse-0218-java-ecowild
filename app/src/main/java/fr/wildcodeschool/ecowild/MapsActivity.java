@@ -460,52 +460,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-
+        final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
+        final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
+        final Intent intentFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvParameter = new Intent(MapsActivity.this, Settings.class);
-                startActivity(intentTvParameter);
+
+                startActivity(intentParameter);
             }
         });
 
         ivParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvParameter = new Intent(MapsActivity.this, Settings.class);
-                startActivity(intentIvParameter);
+                startActivity(intentParameter);
             }
         });
 
         tvUsefulInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentTvUsefulInformation);
+
+                startActivity(intentUsefulInformation);
             }
         });
 
         ivUsefulInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentIvUsefulInformation);
+                startActivity(intentUsefulInformation);
             }
         });
 
         tvFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentTvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentTvFavorite);
+
+                startActivity(intentFavorite);
             }
         });
 
         ivFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentIvFavorite = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-                startActivity(intentIvFavorite);
+                startActivity(intentFavorite);
             }
         });
 
