@@ -35,9 +35,9 @@ public class ListLocationActivity extends AppCompatActivity {
 
         Switch goMap = findViewById(R.id.go_Map);
 
-        mlistData = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("GPS_POSITIONS");
 
-        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, mlistData);
+        LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
+        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, loadAPISingleton.getClusterList());
         locationList.setAdapter(adapter);
 
         goMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
