@@ -624,17 +624,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 if (mGlassFilter) {
-
                     mGlassFilter = false;
-
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
-                        mGlassFilter = true;
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+                        mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+                        mPaperfilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
                         glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
                     }
-
                 } else {
                     mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = true;
@@ -649,8 +648,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (mPaperfilter) {
                     mPaperfilter = false;
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
-                        mPaperfilter = true;
+
+                        mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
+
+                        mGlassFilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
@@ -804,7 +807,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
-                goList.putExtra("GPS_POSITIONS", mClusterMarker);
+                LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
+                goList.putExtra("GPS_POSITIONS", loadAPISingleton.getClusterList());
                 startActivity(goList);
             }
         });
