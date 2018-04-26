@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,8 +82,6 @@ public class ConnectionActivity extends AppCompatActivity {
 
         final Button buttonToLogIn = findViewById(R.id.button_log_in);
         final Button buttonMember = findViewById(R.id.button_create);
-        final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
-
 
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
@@ -192,13 +189,6 @@ public class ConnectionActivity extends AppCompatActivity {
                     });
 
 
-                }
-
-                if (checkBoxToLogIn.isChecked()) {
-                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                    editorProfil.putString(CACHE_USERNAME, editProfil);
-                    editorProfil.putString(CACHE_PASSWORD, editPassword);
-                    editorProfil.commit();
                 }
             }
         });
@@ -327,13 +317,10 @@ public class ConnectionActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (checkBoxToLogIn.isChecked()) {
-                        SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                        editorProfil.putString(CACHE_USERNAME, editProfil);
-                        editorProfil.putString(CACHE_PASSWORD, editPassword);
-                        editorProfil.commit();
-                    }
-
+                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                    editorProfil.putString(CACHE_USERNAME, editProfil);
+                    editorProfil.putString(CACHE_PASSWORD, editPassword);
+                    editorProfil.commit();
                 }
 
 
@@ -400,8 +387,6 @@ public class ConnectionActivity extends AppCompatActivity {
         ImageView mImageView = findViewById(R.id.iv_photo);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(ConnectionActivity.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
-
-
         }
     }
 

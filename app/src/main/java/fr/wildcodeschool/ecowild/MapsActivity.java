@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -62,11 +63,11 @@ import java.util.ArrayList;
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
-
     private static int SPLASH_TIME_OUT = 100;
     final ArrayList<ClusterModel> mClusterMarker = new ArrayList<>();
     LatLngBounds mScreenBoundarys;
@@ -90,10 +91,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
+        final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
+
+
         /**initi singleton*/
         final UserSingleton userSingleton = UserSingleton.getInstance();
 
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
+
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -133,6 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView rank = findViewById(R.id.tv_rank);
         final TextView level = findViewById(R.id.tv_level);
         final TextView xp = findViewById(R.id.tv_xp);
+        rank.setText(userSingleton.getTextRank());
 
 
         final MagicButton mbXp = findViewById(R.id.magic_button);
@@ -548,7 +555,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final Button buttonRight = findViewById(R.id.button_right);
         final ImageView buttonLeft = findViewById(R.id.iv_left);
 
-        if (ConnectionActivity.CONNECTED) {
+        if (ConnectionActivity.CONNECTED || !username.isEmpty()) {
             pseudo.setText(userSingleton.getTextName());
             level.setText(getString(R.string.xp_connection) + Integer.valueOf(userSingleton.getIntLevel()).toString());
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
@@ -562,11 +569,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
 
             accountImgCreation.setBackground(null);
+            if (userSingleton.getTextAvatar() == null){
+                accountImgCreation.setBackgroundResource(R.drawable.icon_avatar);
 
-
+            }
         }
 
-        if (!ConnectionActivity.CONNECTED) {
+        if (!ConnectionActivity.CONNECTED && username.isEmpty())  {
             Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
 
                 @Override
@@ -586,7 +595,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
             snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
             snackbar.show();
-
         }
 
         /**Map**/

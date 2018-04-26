@@ -73,5 +73,6 @@
     <string name="xppp">0/10</string>
     <string name="xp_connection">Niveau :</string>
     <string name="xp_ooo">/10</string>
+    <string name="ou">OU</string>
 
 </resources>

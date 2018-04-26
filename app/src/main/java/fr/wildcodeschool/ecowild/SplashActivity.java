@@ -36,12 +36,14 @@ public class SplashActivity extends AppCompatActivity {
                         String passwordRecup = userModel.getPassword();
                         String avatar = userModel.getAvatar();
                         String name = userModel.getName();
+                        String rank = userModel.getRank();
                         int xp = userModel.getXp();
                         int level = userModel.getLevel();
 
                         UserSingleton userSingleton = UserSingleton.getInstance();
                         userSingleton.setTextName(name);
                         userSingleton.setTextPassword(passwordRecup);
+                        userSingleton.setTextRank(rank);
                         userSingleton.setTextAvatar(avatar);
                         userSingleton.setIntXp(xp);
                         userSingleton.setIntLevel(level);

@@ -6,211 +6,206 @@
     android:layout_height="match_parent"
     tools:context="fr.wildcodeschool.ecowild.ConnectionActivity">
 
-    <TextView
-        android:id="@+id/text_view_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/ecowild"
-        android:textColor="@color/colorEcoWild"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-    <ImageView
-        android:id="@+id/iv_photo"
-        android:layout_width="150dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_setting"
-        app:srcCompat="@drawable/anonyme" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/text_view_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/ecowild"
+                android:textColor="@color/colorEcoWild"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_setting"
+                app:srcCompat="@drawable/anonyme" />
 
+            <EditText
+                android:id="@+id/edit_text_profil_connection"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:hint="@string/nom_de_compte_connection"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
+            <EditText
+                android:id="@+id/edit_text_password_connection"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="@string/mot_de_passe_connection"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_profil_connection" />
 
-    <EditText
-        android:id="@+id/edit_text_password2"
-        android:layout_width="269dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/validez_votre_mot_de_passe"
-        android:inputType="textPassword"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_password_connection" />
+            <EditText
+                android:id="@+id/edit_text_password2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="@string/validez_votre_mot_de_passe"
+                android:inputType="textPassword"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_password_connection" />
 
-    <EditText
-        android:id="@+id/edit_text_profil_connection"
-        android:layout_width="269dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/nom_de_compte_connection"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
+            <Button
+                android:id="@+id/button_log_in"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button"
+                android:text="@string/se_connecter_connection"
+                android:textColor="@color/colorBlack"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_forgotten_password" />
 
-    <EditText
-        android:id="@+id/edit_text_password_connection"
-        android:layout_width="269dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/mot_de_passe_connection"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_profil_connection" />
+            <ImageView
+                android:id="@+id/image_view_ligneBis"
+                android:layout_width="60dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:alpha="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_view_where"
+                app:layout_constraintTop_toTopOf="@+id/text_view_where"
+                app:srcCompat="@drawable/ligne" />
 
-    <Button
-        android:id="@+id/button_log_in"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/button"
-        android:text="@string/se_connecter_connection"
-        android:textColor="@color/colorBlack"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_forgotten_password" />
+            <Button
+                android:id="@+id/button_create"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button"
+                android:text="@string/devenir_membreActivity"
+                android:textColor="@color/colorBlack"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_where" />
 
-    <Button
-        android:id="@+id/button_create"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button"
-        android:text="@string/devenir_membreActivity"
-        android:textColor="@color/colorBlack"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_where" />
+            <ImageView
+                android:id="@+id/image_view_password_connection"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_text_password_connection"
+                app:layout_constraintEnd_toEndOf="@+id/edit_text_password_connection"
+                app:layout_constraintTop_toTopOf="@+id/edit_text_password_connection"
+                app:srcCompat="@drawable/icon_password" />
 
-    <CheckBox
-        android:id="@+id/check_box_connection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/conserver_mes_identifiants"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.277"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_password2" />
+            <ImageView
+                android:id="@+id/image_view_password2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_text_password2"
+                app:layout_constraintEnd_toEndOf="@+id/edit_text_password2"
+                app:layout_constraintTop_toTopOf="@+id/edit_text_password2"
+                app:srcCompat="@drawable/icon_password" />
 
-    <ImageView
-        android:id="@+id/image_view_password_connection"
-        android:layout_width="28dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_password_connection"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_password_connection"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_password_connection"
-        app:srcCompat="@drawable/icon_password" />
+            <TextView
+                android:id="@+id/text_view_forgotten_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/mot_de_passe_oubli"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_password2" />
 
-    <TextView
-        android:id="@+id/text_view_forgotten_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/mot_de_passe_oubli"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.788"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_box_connection" />
+            <TextView
+                android:id="@+id/text_view_where"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="23dp"
+                android:text="@string/ou"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_log_in" />
 
-    <ImageView
-        android:id="@+id/image_view_password2"
-        android:layout_width="28dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_password2"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_password2"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_password2"
-        app:srcCompat="@drawable/icon_password" />
+            <ImageView
+                android:id="@+id/iv_appareil_photo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="133dp"
+                android:layout_marginTop="213dp"
+                android:src="@drawable/appareil_photo"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.411"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view_where"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:text="OU"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_log_in" />
+            <ImageView
+                android:id="@+id/image_view_ligne"
+                android:layout_width="60dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="2dp"
+                android:alpha="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_where"
+                app:layout_constraintTop_toTopOf="@+id/text_view_where"
+                app:srcCompat="@drawable/ligne" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
-    <ImageView
-        android:id="@+id/image_view_ligneBis"
-        android:layout_width="46dp"
-        android:layout_height="13dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:alpha="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text_view_where"
-        app:layout_constraintTop_toBottomOf="@+id/button_log_in"
-        app:srcCompat="@drawable/ligne" />
-
-    <ImageView
-        android:id="@+id/image_view_ligne"
-        android:layout_width="46dp"
-        android:layout_height="13dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="10dp"
-        android:alpha="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_where"
-        app:layout_constraintTop_toBottomOf="@+id/button_log_in"
-        app:srcCompat="@drawable/ligne" />
-
-    <ImageView
-        android:id="@+id/iv_appareil_photo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="133dp"
-        android:layout_marginTop="213dp"
-        android:src="@drawable/appareil_photo"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.411"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
