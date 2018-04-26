@@ -1,11 +1,5 @@
 package fr.wildcodeschool.ecowild;
 
-import android.graphics.Bitmap;
-
-/**
- * Created by wilder on 23/04/18.
- */
-
 public class UserModel {
     String name;
     String password;

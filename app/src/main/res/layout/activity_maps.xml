@@ -177,7 +177,6 @@
             android:layout_marginTop="8dp"
             android:shadowColor="@color/colorBlack"
             android:shadowRadius="20"
-            android:text="@string/rang"
             android:textColor="#f8dc81"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -284,7 +283,6 @@
             android:layout_marginStart="26dp"
             android:shadowColor="@color/colorBlack"
             android:shadowRadius="20"
-            android:text="@string/xp_base"
             android:textColor="#f8dc81"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -342,7 +340,6 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone"
-            android:text="@string/niveau"
             app:layout_constraintStart_toEndOf="@+id/img_profil"
             app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
 
