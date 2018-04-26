@@ -83,7 +83,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
 
     private static int SPLASH_TIME_OUT = 100;
-    final ArrayList<ClusterModel> mClusterMarker = new ArrayList<>();
     LatLngBounds mScreenBoundarys;
     public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
@@ -624,17 +623,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 if (mGlassFilter) {
-
                     mGlassFilter = false;
-
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
-                        mGlassFilter = true;
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+                        mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
+                        mPaperfilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingGlass(getApplicationContext(), mMap, mClusterManager));
                         glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
                     }
-
                 } else {
                     mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                     mGlassFilter = true;
@@ -649,8 +647,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (mPaperfilter) {
                     mPaperfilter = false;
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-                        Toast.makeText(MapsActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
-                        mPaperfilter = true;
+
+                        mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
+
+                        mGlassFilter = true;
                     } else {
                         mClusterManager.setRenderer(new OwRenderingPaper(getApplicationContext(), mMap, mClusterManager));
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
@@ -781,7 +783,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
-        mScreenBoundarys = googleMap.getProjection().getVisibleRegion().latLngBounds;
 
         if (mIsWaitingForGoogleMap) {
             moveCameraOnUser(mLastLocation);
@@ -794,17 +795,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /**rajout list aux cluster **/
         mClusterManager = new ClusterManager<ClusterModel>(this, mMap);
         mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
-        mMap.setOnCameraIdleListener(mClusterManager);
-        mMap.setOnMarkerClickListener(mClusterManager);
         LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
         mClusterManager.addItems(loadAPISingleton.getClusterList());
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
 
         Switch goList = findViewById(R.id.go_list);
         goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent goList = new Intent(MapsActivity.this, ListLocationActivity.class);
-                goList.putExtra("GPS_POSITIONS", mClusterMarker);
                 startActivity(goList);
             }
         });
