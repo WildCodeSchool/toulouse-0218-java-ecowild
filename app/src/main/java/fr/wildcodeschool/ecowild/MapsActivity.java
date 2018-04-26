@@ -39,6 +39,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.androidmapsextensions.ClusteringSettings;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ebanx.swipebtn.OnStateChangeListener;
@@ -48,10 +49,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,6 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static int SPLASH_TIME_OUT = 100;
     final ArrayList<ClusterModel> mClusterMarker = new ArrayList<>();
+    LatLngBounds mScreenBoundarys;
     public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
@@ -775,6 +781,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
+        mScreenBoundarys = googleMap.getProjection().getVisibleRegion().latLngBounds;
 
         if (mIsWaitingForGoogleMap) {
             moveCameraOnUser(mLastLocation);
@@ -792,7 +799,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestGlassQueue = Volley.newRequestQueue(this);
 
-        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=50";
+        String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=300";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestGlass = new JsonObjectRequest(
@@ -811,6 +818,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
                                 String address = location.getString("adresse");
+
                                 JSONArray coordinate = geometry.getJSONArray("coordinates");
                                 String abs = coordinate.getString(0);
                                 String ordo = coordinate.getString(1);
@@ -821,7 +829,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 //Cluster et Liste de celui ci pour aller aussi en ArrayList
                                 mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type));
-                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(mClusterMarker);
 
                             }
@@ -844,11 +851,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // On ajoute la requête à la file d'attente
         requestGlassQueue.add(jsonObjectRequestGlass);
 
-        /** Partie Json Papier/plastique **/
+        /** Partie Json Papier/plastique**/
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestPaperQueue = Volley.newRequestQueue(this);
 
-        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=50";
+        String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=300";
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestPaper = new JsonObjectRequest(
@@ -867,18 +874,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 JSONObject geometry = recordslist.getJSONObject("geometry");
                                 JSONObject location = recordslist.getJSONObject("fields");
                                 String address = location.getString("adresse");
+                                //convert coordinates
                                 JSONArray coordinate = geometry.getJSONArray("coordinates");
                                 String abs = coordinate.getString(0);
                                 String ordo = coordinate.getString(1);
                                 double valueAbs = Double.parseDouble(abs);
                                 double valueOrdo = Double.parseDouble(ordo);
                                 String type = "Papier/Plastique";
-                                String id = "p" + c;
 
-
-                                //Cluster et Liste de celui ci pour aller aussi en liste
                                 mClusterMarker.add(new ClusterModel(valueOrdo, valueAbs, address, type));
-                                mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
                                 mClusterManager.addItems(mClusterMarker);
                             }
 
@@ -900,11 +904,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // On ajoute la requête à la file d'attente
         requestPaperQueue.add(jsonObjectRequestPaper);
 
-        /**rajout list aux cluster*/
+
+
+        /**rajout list aux cluster **/
         mClusterManager = new ClusterManager<ClusterModel>(this, mMap);
+        mClusterManager.setRenderer(new OwRendering(getApplicationContext(), mMap, mClusterManager));
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
-        mClusterManager.addItems(mClusterMarker);
 
         Switch goList = findViewById(R.id.go_list);
         goList.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -916,17 +922,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-
-    /** Bouton mystere (comme la tarte Tin tin !)
-     private void initUI(View v) {
-     Button button1 = (Button) v.findViewById(R.id.rob_the_bank);
-     button1.setOnClickListener(new View.OnClickListener() {
-
-    @Override public void onClick(View v) {
-    //tu fais ce que tu veux dans le onClick
-    Intent intentCo = new Intent(MapsActivity.this, LaCasaBonita.Restaurant);
-    MapsActivity.this.startActivity(intentCo);
-    }
-    });
-     } */
 }
