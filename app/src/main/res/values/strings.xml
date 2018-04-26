@@ -70,5 +70,8 @@
     <string name="repeat">Nom d\'utilisateur déjà utilisé</string>
     <string name="xp_base">0/10</string>
     <string name="xp_progress">%d/10</string>
+    <string name="xppp">0/10</string>
+    <string name="xp_connection">Niveau :</string>
+    <string name="xp_ooo">/10</string>
 
 </resources>

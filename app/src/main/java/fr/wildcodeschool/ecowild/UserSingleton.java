@@ -1,9 +1,5 @@
 package fr.wildcodeschool.ecowild;
 
-/**
- * Created by wilder on 25/04/18.
- */
-
 public class UserSingleton {
     public static UserSingleton sInstance = null;
     public String mNameSaved = "";

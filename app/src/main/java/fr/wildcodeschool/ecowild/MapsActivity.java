@@ -53,6 +53,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -95,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         /**initi singleton*/
-        UserSingleton userSingleton = UserSingleton.getInstance();
+        final UserSingleton userSingleton = UserSingleton.getInstance();
 
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
@@ -134,42 +139,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Partie XP */
         final ProgressBar pbXpImg = findViewById(R.id.pb_xp);
-        final ExperienceModel experienceModel = new ExperienceModel(0, 1, 1);
         final TextView rank = findViewById(R.id.tv_rank);
         final TextView level = findViewById(R.id.tv_level);
         final TextView xp = findViewById(R.id.tv_xp);
+
+
         final MagicButton mbXp = findViewById(R.id.magic_button);
+        final int intGainExperience = 1;
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                experienceModel.setExperience(experienceModel.getExperience() + experienceModel.getExperienceGain());
-
-                int currentXp = experienceModel.getExperience() % 10;
+               userSingleton.setIntXp(userSingleton.getIntXp()+ intGainExperience);
+                int currentXp = userSingleton.getIntXp() % 10;
 
                 pbXpImg.setProgress(currentXp);
 
-                if (experienceModel.getExperience() % 10 == 0) {
+                if (userSingleton.getIntXp() % 10 == 0) {
                     pbXpImg.setProgress(0);
-                    experienceModel.setLevel(experienceModel.getLevel() + 1);
-                    level.setText(String.format(getString(R.string.lvl), experienceModel.getLevel()));
-                    xp.setText("0/10");
+                    userSingleton.setIntLevel(userSingleton.getIntLevel() + 1);
+                    level.setText(String.format(getString(R.string.lvl), userSingleton.getIntLevel()));
+                    xp.setText(R.string.xppp);
                 }
 
-                if (experienceModel.getExperience() % 10 != 0) {
-                    xp.setText(String.format(getString(R.string.xp_progress), experienceModel.getExperience() % 10));
+                if (userSingleton.getIntXp() % 10 != 0) {
+                    xp.setText(String.format(getString(R.string.xp_progress), userSingleton.getIntXp() % 10));
                 }
 
-                if (experienceModel.getLevel() >= 10) {
+                if (userSingleton.getIntLevel() >= 10) {
                     rank.setText(R.string.rang5);
-                } else if (experienceModel.getLevel() >= 7) {
+                } else if (userSingleton.getIntLevel() >= 7) {
                     rank.setText(R.string.rang4);
-                } else if (experienceModel.getLevel() >= 5) {
+                } else if (userSingleton.getIntLevel() >= 5) {
                     rank.setText(R.string.rang3);
-                } else if (experienceModel.getLevel() >= 3) {
+                } else if (userSingleton.getIntLevel() >= 3) {
                     rank.setText(R.string.rang2);
-                } else if (experienceModel.getLevel() >= 1) {
+                } else if (userSingleton.getIntLevel() >= 1) {
                     rank.setText(R.string.rang1);
                 }
 
@@ -186,7 +191,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 toast.setDuration(Toast.LENGTH_LONG);
                 toast.setView(layout);
                 toast.show();
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference prout = database.getReference("utilisateurs");
+                prout.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+
+                                String key = userdataSnapshot.getKey().toString();
+                                prout.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                prout.child(key).child("level").setValue(userSingleton.getIntLevel());
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+                });
             }
+
         });
 
         /** Partie Popup**/
@@ -526,8 +553,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final ImageView buttonLeft = findViewById(R.id.iv_left);
 
         if (ConnectionActivity.CONNECTED) {
-
             pseudo.setText(userSingleton.getTextName());
+            level.setText(getString(R.string.xp_connection) + Integer.valueOf(userSingleton.getIntLevel()).toString());
+            xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
             level.setVisibility(View.VISIBLE);
