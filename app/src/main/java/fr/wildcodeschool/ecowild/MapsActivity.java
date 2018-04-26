@@ -19,7 +19,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,13 +32,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.androidmapsextensions.ClusteringSettings;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ebanx.swipebtn.OnStateChangeListener;
@@ -49,14 +41,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,10 +56,6 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -156,7 +141,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               userSingleton.setIntXp(userSingleton.getIntXp()+ intGainExperience);
+                userSingleton.setIntXp(userSingleton.getIntXp() + intGainExperience);
                 int currentXp = userSingleton.getIntXp() % 10;
 
                 pbXpImg.setProgress(currentXp);
@@ -205,9 +190,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
 
-                                String key = userdataSnapshot.getKey().toString();
-                                user.child(key).child("xp").setValue(userSingleton.getIntXp());
-                                user.child(key).child("level").setValue(userSingleton.getIntLevel());
+                            String key = userdataSnapshot.getKey().toString();
+                            user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                            user.child(key).child("level").setValue(userSingleton.getIntLevel());
 
                         }
                     }
