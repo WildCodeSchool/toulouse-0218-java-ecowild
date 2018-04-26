@@ -53,7 +53,10 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
         super.onBeforeClusterItemRendered(item, markerOptions);
+
     }
+
+
 }
 
 
