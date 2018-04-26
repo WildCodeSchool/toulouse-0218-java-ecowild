@@ -4,6 +4,7 @@ public class UserModel {
     String name;
     String password;
     String avatar;
+    String rank;
     int xp;
     int level;
 
@@ -11,10 +12,11 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String name, String password, String avatar, int xp, int level) {
+    public UserModel(String name, String password, String avatar, String rank, int xp, int level) {
         this.name = name;
         this.password = password;
         this.avatar = avatar;
+        this.rank = rank;
         this.xp = xp;
         this.level = level;
     }
@@ -41,6 +43,14 @@ public class UserModel {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     public int getXp() {

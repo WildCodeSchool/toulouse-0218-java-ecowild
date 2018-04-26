@@ -159,14 +159,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (userSingleton.getIntLevel() >= 10) {
                     rank.setText(R.string.rang5);
+                    userSingleton.setTextRank("EcoGod");
                 } else if (userSingleton.getIntLevel() >= 7) {
                     rank.setText(R.string.rang4);
+                    userSingleton.setTextRank("EcoWild");
                 } else if (userSingleton.getIntLevel() >= 5) {
                     rank.setText(R.string.rang3);
+                    userSingleton.setTextRank("EcoFan");
                 } else if (userSingleton.getIntLevel() >= 3) {
                     rank.setText(R.string.rang2);
+                    userSingleton.setTextRank("EcoCool");
                 } else if (userSingleton.getIntLevel() >= 1) {
                     rank.setText(R.string.rang1);
+                    userSingleton.setTextRank("EcoNoob");
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -193,7 +198,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             String key = userdataSnapshot.getKey().toString();
                             user.child(key).child("xp").setValue(userSingleton.getIntXp());
                             user.child(key).child("level").setValue(userSingleton.getIntLevel());
-
+                            user.child(key).child("rank").setValue(userSingleton.getTextRank());
                         }
                     }
 
@@ -549,6 +554,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            rank.setText(userSingleton.getTextRank());
             level.setVisibility(View.VISIBLE);
             xp.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);

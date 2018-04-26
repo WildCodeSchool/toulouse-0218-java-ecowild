@@ -168,6 +168,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 String name = userModel.getName();
                                 int xp = userModel.getXp();
                                 int level = userModel.getLevel();
+                                String rank = userModel.getRank();
 
                                 ImageView mImageView = findViewById(R.id.iv_photo);
                                 Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
@@ -176,7 +177,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 if (passwordRecup.equals(hashCode.toString())) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                                     /** partie Singleton*/
-                                    userModelSingleton(name, passwordRecup, avatar, xp, level);
+                                    userModelSingleton(name, passwordRecup, avatar, rank, xp, level);
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     Toast.makeText(ConnectionActivity.this, R.string.error_identification, Toast.LENGTH_SHORT).show();
@@ -261,12 +262,12 @@ public class ConnectionActivity extends AppCompatActivity {
 
                                 if (mPhotoUri == null) {
                                     /**Partie Firease envoit si il ne prend pas de photo*/
-                                    UserModel userModel = new UserModel(editProfil, hashCode.toString(), null, 0, 1);
+                                    UserModel userModel = new UserModel(editProfil, hashCode.toString(), null, "EcoNoob", 0, 1);
                                     String userKey = userRef.push().getKey();
                                     userRef.child(userKey).setValue(userModel);
 
                                     /**Partie Singleton*/
-                                    userModelSingleton(editProfil, hashCode.toString(), null, 0, 1);
+                                    userModelSingleton(editProfil, hashCode.toString(), null, "EcoNoob", 0, 1);
 
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
@@ -290,12 +291,12 @@ public class ConnectionActivity extends AppCompatActivity {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                                            UserModel userModel = new UserModel(editProfil, hashCode.toString(), downloadUrl.toString(), 0, 1);
+                                            UserModel userModel = new UserModel(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
                                             String userKey = userRef.push().getKey();
                                             userRef.child(userKey).setValue(userModel);
 
                                             /**Partie Singleton*/
-                                            userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), 0, 1);
+                                            userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
 
 
                                             ConnectionActivity.this.startActivity(intentMap);
@@ -404,11 +405,12 @@ public class ConnectionActivity extends AppCompatActivity {
         }
     }
 
-    public void userModelSingleton(String textName, String textPassword, String textAvatar, int intXp, int intLevel) {
+    public void userModelSingleton(String textName, String textPassword, String textAvatar, String rank, int intXp, int intLevel) {
         UserSingleton userSingleton = UserSingleton.getInstance();
         userSingleton.setTextName(textName);
         userSingleton.setTextPassword(textPassword);
         userSingleton.setTextAvatar(textAvatar);
+        userSingleton.setTextRank(rank);
         userSingleton.setIntXp(intXp);
         userSingleton.setIntLevel(intLevel);
     }
