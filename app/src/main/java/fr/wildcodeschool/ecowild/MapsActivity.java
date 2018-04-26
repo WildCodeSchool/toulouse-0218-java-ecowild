@@ -199,15 +199,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 toast.show();
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                final DatabaseReference prout = database.getReference("utilisateurs");
-                prout.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                final DatabaseReference user = database.getReference("utilisateurs");
+                user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
 
                                 String key = userdataSnapshot.getKey().toString();
-                                prout.child(key).child("xp").setValue(userSingleton.getIntXp());
-                                prout.child(key).child("level").setValue(userSingleton.getIntLevel());
+                                user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                user.child(key).child("level").setValue(userSingleton.getIntLevel());
 
                         }
                     }

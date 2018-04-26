@@ -86,7 +86,7 @@ public class ConnectionActivity extends AppCompatActivity {
         final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
 
 
-        final SharedPreferences sharedPrefProfil = this.getPreferences(Context.MODE_PRIVATE);
+        final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
         editTextProfil.setText(username);
 
@@ -326,6 +326,12 @@ public class ConnectionActivity extends AppCompatActivity {
                         }
                     });
 
+                    if (checkBoxToLogIn.isChecked()) {
+                        SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                        editorProfil.putString(CACHE_USERNAME, editProfil);
+                        editorProfil.putString(CACHE_PASSWORD, editPassword);
+                        editorProfil.commit();
+                    }
 
                 }
 
