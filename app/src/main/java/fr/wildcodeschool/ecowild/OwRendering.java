@@ -31,7 +31,6 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
         markerOptions.snippet(item.getType());
         markerOptions.title(item.getAddress());
 
-        /** Si active probleme OOM (out of memory) à bosser
         Bitmap bitmap;
 
         // create bitpma ici au lieu de le generer à chaque fois.
@@ -52,7 +51,7 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
         }
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-         */
+
 
         super.onBeforeClusterItemRendered(item, markerOptions);
 
