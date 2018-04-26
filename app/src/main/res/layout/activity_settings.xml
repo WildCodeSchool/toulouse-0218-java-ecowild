@@ -138,7 +138,7 @@
     <!-- Partie mot de passe-->
 
     <EditText
-        android:id="@+id/edit_text_pseudo"
+        android:id="@+id/edit_text_password"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -167,7 +167,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_pseudo" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_password" />
 
     <EditText
         android:id="@+id/edit_text_new_password_confirm"
@@ -194,9 +194,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_text_pseudo"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_pseudo"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_pseudo"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_password"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_password"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_password"
         app:srcCompat="@drawable/icon_password" />
 
     <ImageView
@@ -235,7 +235,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/edit_text_new_password_confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_pseudo"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_password"
         app:srcCompat="@drawable/key" />
 
     <Button
@@ -266,10 +266,10 @@
         android:hint="@string/nom_de_compte_connection"
         android:inputType="text"
         android:textSize="15sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_text_pseudo" />
+        app:layout_constraintTop_toTopOf="@+id/edit_text_password" />
 
     <EditText
         android:id="@+id/edit_text_new_profil"
