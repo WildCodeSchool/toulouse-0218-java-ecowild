@@ -557,7 +557,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        final Button buttonRight = findViewById(R.id.button_right);
+
         final ImageView buttonLeft = findViewById(R.id.iv_left);
 
         if (ConnectionActivity.CONNECTED) {
@@ -610,14 +610,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
 
-            }
-        });
-
-
-        buttonRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
             }
         });
 

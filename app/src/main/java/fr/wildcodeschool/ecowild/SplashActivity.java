@@ -25,6 +25,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        ImageView loadingGif = findViewById(R.id.loading);
+
+        Glide.with(SplashActivity.this).load("https://thumbs.gfycat.com/ImpoliteSnappyBumblebee-size_restricted.gif").into(loadingGif);
+
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
 
