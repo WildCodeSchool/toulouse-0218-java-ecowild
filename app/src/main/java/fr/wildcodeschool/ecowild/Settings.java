@@ -48,7 +48,6 @@ public class Settings extends AppCompatActivity {
         final EditText etNewProfil2 = findViewById(R.id.edit_text_new_profil_confirm);
 
 
-
         String newPassword2 = etNewPassword2.getText().toString();
 
         final Button buttonMdp = findViewById(R.id.button_mdp);
@@ -134,8 +133,6 @@ public class Settings extends AppCompatActivity {
                 ivAvatar.setVisibility(View.GONE);
 
 
-
-
                 if (rbPassword.isChecked()) {
                     visibleEt(etPassword, etNewPassword, etNewPassword2);
                     buttonMdp.setVisibility(View.VISIBLE);
@@ -152,57 +149,62 @@ public class Settings extends AppCompatActivity {
                             final HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
                             String newPassword = etNewPassword.getText().toString();
                             final HashCode hashCodeNP = Hashing.sha256().hashString(newPassword, Charset.defaultCharset());
+                            String newPassword2 = etNewPassword2.getText().toString();
                             userSingleton.setTextPassword(hashCodeNP.toString());
 
-                            /**Partie recuperation ancien mot de passe**/
-                            DatabaseReference myRef = database.getReference("utilisateurs");
-                            myRef.orderByChild("name").equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        UserModel userModel = snapshot.getValue(UserModel.class);
-                                        String passwordRecup = userModel.getPassword();
+                            if (password.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()) {
+                                Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
+                            }
+                            if(newPassword.equals(newPassword2)) {
+                                /**Partie recuperation ancien mot de passe**/
+                                DatabaseReference myRef = database.getReference("utilisateurs");
+                                myRef.orderByChild("name").equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            UserModel userModel = snapshot.getValue(UserModel.class);
+                                            String passwordRecup = userModel.getPassword();
 
 
-                                        if (passwordRecup.equals(hashCode.toString())) {
+                                            if (passwordRecup.equals(hashCode.toString())) {
 
-                                            Toast.makeText(Settings.this, "mot de passe modifié", Toast.LENGTH_SHORT).show();
+                                                //changement mot de passe
+                                                final DatabaseReference user = database.getReference("utilisateurs");
+                                                user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
 
-                                            //changement mot de passe
-                                            final DatabaseReference user = database.getReference("utilisateurs");
-                                            user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                    for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+                                                            String key = userdataSnapshot.getKey().toString();
+                                                            user.child(key).child("password").setValue(userSingleton.getTextPassword());
+                                                            Toast.makeText(Settings.this, R.string.move_password, Toast.LENGTH_SHORT).show();
 
-                                                        String key = userdataSnapshot.getKey().toString();
-                                                        user.child(key).child("password").setValue(userSingleton.getTextPassword());
+                                                        }
+                                                    }
 
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
 
                                                     }
-                                                }
 
-                                                @Override
-                                                public void onCancelled(DatabaseError databaseError) {
+                                                });
 
-                                                }
-
-                                            });
-
-                                        } else {
-                                            Toast.makeText(Settings.this, "Votre mot de passe n'est pas correct", Toast.LENGTH_SHORT).show();
+                                            } else if(!password.isEmpty()) {
+                                                Toast.makeText(Settings.this, R.string.false_password, Toast.LENGTH_SHORT).show();
+                                            }
                                         }
+
                                     }
 
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                }
-                            });
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
 
 
-
+                            } else {
+                                Toast.makeText(Settings.this, R.string.new_password_false, Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
 
@@ -219,30 +221,55 @@ public class Settings extends AppCompatActivity {
                         public void onClick(View v) {
                             String profil = etProfil.getText().toString();
                             final String newProfil = etNewProfil.getText().toString();
-                            String newProfil2 =etNewProfil2.getText().toString();
-                            if (profil.equals(userSingleton.getTextName())){
+                            String newProfil2 = etNewProfil2.getText().toString();
 
-                                final DatabaseReference user = database.getReference("utilisateurs");
-                                user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
-                                            userSingleton.setTextName(newProfil);
-                                            String key = userdataSnapshot.getKey().toString();
-                                            user.child(key).child("name").setValue(userSingleton.getTextName());
+                            if(profil.isEmpty()||newProfil.isEmpty()||newProfil2.isEmpty()){
+                                Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
+                            }
+                            //verification nom utilisateur
+                            if (profil.equals(userSingleton.getTextName())) {
+                                DatabaseReference myRef = database.getReference("utilisateurs");
+                                myRef.orderByChild("name").equalTo(newProfil).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                 @Override
+                                                                                                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                     if (dataSnapshot.getChildrenCount() == 0){
+                                                                                                                         //changement nom utilisateur
+                                                                                                                         final DatabaseReference user = database.getReference("utilisateurs");
+                                                                                                                         user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                                                                                                                             @Override
+                                                                                                                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                 for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+                                                                                                                                     userSingleton.setTextName(newProfil);
+                                                                                                                                     String key = userdataSnapshot.getKey().toString();
+                                                                                                                                     user.child(key).child("name").setValue(userSingleton.getTextName());
+                                                                                                                                     Toast.makeText(Settings.this, "Votre nom d'utilisateur a été modifié", Toast.LENGTH_SHORT).show();
 
 
-                                        }
-                                    }
+                                                                                                                                 }
+                                                                                                                             }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                                                                                                             @Override
+                                                                                                                             public void onCancelled(DatabaseError databaseError) {
 
-                                    }
+                                                                                                                             }
 
-                                });
+                                                                                                                         });
+                                                                                                                     }else {
+                                                                                                                         Toast.makeText(Settings.this, R.string.repeat, Toast.LENGTH_SHORT).show();
+                                                                                                                     }
+                                                                                                                 }
+
+                                                                                                                 @Override
+                                                                                                                 public void onCancelled(DatabaseError databaseError) {
+
+                                                                                                                 }
+                                                                                                             });
 
 
+
+
+                            } else if(!profil.isEmpty()) {
+                                Toast.makeText(Settings.this, "Votre nom d'utilisateur n'existe pas", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

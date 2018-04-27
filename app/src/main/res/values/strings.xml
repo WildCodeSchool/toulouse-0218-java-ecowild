@@ -73,5 +73,8 @@
     <string name="xppp">0/10</string>
     <string name="xp_connection">Niveau :</string>
     <string name="xp_ooo">/10</string>
+    <string name="move_password">Votre mot de passe a été modifié</string>
+    <string name="false_password">Votre mot de passe actuel n\'est pas correct</string>
+    <string name="new_password_false">Vos nouveaux mots de passent ne correspondent pas</string>
 
 </resources>
