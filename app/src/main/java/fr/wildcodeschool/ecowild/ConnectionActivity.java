@@ -161,6 +161,9 @@ public class ConnectionActivity extends AppCompatActivity {
                     myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getChildrenCount() == 0) {
+                                Toast.makeText(ConnectionActivity.this, R.string.password_false, Toast.LENGTH_SHORT).show();
+                            }
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 UserModel userModel = snapshot.getValue(UserModel.class);
                                 String passwordRecup = userModel.getPassword();
@@ -272,7 +275,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 } else {
                                     /**Partie Firebase envoit avec photo*/
 
-                                    //sockage dans firebase avec Uri
+                                    //stockage dans firebase avec Uri
                                     mStorageRef = FirebaseStorage.getInstance().getReference();
 
                                     StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
