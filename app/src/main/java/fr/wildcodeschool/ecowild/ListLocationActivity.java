@@ -1,13 +1,13 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,9 +35,9 @@ public class ListLocationActivity extends AppCompatActivity {
 
         Switch goMap = findViewById(R.id.go_Map);
 
-        mlistData = ListLocationActivity.this.getIntent().getExtras().getParcelableArrayList("GPS_POSITIONS");
 
-        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, mlistData);
+        LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
+        final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, loadAPISingleton.getClusterList());
         locationList.setAdapter(adapter);
 
         goMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -71,7 +71,10 @@ public class ListLocationActivity extends AppCompatActivity {
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
         SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
+        Resources ressource = getResources();
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, ressource.getDisplayMetrics());
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(valuePx, valuePx);
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
@@ -86,61 +89,41 @@ public class ListLocationActivity extends AppCompatActivity {
         sabPaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (mPaperfilter) {
-
                     mPaperfilter = false;
-
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-
-                        Toast.makeText(ListLocationActivity.this, R.string.filter_alert, Toast.LENGTH_LONG).show();
-                        mPaperfilter = true;
-                    } else {
-
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                         adapter.filterList("Verre");
-
+                        mGlassFilter= true;
+                    } else {
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
+                        adapter.filterList("Verre");
                     }
-
                 } else {
                     mPaperfilter = true;
                     paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
                     adapter.filterList(null);
-
                 }
             }
         });
-
         sabGlass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if ((!mPaperfilter) & (!mGlassFilter)) {
-
-                    Toast.makeText(ListLocationActivity.this, R.string.filter_alert, Toast.LENGTH_SHORT).show();
-                }
-
                 if (mGlassFilter) {
-
                     mGlassFilter = false;
-
                     if ((!mPaperfilter) & (!mGlassFilter)) {
-
-                        Toast.makeText(ListLocationActivity.this, R.string.filter_alert, Toast.LENGTH_SHORT).show();
-                        mGlassFilter = true;
-                    } else {
-
-                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
-
+                        paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
                         adapter.filterList("Papier/Plastique");
-
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+                        mPaperfilter = true;
+                    } else {
+                        glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verresansfond));
+                        adapter.filterList("Papier/Plastique");
                     }
-
                 } else {
                     mGlassFilter = true;
                     adapter.filterList(null);
-
-
                     glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                 }
             }

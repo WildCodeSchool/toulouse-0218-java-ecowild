@@ -49,6 +49,8 @@ dependencies {
     //Clustering setting for map
     compile 'com.androidmapsextensions:android-maps-extensions:2.4.0'
     compile 'com.google.android.gms:play-services:12.0.1'
+    //Gif Importer
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
 
 }
 

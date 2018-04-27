@@ -1,8 +1,10 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.TypedValue;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -33,24 +35,24 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
 
         Bitmap bitmap;
 
+        Resources ressource = mContext.getResources();
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 38, ressource.getDisplayMetrics());
+
         // create bitpma ici au lieu de le generer à chaque fois.
         if (item.getType().equals("Verre")) {
             //Bitmap config pour la taille du marqueur
-            int height = 150;
-            int width = 150;
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap = Bitmap.createScaledBitmap(glass, width, height, false);
+            bitmap = Bitmap.createScaledBitmap(glass, valuePx, valuePx, false);
         } else {
             //Bitmap config pour la taille du marqueur
-            int height = 150;
-            int width = 150;
             BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_papier);
             Bitmap plastic = bitmapDrawablePlastic.getBitmap();
-            bitmap = Bitmap.createScaledBitmap(plastic, width, height, false);
+            bitmap = Bitmap.createScaledBitmap(plastic, valuePx, valuePx, false);
         }
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+
 
         super.onBeforeClusterItemRendered(item, markerOptions);
 

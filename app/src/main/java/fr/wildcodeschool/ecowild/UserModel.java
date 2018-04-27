@@ -4,20 +4,21 @@ public class UserModel {
     String name;
     String password;
     String avatar;
+    String rank;
     int xp;
     int level;
 
 
+    public UserModel() {
+    }
 
-
-    public UserModel(){}
-
-    public UserModel(String name, String password, String avatar, int xp, int level) {
+    public UserModel(String name, String password, String avatar, String rank, int xp, int level) {
         this.name = name;
         this.password = password;
         this.avatar = avatar;
+        this.rank = rank;
         this.xp = xp;
-        this.level =level;
+        this.level = level;
     }
 
     public String getName() {
@@ -44,6 +45,14 @@ public class UserModel {
         this.avatar = avatar;
     }
 
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
     public int getXp() {
         return xp;
     }
@@ -52,9 +61,13 @@ public class UserModel {
         this.xp = xp;
     }
 
-    public int getLevel(){return level;}
+    public int getLevel() {
+        return level;
+    }
 
-    public void setLevel(){this.level=level;}
+    public void setLevel() {
+        this.level = level;
+    }
 
 }
 

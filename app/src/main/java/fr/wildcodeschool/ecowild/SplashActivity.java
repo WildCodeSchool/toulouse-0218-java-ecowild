@@ -6,10 +6,8 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +22,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        ImageView loadingGif = findViewById(R.id.loading);
+
+        Glide.with(SplashActivity.this).load(R.drawable.loading_screen).into(loadingGif);
 
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
@@ -40,12 +42,14 @@ public class SplashActivity extends AppCompatActivity {
                         String passwordRecup = userModel.getPassword();
                         String avatar = userModel.getAvatar();
                         String name = userModel.getName();
+                        String rank = userModel.getRank();
                         int xp = userModel.getXp();
                         int level = userModel.getLevel();
 
                         UserSingleton userSingleton = UserSingleton.getInstance();
                         userSingleton.setTextName(name);
                         userSingleton.setTextPassword(passwordRecup);
+                        userSingleton.setTextRank(rank);
                         userSingleton.setTextAvatar(avatar);
                         userSingleton.setIntXp(xp);
                         userSingleton.setIntLevel(level);
