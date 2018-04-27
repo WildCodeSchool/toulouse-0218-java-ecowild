@@ -689,7 +689,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
                     textView.setMaxLines(3);
                     textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    snackbar.setDuration(3500);
+                    snackbar.setDuration(6000);
                     snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
                     snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
                     snackbar.show();
