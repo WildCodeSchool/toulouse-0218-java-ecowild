@@ -18,7 +18,9 @@ public class OwRenderingGlass extends DefaultClusterRenderer<ClusterModel> {
 
     Context mContext;
 
-    /** Avec la precieuse aide de Bastien **/
+    /**
+     * Avec la precieuse aide de Bastien
+     **/
 
     public OwRenderingGlass(Context context, GoogleMap map, ClusterManager<ClusterModel> clusterManager) {
         super(context, map, clusterManager);
@@ -30,7 +32,7 @@ public class OwRenderingGlass extends DefaultClusterRenderer<ClusterModel> {
         Bitmap bitmap2;
 
         // Filtre où le marqueur est créé si du bon type, sinon rien.
-        if (item.getType().equals("Papier/Plastique")){
+        if (item.getType().equals("Papier/Plastique")) {
             markerOptions.snippet(item.getType());
             markerOptions.title(item.getAddress());
 

@@ -5,6 +5,7 @@ public class UserSingleton {
     public String mNameSaved = "";
     public String mAvatarSaved = "";
     public String mPasswordSaved = "";
+    public String mRankSaved = "";
     public int mXp = 0;
     public int mLevel = 1;
 
@@ -33,6 +34,14 @@ public class UserSingleton {
 
     public void setTextAvatar(String textAvatar) {
         mAvatarSaved = textAvatar;
+    }
+
+    public String getTextRank() {
+        return mRankSaved;
+    }
+
+    public void setTextRank (String textRank) {
+        mRankSaved = textRank;
     }
 
     public String getTextPassword() {

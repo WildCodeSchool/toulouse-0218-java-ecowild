@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -20,7 +21,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,13 +34,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.androidmapsextensions.ClusteringSettings;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ebanx.swipebtn.OnStateChangeListener;
@@ -50,10 +43,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -71,20 +62,16 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
-
     private static int SPLASH_TIME_OUT = 100;
     LatLngBounds mScreenBoundarys;
     public boolean NOT_MOVE = true;
@@ -107,10 +94,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
+        final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
+
+
         /**initi singleton*/
         final UserSingleton userSingleton = UserSingleton.getInstance();
 
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
+
 
         /** Partie menu Circle**/
         //Image bouton Menu
@@ -150,6 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView rank = findViewById(R.id.tv_rank);
         final TextView level = findViewById(R.id.tv_level);
         final TextView xp = findViewById(R.id.tv_xp);
+        rank.setText(userSingleton.getTextRank());
 
 
         final MagicButton mbXp = findViewById(R.id.magic_button);
@@ -158,7 +151,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               userSingleton.setIntXp(userSingleton.getIntXp()+ intGainExperience);
+                userSingleton.setIntXp(userSingleton.getIntXp() + intGainExperience);
                 int currentXp = userSingleton.getIntXp() % 10;
 
                 pbXpImg.setProgress(currentXp);
@@ -176,14 +169,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (userSingleton.getIntLevel() >= 10) {
                     rank.setText(R.string.rang5);
+                    userSingleton.setTextRank("EcoGod");
                 } else if (userSingleton.getIntLevel() >= 7) {
                     rank.setText(R.string.rang4);
+                    userSingleton.setTextRank("EcoWild");
                 } else if (userSingleton.getIntLevel() >= 5) {
                     rank.setText(R.string.rang3);
+                    userSingleton.setTextRank("EcoFan");
                 } else if (userSingleton.getIntLevel() >= 3) {
                     rank.setText(R.string.rang2);
+                    userSingleton.setTextRank("EcoCool");
                 } else if (userSingleton.getIntLevel() >= 1) {
                     rank.setText(R.string.rang1);
+                    userSingleton.setTextRank("EcoNoob");
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -207,10 +205,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
 
-                                String key = userdataSnapshot.getKey().toString();
-                                user.child(key).child("xp").setValue(userSingleton.getIntXp());
-                                user.child(key).child("level").setValue(userSingleton.getIntLevel());
-
+                            String key = userdataSnapshot.getKey().toString();
+                            user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                            user.child(key).child("level").setValue(userSingleton.getIntLevel());
+                            user.child(key).child("rank").setValue(userSingleton.getTextRank());
                         }
                     }
 
@@ -560,12 +558,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final ImageView buttonLeft = findViewById(R.id.iv_left);
 
-        if (ConnectionActivity.CONNECTED) {
+        if (ConnectionActivity.CONNECTED || !username.isEmpty()) {
             pseudo.setText(userSingleton.getTextName());
             level.setText(getString(R.string.xp_connection) + Integer.valueOf(userSingleton.getIntLevel()).toString());
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            rank.setText(userSingleton.getTextRank());
             level.setVisibility(View.VISIBLE);
             xp.setVisibility(View.VISIBLE);
             btnCreateAccount.setVisibility(View.GONE);
@@ -573,11 +572,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
 
             accountImgCreation.setBackground(null);
+            if (userSingleton.getTextAvatar() == null){
+                accountImgCreation.setBackgroundResource(R.drawable.icon_avatar);
 
-
+            }
         }
 
-        if (!ConnectionActivity.CONNECTED) {
+        if (!ConnectionActivity.CONNECTED && username.isEmpty())  {
             Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
 
                 @Override
@@ -597,7 +598,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
             snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
             snackbar.show();
-
         }
 
         /**Map**/

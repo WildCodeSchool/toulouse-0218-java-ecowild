@@ -50,7 +50,7 @@
     <string name="je_viens_de_recycler">Je viens de recycler</string>
     <string name="yes">OUI</string>
     <string name="no">NON</string>
-    <string name="lock_buttons">Verrouiller la position des îcones</string>
+    <string name="lock_buttons">Verrouiller la\nposition des îcones</string>
     <string name="unlock_button">Déverrouiller la position des îcones</string>
     <string name="popup">Popup</string>
     <string name="rang">EcoNoob</string>
@@ -73,5 +73,6 @@
     <string name="xppp">0/10</string>
     <string name="xp_connection">Niveau :</string>
     <string name="xp_ooo">/10</string>
+    <string name="ou">OU</string>
 
 </resources>

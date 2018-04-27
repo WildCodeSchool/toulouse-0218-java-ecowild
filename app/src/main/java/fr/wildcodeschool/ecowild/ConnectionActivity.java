@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,8 +82,6 @@ public class ConnectionActivity extends AppCompatActivity {
 
         final Button buttonToLogIn = findViewById(R.id.button_log_in);
         final Button buttonMember = findViewById(R.id.button_create);
-        final CheckBox checkBoxToLogIn = findViewById(R.id.check_box_connection);
-
 
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
@@ -168,6 +165,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 String name = userModel.getName();
                                 int xp = userModel.getXp();
                                 int level = userModel.getLevel();
+                                String rank = userModel.getRank();
 
                                 ImageView mImageView = findViewById(R.id.iv_photo);
                                 Glide.with(ConnectionActivity.this).load(avatar).apply(RequestOptions.circleCropTransform()).into(mImageView);
@@ -176,7 +174,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                 if (passwordRecup.equals(hashCode.toString())) {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                                     /** partie Singleton*/
-                                    userModelSingleton(name, passwordRecup, avatar, xp, level);
+                                    userModelSingleton(name, passwordRecup, avatar, rank, xp, level);
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     Toast.makeText(ConnectionActivity.this, R.string.error_identification, Toast.LENGTH_SHORT).show();
@@ -191,13 +189,6 @@ public class ConnectionActivity extends AppCompatActivity {
                     });
 
 
-                }
-
-                if (checkBoxToLogIn.isChecked()) {
-                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                    editorProfil.putString(CACHE_USERNAME, editProfil);
-                    editorProfil.putString(CACHE_PASSWORD, editPassword);
-                    editorProfil.commit();
                 }
             }
         });
@@ -261,12 +252,12 @@ public class ConnectionActivity extends AppCompatActivity {
 
                                 if (mPhotoUri == null) {
                                     /**Partie Firease envoit si il ne prend pas de photo*/
-                                    UserModel userModel = new UserModel(editProfil, hashCode.toString(), null, 0, 1);
+                                    UserModel userModel = new UserModel(editProfil, hashCode.toString(), null, "EcoNoob", 0, 1);
                                     String userKey = userRef.push().getKey();
                                     userRef.child(userKey).setValue(userModel);
 
                                     /**Partie Singleton*/
-                                    userModelSingleton(editProfil, hashCode.toString(), null, 0, 1);
+                                    userModelSingleton(editProfil, hashCode.toString(), null, "EcoNoob", 0, 1);
 
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
@@ -290,12 +281,12 @@ public class ConnectionActivity extends AppCompatActivity {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                                            UserModel userModel = new UserModel(editProfil, hashCode.toString(), downloadUrl.toString(), 0, 1);
+                                            UserModel userModel = new UserModel(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
                                             String userKey = userRef.push().getKey();
                                             userRef.child(userKey).setValue(userModel);
 
                                             /**Partie Singleton*/
-                                            userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), 0, 1);
+                                            userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
 
 
                                             ConnectionActivity.this.startActivity(intentMap);
@@ -326,13 +317,10 @@ public class ConnectionActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (checkBoxToLogIn.isChecked()) {
-                        SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                        editorProfil.putString(CACHE_USERNAME, editProfil);
-                        editorProfil.putString(CACHE_PASSWORD, editPassword);
-                        editorProfil.commit();
-                    }
-
+                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                    editorProfil.putString(CACHE_USERNAME, editProfil);
+                    editorProfil.putString(CACHE_PASSWORD, editPassword);
+                    editorProfil.commit();
                 }
 
 
@@ -399,16 +387,15 @@ public class ConnectionActivity extends AppCompatActivity {
         ImageView mImageView = findViewById(R.id.iv_photo);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(ConnectionActivity.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
-
-
         }
     }
 
-    public void userModelSingleton(String textName, String textPassword, String textAvatar, int intXp, int intLevel) {
+    public void userModelSingleton(String textName, String textPassword, String textAvatar, String rank, int intXp, int intLevel) {
         UserSingleton userSingleton = UserSingleton.getInstance();
         userSingleton.setTextName(textName);
         userSingleton.setTextPassword(textPassword);
         userSingleton.setTextAvatar(textAvatar);
+        userSingleton.setTextRank(rank);
         userSingleton.setIntXp(intXp);
         userSingleton.setIntLevel(intLevel);
     }
