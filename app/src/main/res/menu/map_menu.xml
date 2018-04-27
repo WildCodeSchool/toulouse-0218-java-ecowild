@@ -4,7 +4,7 @@
 
     <item android:id="@+id/hamburgerMenu"
         android:title=""
-        android:icon="@drawable/profil"
+        android:icon="@drawable/icon_avatar"
         app:showAsAction="always"/>
 
 </menu>
