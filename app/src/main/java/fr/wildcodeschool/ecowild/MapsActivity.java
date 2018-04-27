@@ -59,6 +59,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
@@ -557,6 +558,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            pbXpImg.setProgress(userSingleton.getIntXp() % 10);
             rank.setText(userSingleton.getTextRank());
             level.setVisibility(View.VISIBLE);
             xp.setVisibility(View.VISIBLE);
@@ -565,7 +567,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
 
             accountImgCreation.setBackground(null);
-            if (userSingleton.getTextAvatar() == null){
+            if (userSingleton.getTextAvatar() == null) {
                 accountImgCreation.setBackgroundResource(R.drawable.icon_avatar);
 
             }
@@ -660,6 +662,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -691,7 +694,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
                     snackbar.show();
 
-                    } else {
+                } else {
 
                     Toast.makeText(this, R.string.geoloc_refused, Toast.LENGTH_SHORT).show();
                 }
