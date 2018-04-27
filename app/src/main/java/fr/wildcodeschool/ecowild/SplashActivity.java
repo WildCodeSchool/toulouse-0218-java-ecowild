@@ -27,8 +27,6 @@ public class SplashActivity extends AppCompatActivity {
 
         Glide.with(SplashActivity.this).load(R.drawable.loading_screen).into(loadingGif);
 
-
-
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
 
