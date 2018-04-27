@@ -51,20 +51,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
-import java.util.ArrayList;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -384,8 +380,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     });
 
                 }
-
-
             }
         });
 
@@ -566,6 +560,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            pbXpImg.setProgress(userSingleton.getIntXp() % 10);
             rank.setText(userSingleton.getTextRank());
             level.setVisibility(View.VISIBLE);
             xp.setVisibility(View.VISIBLE);
@@ -574,32 +569,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
 
             accountImgCreation.setBackground(null);
-            if (userSingleton.getTextAvatar() == null){
+            if (userSingleton.getTextAvatar() == null) {
                 accountImgCreation.setBackgroundResource(R.drawable.icon_avatar);
 
             }
-        }
-
-        if (!ConnectionActivity.CONNECTED && username.isEmpty())  {
-            Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-
-            View snackBarView = snackbar.getView();
-            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
-            textView.setMaxLines(3);
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            snackbar.setDuration(3500);
-            snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
-            snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
-            snackbar.show();
         }
 
         /**Map**/
@@ -691,6 +664,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -702,6 +676,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     // il a accepté, charger la position de la personne
                     getLocation();
+
+                    Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    View snackBarView = snackbar.getView();
+                    TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+                    textView.setMaxLines(3);
+                    textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    snackbar.setDuration(6000);
+                    snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+                    snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
+                    snackbar.show();
 
                 } else {
 
