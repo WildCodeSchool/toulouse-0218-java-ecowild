@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -126,7 +128,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
         SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
+        Resources ressource = getResources();
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, ressource.getDisplayMetrics());
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(valuePx, valuePx);
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
@@ -143,8 +148,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView level = findViewById(R.id.tv_level);
         final TextView xp = findViewById(R.id.tv_xp);
         rank.setText(userSingleton.getTextRank());
-
-
         final MagicButton mbXp = findViewById(R.id.magic_button);
         final int intGainExperience = 1;
 
