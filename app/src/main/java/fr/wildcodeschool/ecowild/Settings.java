@@ -90,10 +90,11 @@ public class Settings extends AppCompatActivity {
         final ImageView ivProfil = findViewById(R.id.iv_profil);
         ivProfil.setBackgroundResource(R.drawable.icon_avatar);
         final UserSingleton userSingleton = UserSingleton.getInstance();
-        if(userSingleton.getTextAvatar() !=null ){
-        Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
-        name.setText(userSingleton.getTextName());
-        ivProfil.setBackground(null);}
+        if (userSingleton.getTextAvatar() != null) {
+            Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
+            name.setText(userSingleton.getTextName());
+            ivProfil.setBackground(null);
+        }
 
 
         final RadioButton rbAvatar = findViewById(R.id.radio_button_avatar);
@@ -323,27 +324,27 @@ public class Settings extends AppCompatActivity {
                         public void onClick(View v) {
                             ivProfil.setBackground(null);
 
-                                    final DatabaseReference user = database.getReference("utilisateurs");
-                                    user.orderByChild("name").limitToFirst(1).equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            final DatabaseReference user = database.getReference("utilisateurs");
+                            user.orderByChild("name").limitToFirst(1).equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(final DataSnapshot dataSnapshot) {
+                                    //transformation Uri
+                                    mStorageRef = FirebaseStorage.getInstance().getReference();
+
+                                    StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
+                                    UploadTask uploadTask = photoRef.putFile(mPhotoUri);
+
+                                    // Register observers to listen for when the download is done or if it fails
+                                    uploadTask.addOnFailureListener(new OnFailureListener() {
                                         @Override
-                                        public void onDataChange(final DataSnapshot dataSnapshot) {
-                                            //transformation Uri
-                                            mStorageRef = FirebaseStorage.getInstance().getReference();
-
-                                            StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
-                                            UploadTask uploadTask = photoRef.putFile(mPhotoUri);
-
-                                            // Register observers to listen for when the download is done or if it fails
-                                            uploadTask.addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception exception) {
-                                                    Toast.makeText(Settings.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                                                    final Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                        public void onFailure(@NonNull Exception exception) {
+                                            Toast.makeText(Settings.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                            final Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
 
                                             for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
@@ -353,21 +354,21 @@ public class Settings extends AppCompatActivity {
 
 
                                             }
-                                                    Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
+                                            Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
 
 
-                                                }
+                                        }
 
 
                                     });
 
                                 }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                                        }
-                                    });
+                                }
+                            });
                         }
                     });
                 }
