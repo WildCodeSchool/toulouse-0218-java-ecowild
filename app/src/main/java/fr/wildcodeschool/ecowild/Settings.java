@@ -3,7 +3,11 @@ package fr.wildcodeschool.ecowild;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +19,39 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.REQUEST_TAKE_PHOTO;
 
 public class Settings extends AppCompatActivity {
     int mPasswordVisibility = 1;
-    Bitmap mPhotography;
+    String mCurrentPhotoPath;
+    private Uri mPhotoUri = null;
+    private StorageReference mStorageRef;
 
 
     @Override
@@ -29,31 +59,51 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        final EditText etPassword = findViewById(R.id.edit_text_pseudo);
+        final EditText etPassword = findViewById(R.id.edit_text_password);
         final EditText etNewPassword = findViewById(R.id.edit_text_new_password);
         final EditText etNewPassword2 = findViewById(R.id.edit_text_new_password_confirm);
         final EditText etProfil = findViewById(R.id.edit_text_profil);
         final EditText etNewProfil = findViewById(R.id.edit_text_new_profil);
         final EditText etNewProfil2 = findViewById(R.id.edit_text_new_profil_confirm);
+
+        final TextView name = findViewById(R.id.tv_name);
+
         final Button buttonMdp = findViewById(R.id.button_mdp);
         final Button buttonMnc = findViewById(R.id.button_mnc);
+        final Button buttonValidate = findViewById(R.id.button_validate);
+        Button buttonBack = findViewById(R.id.button_back);
+
+        final Intent intent = new Intent(this, MapsActivity.class);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
+
         final ImageView ivPassword = findViewById(R.id.image_view_past_password);
         final ImageView ivNewPassword = findViewById(R.id.image_view_new_password);
         final ImageView ivNewPassword2 = findViewById(R.id.image_view_validated_password2);
         final ImageView ivkey = findViewById(R.id.image_view_key);
-        final ImageView photo = findViewById(R.id.photograpy);
 
-        //test image ronde
         final ImageView ivAvatar = findViewById(R.id.image_view_avatar);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jeter);
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        roundedBitmapDrawable.setCircular(true);
-        ivAvatar.setImageDrawable(roundedBitmapDrawable);
+        final ImageView ivProfil = findViewById(R.id.iv_profil);
+        ivProfil.setBackgroundResource(R.drawable.icon_avatar);
+        final UserSingleton userSingleton = UserSingleton.getInstance();
+        if (userSingleton.getTextAvatar() != null) {
+            Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
+            name.setText(userSingleton.getTextName());
+            ivProfil.setBackground(null);
+        }
+
 
         final RadioButton rbAvatar = findViewById(R.id.radio_button_avatar);
         final RadioButton rbName = findViewById(R.id.radio_button_name);
         final RadioButton rbPassword = findViewById(R.id.radio_button_password);
         RadioGroup rbOptionGroup = findViewById(R.id.radio_group);
+
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         ivPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,11 +158,13 @@ public class Settings extends AppCompatActivity {
                 etNewProfil2.setVisibility(View.GONE);
                 buttonMdp.setVisibility(View.GONE);
                 buttonMnc.setVisibility(View.GONE);
+                buttonValidate.setVisibility(View.GONE);
                 ivPassword.setVisibility(View.GONE);
                 ivNewPassword.setVisibility(View.GONE);
                 ivNewPassword2.setVisibility(View.GONE);
                 ivkey.setVisibility(View.GONE);
                 ivAvatar.setVisibility(View.GONE);
+
 
                 if (rbPassword.isChecked()) {
                     visibleEt(etPassword, etNewPassword, etNewPassword2);
@@ -122,16 +174,203 @@ public class Settings extends AppCompatActivity {
                     ivNewPassword2.setVisibility(View.VISIBLE);
                     ivkey.setVisibility(View.VISIBLE);
 
+                    buttonMdp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //Cryptage nouveau mot de passe
+                            final String password = etPassword.getText().toString();
+                            final HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
+                            String newPassword = etNewPassword.getText().toString();
+                            final HashCode hashCodeNP = Hashing.sha256().hashString(newPassword, Charset.defaultCharset());
+                            String newPassword2 = etNewPassword2.getText().toString();
+                            userSingleton.setTextPassword(hashCodeNP.toString());
+
+                            if (password.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()) {
+                                Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
+                            }
+                            if (newPassword.equals(newPassword2)) {
+                                /**Partie recuperation ancien mot de passe**/
+                                DatabaseReference myRef = database.getReference("utilisateurs");
+                                myRef.orderByChild("name").equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            UserModel userModel = snapshot.getValue(UserModel.class);
+                                            String passwordRecup = userModel.getPassword();
+
+
+                                            if (passwordRecup.equals(hashCode.toString())) {
+
+                                                //changement mot de passe
+                                                final DatabaseReference user = database.getReference("utilisateurs");
+                                                user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+                                                            userSingleton.setTextPassword(hashCodeNP.toString());
+                                                            String key = userdataSnapshot.getKey().toString();
+                                                            user.child(key).child("password").setValue(userSingleton.getTextPassword());
+
+                                                            Toast.makeText(Settings.this, R.string.move_password, Toast.LENGTH_SHORT).show();
+
+
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+
+                                                });
+
+                                            } else if (!password.isEmpty()) {
+                                                Toast.makeText(Settings.this, R.string.false_password, Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+
+
+                            } else {
+                                Toast.makeText(Settings.this, R.string.new_password_false, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
                 }
 
                 if (rbName.isChecked()) {
                     buttonMnc.setVisibility(View.VISIBLE);
                     visibleEt(etProfil, etNewProfil, etNewProfil2);
 
+
+                    buttonMnc.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String profil = etProfil.getText().toString();
+                            final String newProfil = etNewProfil.getText().toString();
+                            String newProfil2 = etNewProfil2.getText().toString();
+
+                            if (profil.isEmpty() || newProfil.isEmpty() || newProfil2.isEmpty()) {
+                                Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
+                            }
+                            //verification nom utilisateur
+                            if (profil.equals(userSingleton.getTextName())) {
+                                DatabaseReference myRef = database.getReference("utilisateurs");
+                                myRef.orderByChild("name").equalTo(newProfil).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.getChildrenCount() == 0) {
+                                            //changement nom utilisateur
+                                            final DatabaseReference user = database.getReference("utilisateurs");
+                                            user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+                                                        userSingleton.setTextName(newProfil);
+                                                        String key = userdataSnapshot.getKey().toString();
+                                                        user.child(key).child("name").setValue(userSingleton.getTextName());
+                                                        Toast.makeText(Settings.this, R.string.name_move, Toast.LENGTH_SHORT).show();
+                                                        name.setText(userSingleton.getTextName());
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+
+                                            });
+                                        } else {
+                                            Toast.makeText(Settings.this, R.string.repeat, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+                            } else if (!profil.isEmpty()) {
+                                Toast.makeText(Settings.this, R.string.password_false, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 }
 
                 if (rbAvatar.isChecked()) {
                     ivAvatar.setVisibility(View.VISIBLE);
+                    buttonValidate.setVisibility(View.VISIBLE);
+                    ivAvatar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //qd click sur avatar lance toutes les methodes
+                            dispatchTakePictureIntent();
+                        }
+                    });
+                    buttonValidate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ivProfil.setBackground(null);
+
+                            final DatabaseReference user = database.getReference("utilisateurs");
+                            user.orderByChild("name").limitToFirst(1).equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(final DataSnapshot dataSnapshot) {
+                                    //transformation Uri
+                                    mStorageRef = FirebaseStorage.getInstance().getReference();
+
+                                    StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
+                                    UploadTask uploadTask = photoRef.putFile(mPhotoUri);
+
+                                    // Register observers to listen for when the download is done or if it fails
+                                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            Toast.makeText(Settings.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                            final Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+
+                                            for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+                                                userSingleton.setTextAvatar(downloadUrl.toString());
+                                                String key = userdataSnapshot.getKey().toString();
+                                                user.child(key).child("avatar").setValue(userSingleton.getTextAvatar());
+
+
+                                            }
+                                            Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
+
+
+                                        }
+
+
+                                    });
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });
@@ -139,13 +378,6 @@ public class Settings extends AppCompatActivity {
         /** PHOTO PART I (prise photo et sauvegarde image) **/
         /** A noter faire une variable m pour le bouton et l'image (si pas firebase) **/
 
-        photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
-            }
-        });
 
     }
 
@@ -158,19 +390,58 @@ public class Settings extends AppCompatActivity {
     /**
      * PHOTO PARTII (récuperation image et on set)
      **/
+    // apl le app photo intent photo
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                mPhotoUri = FileProvider.getUriForFile(this,
+                        "fr.wildcodeschool.ecowild.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+
+    // creation de limage dans le stockage local
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    //recuperer le resultat de la photo stocker en local
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        ImageView mImageView = findViewById(R.id.image_view_avatar);
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            Glide.with(Settings.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
-        ImageView photo = findViewById(R.id.photograpy);
-        mPhotography = (Bitmap) data.getExtras().get("data");
 
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(
-                Settings.this.getResources(), mPhotography);
-
-        /** on donne une forme ronde et on set l'image où on veut **/
-        roundedBitmapDrawable.setCircular(true);
-        photo.setImageDrawable(roundedBitmapDrawable);
+        }
     }
+
 
 }

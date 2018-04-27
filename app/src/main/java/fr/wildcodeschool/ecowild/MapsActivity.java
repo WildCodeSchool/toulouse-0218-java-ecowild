@@ -102,7 +102,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /**initi singleton*/
         final UserSingleton userSingleton = UserSingleton.getInstance();
-
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
 
