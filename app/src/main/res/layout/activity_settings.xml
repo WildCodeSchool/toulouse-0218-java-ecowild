@@ -277,8 +277,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_setting"
-                app:srcCompat="@drawable/icon_avatar" />
+                app:layout_constraintTop_toBottomOf="@+id/text_view_setting" />
 
             <ImageView
                 android:id="@+id/image_view_avatar"
@@ -319,7 +318,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="hkhk"
+                android:text="Name"
                 android:textColor="@color/colorEcoWild"
                 android:textSize="20sp"
                 android:textStyle="bold"

@@ -88,9 +88,12 @@ public class Settings extends AppCompatActivity {
 
         final ImageView ivAvatar = findViewById(R.id.image_view_avatar);
         final ImageView ivProfil = findViewById(R.id.iv_profil);
+        ivProfil.setBackgroundResource(R.drawable.icon_avatar);
         final UserSingleton userSingleton = UserSingleton.getInstance();
+        if(userSingleton.getTextAvatar() !=null ){
         Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
         name.setText(userSingleton.getTextName());
+        ivProfil.setBackground(null);}
 
 
         final RadioButton rbAvatar = findViewById(R.id.radio_button_avatar);
@@ -318,9 +321,10 @@ public class Settings extends AppCompatActivity {
                     buttonValidate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            ivProfil.setBackground(null);
 
                                     final DatabaseReference user = database.getReference("utilisateurs");
-                                    user.orderByChild("name").limitToFirst(1).equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                                    user.orderByChild("name").limitToFirst(1).equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(final DataSnapshot dataSnapshot) {
                                             //transformation Uri
