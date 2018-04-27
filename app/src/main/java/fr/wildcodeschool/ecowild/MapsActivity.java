@@ -578,28 +578,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
-        if (!ConnectionActivity.CONNECTED && username.isEmpty())  {
-            Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-
-            View snackBarView = snackbar.getView();
-            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
-            textView.setMaxLines(3);
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            snackbar.setDuration(3500);
-            snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
-            snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
-            snackbar.show();
-        }
-
         /**Map**/
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -701,7 +679,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // il a accepté, charger la position de la personne
                     getLocation();
 
-                } else {
+                    Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    View snackBarView = snackbar.getView();
+                    TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+                    textView.setMaxLines(3);
+                    textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    snackbar.setDuration(3500);
+                    snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+                    snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
+                    snackbar.show();
+
+                    } else {
 
                     Toast.makeText(this, R.string.geoloc_refused, Toast.LENGTH_SHORT).show();
                 }
