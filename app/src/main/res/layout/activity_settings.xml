@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="16dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -200,20 +200,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/edit_text_new_password_confirm" />
 
             <!--Partie Pseudo -->
-            <EditText
-                android:id="@+id/edit_text_profil"
-                android:layout_width="269dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="@string/nom_de_compte_connection"
-                android:inputType="text"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/edit_text_password" />
 
             <EditText
                 android:id="@+id/edit_text_new_profil"
@@ -221,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:ems="10"
                 android:hint="@string/new_compte"
                 android:inputType="text"
@@ -229,33 +215,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_text_profil" />
-
-            <EditText
-                android:id="@+id/edit_text_new_profil_confirm"
-                android:layout_width="269dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="@string/new_compte2"
-                android:inputType="text"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_text_new_profil" />
+                app:layout_constraintTop_toBottomOf="@+id/radio_group" />
 
             <Button
                 android:id="@+id/button_mnc"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
-
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button"
                 android:text="@string/move_compte"
                 android:textColor="@color/colorBlack"
@@ -263,8 +231,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_text_new_profil_confirm" />
-
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_new_profil" />
+              />
 
             <!--Partie avatar-->
 
@@ -326,18 +294,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_profil" />
 
+            <Button
+                android:id="@+id/button_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/retour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/button_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/retour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
