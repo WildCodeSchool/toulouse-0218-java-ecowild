@@ -62,9 +62,7 @@ public class Settings extends AppCompatActivity {
         final EditText etPassword = findViewById(R.id.edit_text_password);
         final EditText etNewPassword = findViewById(R.id.edit_text_new_password);
         final EditText etNewPassword2 = findViewById(R.id.edit_text_new_password_confirm);
-        final EditText etProfil = findViewById(R.id.edit_text_profil);
         final EditText etNewProfil = findViewById(R.id.edit_text_new_profil);
-        final EditText etNewProfil2 = findViewById(R.id.edit_text_new_profil_confirm);
 
         final TextView name = findViewById(R.id.tv_name);
 
@@ -72,6 +70,18 @@ public class Settings extends AppCompatActivity {
         final Button buttonMnc = findViewById(R.id.button_mnc);
         final Button buttonValidate = findViewById(R.id.button_validate);
         Button buttonBack = findViewById(R.id.button_back);
+
+        final ImageView ivPassword = findViewById(R.id.image_view_past_password);
+        final ImageView ivNewPassword = findViewById(R.id.image_view_new_password);
+        final ImageView ivNewPassword2 = findViewById(R.id.image_view_validated_password2);
+        final ImageView ivkey = findViewById(R.id.image_view_key);
+        final ImageView ivAvatar = findViewById(R.id.image_view_avatar);
+        final ImageView ivProfil = findViewById(R.id.iv_profil);
+
+        final RadioButton rbAvatar = findViewById(R.id.radio_button_avatar);
+        final RadioButton rbName = findViewById(R.id.radio_button_name);
+        final RadioButton rbPassword = findViewById(R.id.radio_button_password);
+        RadioGroup rbOptionGroup = findViewById(R.id.radio_group);
 
         final Intent intent = new Intent(this, MapsActivity.class);
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -81,13 +91,6 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        final ImageView ivPassword = findViewById(R.id.image_view_past_password);
-        final ImageView ivNewPassword = findViewById(R.id.image_view_new_password);
-        final ImageView ivNewPassword2 = findViewById(R.id.image_view_validated_password2);
-        final ImageView ivkey = findViewById(R.id.image_view_key);
-
-        final ImageView ivAvatar = findViewById(R.id.image_view_avatar);
-        final ImageView ivProfil = findViewById(R.id.iv_profil);
         ivProfil.setBackgroundResource(R.drawable.icon_avatar);
         final UserSingleton userSingleton = UserSingleton.getInstance();
         if (userSingleton.getTextAvatar() != null) {
@@ -95,12 +98,6 @@ public class Settings extends AppCompatActivity {
             name.setText(userSingleton.getTextName());
             ivProfil.setBackground(null);
         }
-
-
-        final RadioButton rbAvatar = findViewById(R.id.radio_button_avatar);
-        final RadioButton rbName = findViewById(R.id.radio_button_name);
-        final RadioButton rbPassword = findViewById(R.id.radio_button_password);
-        RadioGroup rbOptionGroup = findViewById(R.id.radio_group);
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -153,9 +150,7 @@ public class Settings extends AppCompatActivity {
                 etPassword.setVisibility(View.GONE);
                 etNewPassword.setVisibility(View.GONE);
                 etNewPassword2.setVisibility(View.GONE);
-                etProfil.setVisibility(View.GONE);
                 etNewProfil.setVisibility(View.GONE);
-                etNewProfil2.setVisibility(View.GONE);
                 buttonMdp.setVisibility(View.GONE);
                 buttonMnc.setVisibility(View.GONE);
                 buttonValidate.setVisibility(View.GONE);
@@ -198,9 +193,7 @@ public class Settings extends AppCompatActivity {
                                             UserModel userModel = snapshot.getValue(UserModel.class);
                                             String passwordRecup = userModel.getPassword();
 
-
                                             if (passwordRecup.equals(hashCode.toString())) {
-
                                                 //changement mot de passe
                                                 final DatabaseReference user = database.getReference("utilisateurs");
                                                 user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
@@ -235,34 +228,28 @@ public class Settings extends AppCompatActivity {
                                     public void onCancelled(DatabaseError databaseError) {
                                     }
                                 });
-
-
                             } else {
                                 Toast.makeText(Settings.this, R.string.new_password_false, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-
-
                 }
 
                 if (rbName.isChecked()) {
                     buttonMnc.setVisibility(View.VISIBLE);
-                    visibleEt(etProfil, etNewProfil, etNewProfil2);
-
+                    etNewProfil.setVisibility(View.VISIBLE);
 
                     buttonMnc.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String profil = etProfil.getText().toString();
-                            final String newProfil = etNewProfil.getText().toString();
-                            String newProfil2 = etNewProfil2.getText().toString();
 
-                            if (profil.isEmpty() || newProfil.isEmpty() || newProfil2.isEmpty()) {
+                            final String newProfil = etNewProfil.getText().toString();
+
+                            if (newProfil.isEmpty()) {
                                 Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
                             }
-                            //verification nom utilisateur
-                            if (profil.equals(userSingleton.getTextName())) {
+                            //verification si le nom utilisateur existe ou non
+                            else {
                                 DatabaseReference myRef = database.getReference("utilisateurs");
                                 myRef.orderByChild("name").equalTo(newProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -301,8 +288,6 @@ public class Settings extends AppCompatActivity {
                                 });
 
 
-                            } else if (!profil.isEmpty()) {
-                                Toast.makeText(Settings.this, R.string.password_false, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -346,7 +331,6 @@ public class Settings extends AppCompatActivity {
                                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                                             final Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-
                                             for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
                                                 userSingleton.setTextAvatar(downloadUrl.toString());
                                                 String key = userdataSnapshot.getKey().toString();
@@ -355,7 +339,6 @@ public class Settings extends AppCompatActivity {
 
                                             }
                                             Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
-
 
                                         }
 
@@ -375,10 +358,6 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        /** PHOTO PART I (prise photo et sauvegarde image) **/
-        /** A noter faire une variable m pour le bouton et l'image (si pas firebase) **/
-
-
     }
 
     public void visibleEt(EditText et1, EditText et2, EditText et3) {
@@ -387,9 +366,6 @@ public class Settings extends AppCompatActivity {
         et3.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * PHOTO PARTII (récuperation image et on set)
-     **/
     // apl le app photo intent photo
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
