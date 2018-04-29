@@ -21,13 +21,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -61,6 +65,8 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import java.util.Set;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -244,7 +250,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
@@ -580,10 +585,93 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+
+
+        /** Drawer **/
+
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
+
+            }
+        });
+
+        /** on ecoute le drawer (sil ouvert ou pas)
+         * A chaque changement, on affiche ou non le bouton
+         *
+         * On anime l'apparition ou non du bouton, et ce avec une animation
+         *
+         * On met l'animation sur ecoute pour que le changement d'etat se fasse de maniere smooth
+         *
+         */
+
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(final View drawerView) {
+
+                Animation fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_animation);
+                buttonLeft.startAnimation(fadeOutAnimation);
+                actionButton.startAnimation(fadeOutAnimation);
+                fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        actionButton.setVisibility(View.VISIBLE);
+                        buttonLeft.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        actionButton.setVisibility(View.GONE);
+                        buttonLeft.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                actionButton.setClickable(false);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+                Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
+                buttonLeft.startAnimation(fadeInAnimation);
+                actionButton.startAnimation(fadeInAnimation);
+                fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd( Animation animation) {
+                        actionButton.setVisibility(View.VISIBLE);
+                        buttonLeft.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                actionButton.setClickable(true);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
 
             }
         });
