@@ -82,7 +82,8 @@
     <string name="recycling">Devenir le roi du recyclage  veux tu?</string>
     <string name="score_0">Score : 0</string>
     <string name="nom_createurs">Claire Bertrand Valentin Destruel Francois Nys</string>
-
+    <string name="apprenti">Mon apprenti un jour tu seras</string>
+    <string name="go_game">Jetter dans le bons conteneurs les dechets tu devras. De l\'experience tu gagneras mais te tromper tu ne devras pas !</string>
 
 
 </resources>
