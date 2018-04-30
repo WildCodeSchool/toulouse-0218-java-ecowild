@@ -5,7 +5,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
-
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,21 +44,20 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
             //Bitmap config pour la taille du marqueur
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap = Bitmap.createScaledBitmap(glass, valuePx, valuePx, false);
+            bitmap = Bitmap.createScaledBitmap(glass, (valuePx - 15) , valuePx, false);
         } else {
             //Bitmap config pour la taille du marqueur
             BitmapDrawable bitmapDrawablePlastic = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_papier);
             Bitmap plastic = bitmapDrawablePlastic.getBitmap();
-            bitmap = Bitmap.createScaledBitmap(plastic, valuePx, valuePx, false);
+            bitmap = Bitmap.createScaledBitmap(plastic, (valuePx - 15), valuePx, false);
         }
 
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
         super.onBeforeClusterItemRendered(item, markerOptions);
 
     }
-
 
 }
 

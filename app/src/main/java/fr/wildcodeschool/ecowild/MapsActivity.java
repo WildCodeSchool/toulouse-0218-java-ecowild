@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.LruCache;
 import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -80,7 +82,6 @@ import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
     private static int SPLASH_TIME_OUT = 100;
-    LatLngBounds mScreenBoundarys;
     public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
@@ -93,6 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ClusterManager<ClusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
+    LruCache<String, Bitmap> mMemoryCache;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override

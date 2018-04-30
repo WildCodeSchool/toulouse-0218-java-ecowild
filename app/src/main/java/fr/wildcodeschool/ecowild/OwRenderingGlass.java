@@ -41,10 +41,12 @@ public class OwRenderingGlass extends DefaultClusterRenderer<ClusterModel> {
             //Retailler Marker
             Resources ressource = mContext.getResources();
             int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, ressource.getDisplayMetrics());
+
             //recup bitmap
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_papier);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap2 = Bitmap.createScaledBitmap(glass, valuePx, valuePx, false);
+            bitmap2 = Bitmap.createScaledBitmap(glass, (valuePx - 15), valuePx, false);
+
             //ajout du bitmap
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap2));
         }
