@@ -27,7 +27,6 @@ public class ListLocationActivity extends AppCompatActivity {
 
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
-    ArrayList<ClusterModel> mlistData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
