@@ -48,8 +48,15 @@ public class GamingActivity extends AppCompatActivity {
             ImageView ivJar = findViewById(R.id.iv_jar);
             ImageView ivGlass = findViewById(R.id.iv_glass);
 
+            ImageView ivJedi = findViewById(R.id.iv_jedi);
+            ImageView ivJedi2 =findViewById(R.id.iv_jedi2);
+            ImageView ivBublle = findViewById(R.id.iv_bulle);
+            ImageView ivBublle2 = findViewById(R.id.iv_bulle2);
+
+
             ImageView gifArrow = findViewById(R.id.iv_arrow);
             TextView tvInfosGame = findViewById(R.id.tv_infos);
+            TextView tvInfosGame2 = findViewById(R.id.tv_infos2);
             TextView tvScore = findViewById(R.id.tv_score);
 
             final ConstraintLayout llBac = findViewById(R.id.linear_layout_bac);
@@ -189,15 +196,24 @@ public class GamingActivity extends AppCompatActivity {
                     }
                     if (mENDGAME == 8) {
                         if (mXp > 0) {
-                            Toast.makeText(GamingActivity.this, "Tu as obtenu " + Integer.valueOf(mXp).toString() + " XP en plus", Toast.LENGTH_SHORT).show();
+                            tvInfosGame2.setText(getString(R.string.gain_game) + Integer.valueOf(mXp).toString() + getString(R.string.gain2));
+
                         } else {
-                            Toast.makeText(GamingActivity.this, "Tu viens de perdre " + Integer.valueOf(mXp).toString() + " XP", Toast.LENGTH_SHORT).show();
+                            tvInfosGame2.setText(getString(R.string.lose) + Integer.valueOf(mXp).toString() + getString(R.string.lose2));
 
                         }
 
                         llBac.setVisibility(View.INVISIBLE);
                         cWaste.setVisibility(View.INVISIBLE);
                         gifArrow.setVisibility(View.INVISIBLE);
+                        tvInfosGame.setVisibility(View.INVISIBLE);
+                        ivJedi.setVisibility(View.INVISIBLE);
+                        ivBublle.setVisibility(View.INVISIBLE);
+                        ivJedi2.setVisibility(View.VISIBLE);
+                        tvInfosGame2.setVisibility(View.VISIBLE);
+                        ivBublle2.setVisibility(View.VISIBLE);
+                        tvScore.setVisibility(View.INVISIBLE);
+
                     }
 
                     break;

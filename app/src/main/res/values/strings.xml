@@ -99,7 +99,10 @@
     <string name="negative7">Un carton? Non merci</string>
     <string name="negative8">Pour cette poubelle tes nouvelles sont pas bonnes</string>
     <string name="score">Scores : </string>
-
+    <string name="gain_game">Obtenue </string>
+    <string name="gain2">XP de plus tu as.   Demain, reprendra ton apprentissage</string>
+    <string name="lose">Perdu </string>
+    <string name="lose2">XP tu as   .Demain, t\'entrainer tu devras</string>
 
 
 </resources>

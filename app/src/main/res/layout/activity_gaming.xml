@@ -79,6 +79,17 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                 app:srcCompat="@drawable/bulle2" />
 
             <ImageView
+                android:id="@+id/iv_bulle2"
+                android:layout_width="246dp"
+                android:layout_height="187dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="184dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title"
+                app:srcCompat="@drawable/bulle2" />
+
+            <ImageView
                 android:id="@+id/iv_jedi"
                 android:layout_width="147dp"
                 android:layout_height="141dp"
@@ -94,12 +105,13 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                 android:layout_height="255dp"
                 android:layout_marginBottom="200dp"
                 android:layout_marginTop="100dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.623"
+                app:layout_constraintHorizontal_bias="0.103"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/jedi" />
 
             <TextView
@@ -116,6 +128,18 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                 app:layout_constraintHorizontal_bias="0.769"
                 app:layout_constraintStart_toStartOf="@+id/iv_bulle"
                 app:layout_constraintTop_toTopOf="@+id/iv_bulle" />
+
+            <TextView
+                android:id="@+id/tv_infos2"
+                android:layout_width="173dp"
+                android:layout_height="96dp"
+                android:layout_marginBottom="44dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_bulle2"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/linear_layout_bac"
