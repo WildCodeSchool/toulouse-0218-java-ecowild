@@ -36,7 +36,7 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
         Bitmap bitmap;
 
         Resources ressource = mContext.getResources();
-        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 38, ressource.getDisplayMetrics());
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, ressource.getDisplayMetrics());
 
         // create bitpma ici au lieu de le generer à chaque fois.
         if (item.getType().equals("Verre")) {

@@ -8,10 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -35,6 +38,8 @@ public class ListLocationActivity extends AppCompatActivity {
 
         Switch goMap = findViewById(R.id.go_Map);
 
+        final TextView backgroundFilter = findViewById(R.id.filter_shape);
+
 
         LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
         final ListAdapter adapter = new ListAdapter(ListLocationActivity.this, loadAPISingleton.getClusterList());
@@ -51,7 +56,7 @@ public class ListLocationActivity extends AppCompatActivity {
         /** Partie menu Circle**/
 
         //Image bouton Menu
-        ImageView iconMenu = new ImageView(this); // Create an icon
+        ImageView iconMenu = new ImageView(this);
         iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
 
         //creation bouton Menu
@@ -85,6 +90,52 @@ public class ListLocationActivity extends AppCompatActivity {
                 .attachTo(actionButton)
                 .build();
 
+        //Animation for the white background.
+        actionMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+            @Override
+            public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
+                Animation fadeInAnimtion = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
+                backgroundFilter.startAnimation(fadeInAnimtion);
+                fadeInAnimtion.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        backgroundFilter.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        backgroundFilter.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onMenuClosed(FloatingActionMenu floatingActionMenu) {
+                Animation fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_animation);
+                backgroundFilter.startAnimation(fadeOutAnimation);
+                fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        backgroundFilter.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        backgroundFilter.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+        });
 
         sabPaper.setOnClickListener(new View.OnClickListener() {
             @Override

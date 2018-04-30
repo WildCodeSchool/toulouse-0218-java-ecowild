@@ -8,6 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -109,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Partie menu Circle**/
         //Image bouton Menu
-        ImageView iconMenu = new ImageView(this); // Create an icon
+        ImageView iconMenu = new ImageView(this);
         iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
 
         //creation bouton Menu
@@ -127,7 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final ImageView paperFilterGlass = new ImageView(this); // Create an icon
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
-        SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
+        final SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
         Resources ressource = getResources();
         int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, ressource.getDisplayMetrics());
@@ -619,12 +622,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Animation fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_animation);
                 buttonLeft.startAnimation(fadeOutAnimation);
                 actionButton.startAnimation(fadeOutAnimation);
+                sabPaper.startAnimation(fadeOutAnimation);
+                sabGlass.startAnimation(fadeOutAnimation);
                 fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
 
                     @Override
                     public void onAnimationStart(Animation animation) {
                         actionButton.setVisibility(View.VISIBLE);
                         buttonLeft.setVisibility(View.VISIBLE);
+                        sabGlass.setVisibility(View.VISIBLE);
+                        sabPaper.setVisibility(View.VISIBLE);
 
                     }
 
@@ -632,6 +639,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onAnimationEnd(Animation animation) {
                         actionButton.setVisibility(View.GONE);
                         buttonLeft.setVisibility(View.GONE);
+                        sabGlass.setVisibility(View.GONE);
+                        sabPaper.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -649,6 +658,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
                 buttonLeft.startAnimation(fadeInAnimation);
                 actionButton.startAnimation(fadeInAnimation);
+                sabGlass.startAnimation(fadeInAnimation);
+                sabPaper.startAnimation(fadeInAnimation);
                 fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
 
                     @Override
@@ -659,6 +670,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onAnimationEnd( Animation animation) {
                         actionButton.setVisibility(View.VISIBLE);
                         buttonLeft.setVisibility(View.VISIBLE);
+                        sabPaper.setVisibility(View.VISIBLE);
+                        sabGlass.setVisibility(View.VISIBLE);
                     }
 
                     @Override

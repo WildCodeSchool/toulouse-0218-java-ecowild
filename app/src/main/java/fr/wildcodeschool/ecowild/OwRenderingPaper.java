@@ -40,7 +40,7 @@ public class OwRenderingPaper extends DefaultClusterRenderer<ClusterModel> {
 
             //Bitmap retaille
             Resources ressource = mContext.getResources();
-            int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 38, ressource.getDisplayMetrics());
+            int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, ressource.getDisplayMetrics());
 
             //on recup le bitmap
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
