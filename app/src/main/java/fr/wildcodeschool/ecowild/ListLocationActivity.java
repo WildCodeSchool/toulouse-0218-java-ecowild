@@ -15,13 +15,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import java.util.ArrayList;
 
 public class ListLocationActivity extends AppCompatActivity {
 
@@ -145,7 +143,7 @@ public class ListLocationActivity extends AppCompatActivity {
                         glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                         adapter.filterList("Verre");
-                        mGlassFilter= true;
+                        mGlassFilter = true;
                     } else {
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                         adapter.filterList("Verre");

@@ -11,13 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
         android:text="@string/ecowild"
-        android:textSize="68sp"
         android:textAllCaps="true"
         android:textColor="@color/colorEcoWild"
-        />
+        android:textSize="68sp" />
 
     <ImageView
         android:id="@+id/loading"

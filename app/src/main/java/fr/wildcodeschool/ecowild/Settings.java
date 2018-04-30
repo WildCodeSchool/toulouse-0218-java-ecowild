@@ -1,19 +1,17 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +44,7 @@ import java.util.Date;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.REQUEST_TAKE_PHOTO;
+
 
 public class Settings extends AppCompatActivity {
     int mPasswordVisibility = 1;
@@ -181,7 +180,15 @@ public class Settings extends AppCompatActivity {
                             userSingleton.setTextPassword(hashCodeNP.toString());
 
                             if (password.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()) {
-                                Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast,
+                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                textToast.setText(R.string.remplissez_tout_les_champs);
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(layout);
+                                toast.show();
                             }
                             if (newPassword.equals(newPassword2)) {
                                 /**Partie recuperation ancien mot de passe**/
@@ -204,8 +211,15 @@ public class Settings extends AppCompatActivity {
                                                             String key = userdataSnapshot.getKey().toString();
                                                             user.child(key).child("password").setValue(userSingleton.getTextPassword());
 
-                                                            Toast.makeText(Settings.this, R.string.move_password, Toast.LENGTH_SHORT).show();
-
+                                                            LayoutInflater inflater = getLayoutInflater();
+                                                            View layout = inflater.inflate(R.layout.toast,
+                                                                    (ViewGroup) findViewById(R.id.custom_toast_container));
+                                                            TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                                            textToast.setText(R.string.move_password);
+                                                            Toast toast = new Toast(getApplicationContext());
+                                                            toast.setDuration(Toast.LENGTH_SHORT);
+                                                            toast.setView(layout);
+                                                            toast.show();
 
                                                         }
                                                     }
@@ -218,7 +232,15 @@ public class Settings extends AppCompatActivity {
                                                 });
 
                                             } else if (!password.isEmpty()) {
-                                                Toast.makeText(Settings.this, R.string.false_password, Toast.LENGTH_SHORT).show();
+                                                LayoutInflater inflater = getLayoutInflater();
+                                                View layout = inflater.inflate(R.layout.toast,
+                                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+                                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                                textToast.setText(R.string.false_password);
+                                                Toast toast = new Toast(getApplicationContext());
+                                                toast.setDuration(Toast.LENGTH_SHORT);
+                                                toast.setView(layout);
+                                                toast.show();
                                             }
                                         }
 
@@ -229,7 +251,15 @@ public class Settings extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                Toast.makeText(Settings.this, R.string.new_password_false, Toast.LENGTH_SHORT).show();
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast,
+                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                textToast.setText(R.string.new_password_false);
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(layout);
+                                toast.show();
                             }
                         }
                     });
@@ -246,7 +276,15 @@ public class Settings extends AppCompatActivity {
                             final String newProfil = etNewProfil.getText().toString();
 
                             if (newProfil.isEmpty()) {
-                                Toast.makeText(Settings.this, R.string.remplissez_tout_les_champs, Toast.LENGTH_SHORT).show();
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast,
+                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                textToast.setText(R.string.remplissez_tout_les_champs);
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(layout);
+                                toast.show();
                             }
                             //verification si le nom utilisateur existe ou non
                             else {
@@ -264,7 +302,15 @@ public class Settings extends AppCompatActivity {
                                                         userSingleton.setTextName(newProfil);
                                                         String key = userdataSnapshot.getKey().toString();
                                                         user.child(key).child("name").setValue(userSingleton.getTextName());
-                                                        Toast.makeText(Settings.this, R.string.name_move, Toast.LENGTH_SHORT).show();
+                                                        LayoutInflater inflater = getLayoutInflater();
+                                                        View layout = inflater.inflate(R.layout.toast,
+                                                                (ViewGroup) findViewById(R.id.custom_toast_container));
+                                                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                                        textToast.setText(R.string.name_move);
+                                                        Toast toast = new Toast(getApplicationContext());
+                                                        toast.setDuration(Toast.LENGTH_SHORT);
+                                                        toast.setView(layout);
+                                                        toast.show();
                                                         name.setText(userSingleton.getTextName());
 
                                                     }
@@ -276,8 +322,17 @@ public class Settings extends AppCompatActivity {
                                                 }
 
                                             });
+
                                         } else {
-                                            Toast.makeText(Settings.this, R.string.repeat, Toast.LENGTH_SHORT).show();
+                                            LayoutInflater inflater = getLayoutInflater();
+                                            View layout = inflater.inflate(R.layout.toast,
+                                                    (ViewGroup) findViewById(R.id.custom_toast_container));
+                                            TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                            textToast.setText(R.string.repeat);
+                                            Toast toast = new Toast(getApplicationContext());
+                                            toast.setDuration(Toast.LENGTH_SHORT);
+                                            toast.setView(layout);
+                                            toast.show();
                                         }
                                     }
 

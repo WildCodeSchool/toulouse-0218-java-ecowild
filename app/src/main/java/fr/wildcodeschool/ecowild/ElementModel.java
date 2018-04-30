@@ -3,6 +3,7 @@ package fr.wildcodeschool.ecowild;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
 public class ElementModel implements Parcelable {
 
     public static final Creator<ElementModel> CREATOR = new Creator<ElementModel>() {
