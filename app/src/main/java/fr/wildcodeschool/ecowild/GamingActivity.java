@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 public class GamingActivity extends AppCompatActivity {
     public static int mENDGAME =0;
     public static int mXp=0;
@@ -23,7 +25,7 @@ public class GamingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gaming);
 
-        //TODO: mettre en place gif de la fleche
+
         ImageView ivVerre = findViewById(R.id.iv_glass_table);
         ImageView ivVase = findViewById(R.id.iv_vase);
         ImageView ivFalseGlass = findViewById(R.id.iv_false_glass);
@@ -34,6 +36,8 @@ public class GamingActivity extends AppCompatActivity {
 
         ImageView ivJar = findViewById(R.id.iv_jar);
         ImageView ivGlass = findViewById(R.id.iv_glass);
+        final ImageView gifArrow =findViewById(R.id.iv_arrow);
+
 
         final ConstraintLayout llBac = findViewById(R.id.linear_layout_bac);
         LinearLayout linearLayout = findViewById(R.id.linear_layout_normal);
@@ -42,10 +46,13 @@ public class GamingActivity extends AppCompatActivity {
         final ConstraintLayout cWaste = findViewById(R.id.constraintlayout_waste);
 
         final TextView tvInfosGame = findViewById(R.id.tv_infos);
+        final TextView tvScore=findViewById(R.id.tv_score);
         final Button btnYes = findViewById(R.id.button_yes);
         final Button btnNo = findViewById(R.id.button_no);
         Button btnBack= findViewById(R.id.button_back);
 
+        //TODO: mettre en place gif de la fleche
+        //Glide.with(GamingActivity.this).load(R.drawable.arrow_animated).into(gifArrow);
 
         ivVerre.setOnTouchListener(onTouchListener);
         ivVase.setOnTouchListener(onTouchListener);
@@ -79,6 +86,8 @@ public class GamingActivity extends AppCompatActivity {
                 btnNo.setVisibility(View.GONE);
                 btnYes.setVisibility(View.GONE);
                 tvInfosGame.setText(R.string.go_game);
+                tvScore.setVisibility(View.VISIBLE);
+                gifArrow.setVisibility(View.VISIBLE);
             }
         });
 
@@ -123,6 +132,8 @@ public class GamingActivity extends AppCompatActivity {
 
             ImageView ivJar = findViewById(R.id.iv_jar);
             ImageView ivGlass = findViewById(R.id.iv_glass);
+
+            ImageView gifArrow =findViewById(R.id.iv_arrow);
             TextView tvInfosGame = findViewById(R.id.tv_infos);
             TextView tvScore =findViewById(R.id.tv_score);
 
@@ -273,6 +284,7 @@ public class GamingActivity extends AppCompatActivity {
 
                     llBac.setVisibility(View.INVISIBLE);
                         cWaste.setVisibility(View.INVISIBLE);
+                        gifArrow.setVisibility(View.INVISIBLE);
                     }
 
                     break;
