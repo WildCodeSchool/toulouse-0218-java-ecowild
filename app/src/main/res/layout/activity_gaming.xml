@@ -90,12 +90,16 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
 
             <ImageView
                 android:id="@+id/iv_jedi2"
-                android:layout_width="213dp"
-                android:layout_height="233dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="200dp"
+                android:layout_width="230dp"
+                android:layout_height="255dp"
+                android:layout_marginBottom="200dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.623"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/jedi" />
 
             <TextView
