@@ -7,12 +7,36 @@
     tools:context="fr.wildcodeschool.ecowild.SplashActivity"
     android:background="#ffffff">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="12dp"
+        android:text="@string/ecowild"
+        android:textSize="68sp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorEcoWild"
+        />
+
     <ImageView
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/nom_createurs"
+        android:textColor="@color/colorEcoWild2"
+        android:textSize="8sp"
+        android:layout_margin="6dp"
+        android:textAllCaps="true"
         />
 
 </RelativeLayout>

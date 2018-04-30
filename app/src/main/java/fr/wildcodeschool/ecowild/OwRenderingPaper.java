@@ -45,7 +45,7 @@ public class OwRenderingPaper extends DefaultClusterRenderer<ClusterModel> {
             //on recup le bitmap
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap2 = Bitmap.createScaledBitmap(glass, valuePx, valuePx, false);
+            bitmap2 = Bitmap.createScaledBitmap(glass, (valuePx - 15), valuePx, false);
 
             //Mise en place du marqueur.
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap2));
