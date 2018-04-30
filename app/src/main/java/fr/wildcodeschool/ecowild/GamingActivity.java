@@ -49,7 +49,7 @@ public class GamingActivity extends AppCompatActivity {
             ImageView ivGlass = findViewById(R.id.iv_glass);
 
             ImageView ivJedi = findViewById(R.id.iv_jedi);
-            ImageView ivJedi2 =findViewById(R.id.iv_jedi2);
+            ImageView ivJedi2 = findViewById(R.id.iv_jedi2);
             ImageView ivBublle = findViewById(R.id.iv_bulle);
             ImageView ivBublle2 = findViewById(R.id.iv_bulle2);
 
