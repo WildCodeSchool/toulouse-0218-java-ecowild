@@ -84,6 +84,22 @@
     <string name="nom_createurs">Claire Bertrand Valentin Destruel Francois Nys</string>
     <string name="apprenti">Mon apprenti un jour tu seras</string>
     <string name="go_game">Jetter dans le bons conteneurs les dechets tu devras. De l\'experience tu gagneras mais te tromper tu ne devras pas !</string>
+    <string name="positive_xp">+1xp</string>
+    <string name="negative_xp">-1xp</string>
+    <string name="positive1">Un Jedi tu deviendras</string>
+    <string name="positive2">Jouer tu as bien</string>
+    <string name="positive3">Sur le bon chemin tu es</string>
+    <string name="positve4">Parfait</string>
+    <string name="negative1">Les ordures ménageres sont la bonne direction. Ne se recyclent pas le verre ménager.</string>
+    <string name="negatuve2">La direction des ordures ménageres doit prendre la porcelaine et la faïence</string>
+    <string name="negative3">Pleine est ta bouteille, ne plus faire tu dois!</string>
+    <string name="negative4">Serieux es tu la?</string>
+    <string name="negative5">Beark du verre !</string>
+    <string name="negative6">La prochaine fois tes ordures ménagères seront tes amis</string>
+    <string name="negative7">Un carton? Non merci</string>
+    <string name="negative8">Pour cette poubelle tes nouvelles sont pas bonnes</string>
+    <string name="score">Scores : </string>
+
 
 
 </resources>
