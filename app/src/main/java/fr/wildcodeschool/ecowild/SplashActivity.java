@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
