@@ -103,6 +103,7 @@
     <string name="gain2">XP de plus tu as.   Demain, reprendra ton apprentissage</string>
     <string name="lose">Perdu </string>
     <string name="lose2">XP tu as   .Demain, t\'entrainer tu devras</string>
+    <string name="jeux">JEUX</string>
 
 
 </resources>

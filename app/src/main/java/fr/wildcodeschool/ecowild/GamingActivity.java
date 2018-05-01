@@ -14,10 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 public class GamingActivity extends AppCompatActivity {
-    public static int mENDGAME = 0;
+    public static int mEndGame = 0;
     public static int mXp = 0;
     //pour laisser une ombre en deplacant l'objet
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
@@ -79,22 +77,22 @@ public class GamingActivity extends AppCompatActivity {
                         if (view.getId() == R.id.iv_glass_table) {
                             ivGlassTable.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive1);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_vase) {
                             ivVase.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive2);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_false_glass) {
                             ivFalseGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive3);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         } else {
                             ivTacos.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positve4);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         }
                         tvScore.setText(getString(R.string.score) + Integer.valueOf(mXp).toString());
@@ -104,22 +102,22 @@ public class GamingActivity extends AppCompatActivity {
                         if (view.getId() == R.id.iv_glass_table) {
                             ivGlassTable.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative1);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_vase) {
                             ivVase.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negatuve2);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_false_glass) {
                             ivFalseGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative3);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         } else {
                             ivTacos.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative4);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
 
                         }
@@ -133,12 +131,12 @@ public class GamingActivity extends AppCompatActivity {
                         if (view.getId() == R.id.iv_glass) {
                             ivGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive3);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         } else {
                             ivJar.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive2);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         }
 
@@ -149,12 +147,12 @@ public class GamingActivity extends AppCompatActivity {
                         if (view.getId() == R.id.iv_glass) {
                             ivGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative5);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_jar) {
                             ivJar.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative6);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         }
                         tvScore.setText(getString(R.string.score) + Integer.valueOf(mXp).toString());
@@ -167,12 +165,12 @@ public class GamingActivity extends AppCompatActivity {
                         if (view.getId() == R.id.iv_cardboard) {
                             ivCardboard.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive1);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         } else {
                             ivPaper.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive3);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp += 1;
                         }
 
@@ -183,18 +181,18 @@ public class GamingActivity extends AppCompatActivity {
                         if (view.getId() == R.id.iv_cardboard) {
                             ivCardboard.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative7);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_paper) {
                             ivPaper.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative8);
-                            mENDGAME += 1;
+                            mEndGame += 1;
                             mXp -= 1;
                         }
                         tvScore.setText(getString(R.string.score) + Integer.valueOf(mXp).toString());
 
                     }
-                    if (mENDGAME == 8) {
+                    if (mEndGame == 8) {
                         if (mXp > 0) {
                             tvInfosGame2.setText(getString(R.string.gain_game) + Integer.valueOf(mXp).toString() + getString(R.string.gain2));
 
