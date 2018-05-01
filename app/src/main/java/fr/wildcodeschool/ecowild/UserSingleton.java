@@ -1,5 +1,6 @@
 package fr.wildcodeschool.ecowild;
 
+
 public class UserSingleton {
     public static UserSingleton sInstance = null;
     public String mNameSaved = "";
@@ -40,7 +41,7 @@ public class UserSingleton {
         return mRankSaved;
     }
 
-    public void setTextRank (String textRank) {
+    public void setTextRank(String textRank) {
         mRankSaved = textRank;
     }
 

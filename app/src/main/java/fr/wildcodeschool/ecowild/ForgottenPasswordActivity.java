@@ -17,6 +17,7 @@ import android.widget.Toast;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
 
+
 public class ForgottenPasswordActivity extends AppCompatActivity {
 
 

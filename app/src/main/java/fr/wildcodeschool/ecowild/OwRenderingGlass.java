@@ -12,9 +12,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-/**
- * Created by wilder on 19/04/18.
- **/
 
 public class OwRenderingGlass extends DefaultClusterRenderer<ClusterModel> {
 

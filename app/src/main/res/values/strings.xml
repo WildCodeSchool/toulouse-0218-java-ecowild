@@ -22,7 +22,7 @@
     <string name="Verre">Dépôts de verre retirés de la carte</string>
     <string name="Papier">Dépôts de papier retirés de la carte</string>
     <string name="Toast">Tu as gagné un point d\'expérience !</string>
-    <string name="déconnection">Déconnection</string>
+    <string name="déconnexion">Déconnexion</string>
     <string name="param_tres">Paramètres</string>
     <string name="informations_utiles">Informations utiles</string>
     <string name="favoris">Favoris</string>
@@ -41,7 +41,7 @@
     <string name="password2">Mot de passe</string>
     <string name="alerte">Alerte proximité</string>
     <string name="alert_message">Vous êtes à moins de 2 mètres d\'un lieu de collecte. Voulez vous recycler?</string>
-    <string name="connection">Connection</string>
+    <string name="connexion">Connexion</string>
     <string name="carte">Carte</string>
     <string name="liste">Liste</string>
     <string name="pseudo">Pseudo</string>
@@ -51,7 +51,7 @@
     <string name="yes">OUI</string>
     <string name="no">NON</string>
     <string name="lock_buttons">Verrouiller la\nposition des îcones</string>
-    <string name="unlock_button">Déverrouiller la position des îcones</string>
+    <string name="unlock_button">Déverrouiller la\nposition des îcones</string>
     <string name="popup">Popup</string>
     <string name="rang">EcoNoob</string>
     <string name="rang1">EcoNoob</string>
@@ -62,12 +62,12 @@
     <string name="niveau">Niveau : 1</string>
     <string name="lvl">Niveau : %d</string>
     <string name="rang_et_level">Rang et Level</string>
-    <string name="error_identification">Votre mot de passe ou votre nom utilisateur n\'est pas correct</string>
+    <string name="error_identification">Votre mot de passe n\'est pas correct</string>
     <string name="page_de_droite">Page de droite</string>
     <string name="page_de_gauche">Page de gauche</string>
     <string name="page_du_milieu">Page du milieu</string>
     <string name="filter_alert">Merci de garder un filtre activé</string>
-    <string name="repeat">Nom d\'utilisateur déjà utilisé</string>
+    <string name="repeat">Ce nom d\'utilisateur est déjà utilisé</string>
     <string name="xp_base">0/10</string>
     <string name="xp_progress">%d/10</string>
     <string name="xppp">0/10</string>
@@ -80,6 +80,4 @@
     <string name="password_false">Votre nom d\'utilisateur n\'existe pas</string>
     <string name="ou">OU</string>
     <string name="nom_createurs">Claire Bertrand Valentin Destruel Francois Nys</string>
-
-
 </resources>

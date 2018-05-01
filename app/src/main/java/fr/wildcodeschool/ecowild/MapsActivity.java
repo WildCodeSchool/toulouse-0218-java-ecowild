@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -25,11 +22,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.LruCache;
 import android.util.TypedValue;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -70,8 +65,6 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
-import java.util.Set;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -591,8 +584,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-
-
         /** Drawer **/
 
         buttonLeft.setOnClickListener(new View.OnClickListener() {
@@ -669,7 +660,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
 
                     @Override
-                    public void onAnimationEnd( Animation animation) {
+                    public void onAnimationEnd(Animation animation) {
                         actionButton.setVisibility(View.VISIBLE);
                         buttonLeft.setVisibility(View.VISIBLE);
                         sabPaper.setVisibility(View.VISIBLE);

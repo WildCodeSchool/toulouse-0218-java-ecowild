@@ -16,9 +16,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by bastienwcs on 26/04/18.
- */
 
 public class LoadAPISingleton {
 
