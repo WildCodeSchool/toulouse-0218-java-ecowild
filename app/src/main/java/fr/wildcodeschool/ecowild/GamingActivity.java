@@ -1,22 +1,34 @@
 package fr.wildcodeschool.ecowild;
 
+import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class GamingActivity extends AppCompatActivity {
     public static int mEndGame = 0;
     public static int mXp = 0;
+    private static int SPLASH_TIME_OUT = 100;
     //pour laisser une ombre en deplacant l'objet
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
@@ -35,6 +47,10 @@ public class GamingActivity extends AppCompatActivity {
     View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View v, DragEvent event) {
+            final UserSingleton userSingleton = UserSingleton.getInstance();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference user = database.getReference("utilisateurs");
+
             ImageView ivGlassTable = findViewById(R.id.iv_glass_table);
             ImageView ivVase = findViewById(R.id.iv_vase);
             ImageView ivFalseGlass = findViewById(R.id.iv_false_glass);
@@ -56,6 +72,10 @@ public class GamingActivity extends AppCompatActivity {
             TextView tvInfosGame = findViewById(R.id.tv_infos);
             TextView tvInfosGame2 = findViewById(R.id.tv_infos2);
             TextView tvScore = findViewById(R.id.tv_score);
+
+            Animation fadeOutAnimation = AnimationUtils.loadAnimation(GamingActivity.this, R.anim.fade_out_animation);
+            tvInfosGame.startAnimation(fadeOutAnimation);
+            Glide.with(GamingActivity.this).load(R.drawable.loading_screen).into(gifArrow);
 
             final ConstraintLayout llBac = findViewById(R.id.linear_layout_bac);
             final ConstraintLayout cWaste = findViewById(R.id.constraintlayout_waste);
@@ -212,6 +232,24 @@ public class GamingActivity extends AppCompatActivity {
                         ivBublle2.setVisibility(View.VISIBLE);
                         tvScore.setVisibility(View.INVISIBLE);
 
+                        userSingleton.setIntXp(userSingleton.getIntLevel() + mXp);
+                        user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+
+                                    String key = userdataSnapshot.getKey().toString();
+                                    user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
                     }
 
                     break;
@@ -254,8 +292,6 @@ public class GamingActivity extends AppCompatActivity {
         final Button btnNo = findViewById(R.id.button_no);
         Button btnBack = findViewById(R.id.button_back);
 
-        //TODO: mettre en place gif de la fleche
-        //Glide.with(GamingActivity.this).load(R.drawable.arrow_animated).into(gifArrow);
 
         ivVerre.setOnTouchListener(onTouchListener);
         ivVase.setOnTouchListener(onTouchListener);
@@ -278,6 +314,13 @@ public class GamingActivity extends AppCompatActivity {
                 tvInfosGame.setVisibility(View.VISIBLE);
                 btnNo.setVisibility(View.GONE);
                 btnYes.setVisibility(View.GONE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(GamingActivity.this, MapsActivity.class);
+                        startActivity(intent);
+                    }
+                }, SPLASH_TIME_OUT);
             }
         });
 
@@ -302,7 +345,6 @@ public class GamingActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: mettre l'experience dans Singleton et Firebase
 
     }
 }

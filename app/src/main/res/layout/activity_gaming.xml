@@ -4,6 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+    android:background="@color/colorWhite"
 tools:context="fr.wildcodeschool.ecowild.GamingActivity">
 
     <ScrollView
@@ -219,7 +220,7 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                 android:layout_marginBottom="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -313,14 +314,16 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                 android:id="@+id/tv_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:text="@string/score_0"
                 android:textColor="@color/colorEcoWild"
-                android:textSize="14sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/linear_layout_bac"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintlayout_waste" />
 
             <ImageView
                 android:id="@+id/iv_arrow"
