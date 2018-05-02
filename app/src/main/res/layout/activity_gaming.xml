@@ -216,98 +216,151 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintlayout_waste"
                 android:layout_width="match_parent"
-                android:layout_height="133dp"
+                android:layout_height="243dp"
                 android:layout_marginBottom="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_arrow">
+                app:layout_constraintTop_toBottomOf="@+id/iv_arrow"
+                app:layout_constraintVertical_bias="1.0">
 
 
                 <ImageView
-                    android:id="@+id/iv_glass"
-                    android:layout_width="35dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/iv_game_glass"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/iv_paper"
-                    app:srcCompat="@drawable/bouteille" />
+                    app:layout_constraintHorizontal_bias="0.261"
+                    app:layout_constraintStart_toEndOf="@+id/iv_game_bottle"
+                    app:srcCompat="@drawable/game_glass" />
 
                 <ImageView
-                    android:id="@+id/iv_jar"
-                    android:layout_width="23dp"
+                    android:id="@+id/iv_game_plastic_bottle"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="52dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/iv_game_bottle"
+                    app:srcCompat="@drawable/game_plastic_bottle" />
+
+                <ImageView
+                    android:id="@+id/iv_game_newspaper"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginEnd="96dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/game_newspaper" />
+
+                <ImageView
+                    android:id="@+id/iv_game_paper"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="64dp"
+                    android:layout_marginEnd="240dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/game_paper" />
+
+                <ImageView
+                    android:id="@+id/iv_game_tacos"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginEnd="316dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_game_coca"
+                    app:srcCompat="@drawable/game_tacos" />
+
+                <ImageView
+                    android:id="@+id/iv_game_vase"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="96dp"
+                    android:layout_marginEnd="176dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_game_burger"
+                    app:srcCompat="@drawable/game_vase" />
+
+                <ImageView
+                    android:id="@+id/iv_game_coca"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/bocal" />
+                    app:srcCompat="@drawable/game_coca" />
 
                 <ImageView
-                    android:id="@+id/iv_cardboard"
-                    android:layout_width="89dp"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="24dp"
+                    android:id="@+id/iv_game_bag"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/carton" />
+                    app:srcCompat="@drawable/game_bag" />
 
                 <ImageView
-                    android:id="@+id/iv_vase"
-                    android:layout_width="70dp"
-                    android:layout_height="83dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_cardboard"
-                    app:srcCompat="@drawable/vase" />
-
-                <ImageView
-                    android:id="@+id/iv_false_glass"
-                    android:layout_width="33dp"
-                    android:layout_height="74dp"
-                    android:layout_marginStart="40dp"
+                    android:id="@+id/iv_game_jam"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="36dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toEndOf="@+id/iv_jar"
+                    app:layout_constraintStart_toEndOf="@+id/iv_game_coca"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/verreplein" />
+                    app:srcCompat="@drawable/game_jam" />
 
                 <ImageView
-                    android:id="@+id/iv_glass_table"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:id="@+id/iv_game_burger"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="88dp"
                     android:layout_marginTop="24dp"
-                    app:layout_constraintStart_toEndOf="@+id/iv_false_glass"
+                    app:layout_constraintStart_toEndOf="@+id/iv_game_jam"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/verretable" />
+                    app:srcCompat="@drawable/game_burguer" />
 
                 <ImageView
-                    android:id="@+id/iv_tacos"
-                    android:layout_width="56dp"
-                    android:layout_height="58dp"
+                    android:id="@+id/iv_game_cardboard"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_glass_table"
-                    app:srcCompat="@drawable/tacos"
-                    tools:layout_editor_absoluteY="16dp" />
+                    app:layout_constraintStart_toEndOf="@+id/iv_game_burger"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/game_cardboard" />
 
                 <ImageView
-                    android:id="@+id/iv_paper"
-                    android:layout_width="80dp"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_vase"
-                    app:srcCompat="@drawable/journaux" />
+                    android:id="@+id/iv_game_bottle"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="28dp"
+                    app:layout_constraintStart_toEndOf="@+id/iv_game_bag"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_game_vase"
+                    app:srcCompat="@drawable/game_bottle" />
+
             </android.support.constraint.ConstraintLayout>
 
             <TextView
@@ -316,6 +369,7 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/score_0"
                 android:textColor="@color/colorEcoWild"
                 android:textSize="24sp"

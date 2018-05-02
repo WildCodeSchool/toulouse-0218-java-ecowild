@@ -1,6 +1,5 @@
 package fr.wildcodeschool.ecowild;
 
-import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Handler;
@@ -24,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 public class GamingActivity extends AppCompatActivity {
     public static int mEndGame = 0;
@@ -51,16 +51,15 @@ public class GamingActivity extends AppCompatActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference user = database.getReference("utilisateurs");
 
-            ImageView ivGlassTable = findViewById(R.id.iv_glass_table);
-            ImageView ivVase = findViewById(R.id.iv_vase);
-            ImageView ivFalseGlass = findViewById(R.id.iv_false_glass);
-            ImageView ivTacos = findViewById(R.id.iv_tacos);
+            ImageView ivGlassTable = findViewById(R.id.iv_game_burger);
+            ImageView ivFalseGlass = findViewById(R.id.iv_game_jam);
+            ImageView ivTacos = findViewById(R.id.iv_game_cardboard);
 
-            ImageView ivPaper = findViewById(R.id.iv_paper);
-            ImageView ivCardboard = findViewById(R.id.iv_cardboard);
+            ImageView ivPaper = findViewById(R.id.iv_game_bottle);
+            ImageView ivCardboard = findViewById(R.id.iv_game_bag);
 
-            ImageView ivJar = findViewById(R.id.iv_jar);
-            ImageView ivGlass = findViewById(R.id.iv_glass);
+            ImageView ivJar = findViewById(R.id.iv_game_coca);
+            ImageView ivGlass = findViewById(R.id.iv_game_glass);
 
             ImageView ivJedi = findViewById(R.id.iv_jedi);
             ImageView ivJedi2 = findViewById(R.id.iv_jedi2);
@@ -91,20 +90,15 @@ public class GamingActivity extends AppCompatActivity {
                 case DragEvent.ACTION_DROP:
 
                     //Dechets classiques
-                    if ((view.getId() == R.id.iv_glass_table || view.getId() == R.id.iv_vase || view.getId() == R.id.iv_false_glass || view.getId() == R.id.iv_tacos) && v.getId() == R.id.linear_layout_normal) {
+                    if ((view.getId() == R.id.iv_game_burger || view.getId() == R.id.iv_game_jam || view.getId() == R.id.iv_game_cardboard) && v.getId() == R.id.linear_layout_normal) {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
                         tvInfosGame.setText(" ");
-                        if (view.getId() == R.id.iv_glass_table) {
+                        if (view.getId() == R.id.iv_game_burger) {
                             ivGlassTable.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive1);
                             mEndGame += 1;
                             mXp += 1;
-                        } else if (view.getId() == R.id.iv_vase) {
-                            ivVase.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.positive2);
-                            mEndGame += 1;
-                            mXp += 1;
-                        } else if (view.getId() == R.id.iv_false_glass) {
+                        } else if (view.getId() == R.id.iv_game_jam) {
                             ivFalseGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive3);
                             mEndGame += 1;
@@ -117,19 +111,14 @@ public class GamingActivity extends AppCompatActivity {
                         }
                         tvScore.setText(getString(R.string.score) + Integer.valueOf(mXp).toString());
 
-                    } else if ((view.getId() == R.id.iv_glass_table || view.getId() == R.id.iv_vase || view.getId() == R.id.iv_tacos || view.getId() == R.id.iv_false_glass) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_glass)) {
+                    } else if ((view.getId() == R.id.iv_game_burger || view.getId() == R.id.iv_game_cardboard || view.getId() == R.id.iv_game_jam) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_glass)) {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
-                        if (view.getId() == R.id.iv_glass_table) {
+                        if (view.getId() == R.id.iv_game_burger) {
                             ivGlassTable.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative1);
                             mEndGame += 1;
                             mXp -= 1;
-                        } else if (view.getId() == R.id.iv_vase) {
-                            ivVase.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negatuve2);
-                            mEndGame += 1;
-                            mXp -= 1;
-                        } else if (view.getId() == R.id.iv_false_glass) {
+                        } else if (view.getId() == R.id.iv_game_jam) {
                             ivFalseGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative3);
                             mEndGame += 1;
@@ -146,9 +135,9 @@ public class GamingActivity extends AppCompatActivity {
                     }
 
                     //dechets verre
-                    if ((view.getId() == R.id.iv_glass || view.getId() == R.id.iv_jar) && v.getId() == R.id.linear_layout_glass) {
+                    if ((view.getId() == R.id.iv_game_glass || view.getId() == R.id.iv_game_coca) && v.getId() == R.id.linear_layout_glass) {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
-                        if (view.getId() == R.id.iv_glass) {
+                        if (view.getId() == R.id.iv_game_glass) {
                             ivGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive3);
                             mEndGame += 1;
@@ -162,14 +151,14 @@ public class GamingActivity extends AppCompatActivity {
 
                         tvScore.setText(getString(R.string.score) + Integer.valueOf(mXp).toString());
 
-                    } else if ((view.getId() == R.id.iv_glass || view.getId() == R.id.iv_jar) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_normal)) {
+                    } else if ((view.getId() == R.id.iv_game_glass || view.getId() == R.id.iv_game_coca) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_normal)) {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
-                        if (view.getId() == R.id.iv_glass) {
+                        if (view.getId() == R.id.iv_game_glass) {
                             ivGlass.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative5);
                             mEndGame += 1;
                             mXp -= 1;
-                        } else if (view.getId() == R.id.iv_jar) {
+                        } else if (view.getId() == R.id.iv_game_coca) {
                             ivJar.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative6);
                             mEndGame += 1;
@@ -180,9 +169,9 @@ public class GamingActivity extends AppCompatActivity {
                     }
 
                     //dechet papier
-                    if ((view.getId() == R.id.iv_cardboard || view.getId() == R.id.iv_paper) && v.getId() == R.id.linear_layout_paper) {
+                    if ((view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_bottle) && v.getId() == R.id.linear_layout_paper) {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
-                        if (view.getId() == R.id.iv_cardboard) {
+                        if (view.getId() == R.id.iv_game_bag) {
                             ivCardboard.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive1);
                             mEndGame += 1;
@@ -196,14 +185,14 @@ public class GamingActivity extends AppCompatActivity {
 
                         tvScore.setText(getString(R.string.score) + Integer.valueOf(mXp).toString());
 
-                    } else if ((view.getId() == R.id.iv_cardboard || view.getId() == R.id.iv_paper) && (v.getId() == R.id.linear_layout_glass || v.getId() == R.id.linear_layout_normal)) {
+                    } else if ((view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_bottle) && (v.getId() == R.id.linear_layout_glass || v.getId() == R.id.linear_layout_normal)) {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
-                        if (view.getId() == R.id.iv_cardboard) {
+                        if (view.getId() == R.id.iv_game_bag) {
                             ivCardboard.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative7);
                             mEndGame += 1;
                             mXp -= 1;
-                        } else if (view.getId() == R.id.iv_paper) {
+                        } else if (view.getId() == R.id.iv_game_bottle) {
                             ivPaper.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative8);
                             mEndGame += 1;
@@ -267,16 +256,15 @@ public class GamingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gaming);
 
 
-        ImageView ivVerre = findViewById(R.id.iv_glass_table);
-        ImageView ivVase = findViewById(R.id.iv_vase);
-        ImageView ivFalseGlass = findViewById(R.id.iv_false_glass);
-        ImageView ivTacos = findViewById(R.id.iv_tacos);
+        ImageView ivVerre = findViewById(R.id.iv_game_burger);
+        ImageView ivFalseGlass = findViewById(R.id.iv_game_jam);
+        ImageView ivTacos = findViewById(R.id.iv_game_cardboard);
 
-        ImageView ivPaper = findViewById(R.id.iv_paper);
-        ImageView ivCardboard = findViewById(R.id.iv_cardboard);
+        ImageView ivPaper = findViewById(R.id.iv_game_bottle);
+        ImageView ivCardboard = findViewById(R.id.iv_game_bag);
 
-        ImageView ivJar = findViewById(R.id.iv_jar);
-        ImageView ivGlass = findViewById(R.id.iv_glass);
+        ImageView ivJar = findViewById(R.id.iv_game_coca);
+        ImageView ivGlass = findViewById(R.id.iv_game_glass);
         final ImageView gifArrow = findViewById(R.id.iv_arrow);
 
 
@@ -294,7 +282,6 @@ public class GamingActivity extends AppCompatActivity {
 
 
         ivVerre.setOnTouchListener(onTouchListener);
-        ivVase.setOnTouchListener(onTouchListener);
         ivFalseGlass.setOnTouchListener(onTouchListener);
         ivPaper.setOnTouchListener(onTouchListener);
         ivCardboard.setOnTouchListener(onTouchListener);
