@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.LruCache;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -84,6 +86,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation = null;
     float dX;
     float dY;
+    FloatingActionMenu mActionMenu;
+    int mButtonPositionX;
+    int mButtonPositionY;
+    int mStratAngle = 180;
+    int mEndAngle = 270;
+    int mScreenSizeX;
+    int mScreenSizeY;
     int lastAction;
     private ClusterManager<ClusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -96,6 +105,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        mScreenSizeX = size.x;
+        mScreenSizeY = size.y;
 
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
@@ -136,9 +151,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabGlass.setLayoutParams(layoutParam);
 
         //Creation bouton sous menu
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
+        mActionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabGlass)
                 .addSubActionView(sabPaper)
+                .setStartAngle(mStratAngle)
+                .setEndAngle(mEndAngle)
                 .attachTo(actionButton)
                 .build();
 
@@ -466,6 +483,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     break;
 
                                 case ACTION_UP:
+                                    //recuperation position du bouton
+                                    mButtonPositionX = Math.round(view.getX());
+                                    mButtonPositionY = Math.round(view.getY());
+
+                                    //cas de position et ouverture
+                                    if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
+                                        mStratAngle = 0;
+                                        mEndAngle = 90;
+                                    }
+
+                                    if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
+                                        mStratAngle = 90;
+                                        mEndAngle = 180;
+                                    }
+
+                                    if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
+                                        mStratAngle = 0;
+                                        mEndAngle = 90;
+                                    }
+
+                                    if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
+                                        mStratAngle = 180;
+                                        mEndAngle = 270;
+                                    }
+
+                                    Toast.makeText(MapsActivity.this, mStratAngle + " " + mEndAngle, Toast.LENGTH_SHORT).show();
 
                                     break;
 

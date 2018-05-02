@@ -119,6 +119,7 @@
         android:layout_gravity="start"
         android:background="#ffffff"
         android:orientation="vertical">
+
         <!-- Commentary used for Editing (put layout gravity inside) -->
 
         <TextView
