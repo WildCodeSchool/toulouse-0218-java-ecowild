@@ -99,22 +99,22 @@ public class GamingActivity extends AppCompatActivity {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_burger) {
                             ivBurgerGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.positive3);
+                            tvInfosGame.setText(R.string.positive1);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_tacos) {
                             ivTacosGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative3);
+                            tvInfosGame.setText(R.string.positive2);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_glass) {
                             ivGlassGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative3);
+                            tvInfosGame.setText(R.string.positive3);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_vase) {
                             ivVaseGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative3);
+                            tvInfosGame.setText(R.string.positive4);
                             mEndGame += 1;
                             mXp += 1;
                         }
@@ -125,22 +125,22 @@ public class GamingActivity extends AppCompatActivity {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_burger) {
                             ivBurgerGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative5);
+                            tvInfosGame.setText(R.string.negative1);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_tacos) {
                             ivTacosGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.negative2);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_glass) {
                             ivGlassGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.negative3);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_vase) {
                             ivVaseGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.negative4);
                             mEndGame += 1;
                             mXp -= 1;
                         }
@@ -154,12 +154,12 @@ public class GamingActivity extends AppCompatActivity {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_bottle) {
                             ivBottleGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.positive3);
+                            tvInfosGame.setText(R.string.positive5);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_jam) {
                             ivJamGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative3);
+                            tvInfosGame.setText(R.string.positive6);
                             mEndGame += 1;
                             mXp += 1;
                         }
@@ -194,27 +194,27 @@ public class GamingActivity extends AppCompatActivity {
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_bag) {
                             ivBagGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.positive2);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_paper) {
                             ivPaperGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.positive3);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_coca) {
                             ivCocaGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.positive4);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_cardboard) {
                             ivCardboardGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.positive5);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_plastic_bottle) {
                             ivPlasticBottleGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
+                            tvInfosGame.setText(R.string.positive6);
                             mEndGame += 1;
                             mXp += 1;
                         }
@@ -225,32 +225,32 @@ public class GamingActivity extends AppCompatActivity {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_newspaper) {
                             ivNewspaperGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative7);
+                            tvInfosGame.setText(R.string.negative1);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_bag) {
                             ivBagGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative8);
+                            tvInfosGame.setText(R.string.negative2);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_paper) {
                             ivPaperGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative8);
+                            tvInfosGame.setText(R.string.negative3);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_coca) {
                             ivCocaGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative8);
+                            tvInfosGame.setText(R.string.negative4);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_cardboard) {
                             ivCardboardGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative8);
+                            tvInfosGame.setText(R.string.negative5);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_plastic_bottle) {
                             ivPlasticBottleGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative8);
+                            tvInfosGame.setText(R.string.negative6);
                             mEndGame += 1;
                             mXp -= 1;
                         }
