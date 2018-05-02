@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestEcoWild</string>
+    <string name="app_name">EcoWild</string>
     <string name="ecowild">ECOWILD</string>
     <string name="se_connecter">Se connecter</string>
     <string name="nom_de_compte">Nom de compte</string>
