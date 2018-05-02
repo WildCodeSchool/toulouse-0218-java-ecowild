@@ -1,7 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
+import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class GamingActivity extends AppCompatActivity {
     public static int mEndGame = 0;
     public static int mXp = 0;
+    private static int SPLASH_TIME_OUT = 100;
     //pour laisser une ombre en deplacant l'objet
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
@@ -229,7 +232,7 @@ public class GamingActivity extends AppCompatActivity {
                         ivBublle2.setVisibility(View.VISIBLE);
                         tvScore.setVisibility(View.INVISIBLE);
 
-                        userSingleton.setIntXp(userSingleton.getIntLevel()+mXp);
+                        userSingleton.setIntXp(userSingleton.getIntLevel() + mXp);
                         user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -290,8 +293,6 @@ public class GamingActivity extends AppCompatActivity {
         Button btnBack = findViewById(R.id.button_back);
 
 
-
-
         ivVerre.setOnTouchListener(onTouchListener);
         ivVase.setOnTouchListener(onTouchListener);
         ivFalseGlass.setOnTouchListener(onTouchListener);
@@ -313,6 +314,13 @@ public class GamingActivity extends AppCompatActivity {
                 tvInfosGame.setVisibility(View.VISIBLE);
                 btnNo.setVisibility(View.GONE);
                 btnYes.setVisibility(View.GONE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(GamingActivity.this, MapsActivity.class);
+                        startActivity(intent);
+                    }
+                }, SPLASH_TIME_OUT);
             }
         });
 
@@ -336,7 +344,6 @@ public class GamingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
     }
