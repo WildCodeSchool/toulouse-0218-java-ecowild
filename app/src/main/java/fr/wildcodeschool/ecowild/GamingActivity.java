@@ -17,6 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class GamingActivity extends AppCompatActivity {
     public static int mEndGame = 0;
@@ -39,6 +44,10 @@ public class GamingActivity extends AppCompatActivity {
     View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View v, DragEvent event) {
+            final UserSingleton userSingleton = UserSingleton.getInstance();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference user = database.getReference("utilisateurs");
+
             ImageView ivGlassTable = findViewById(R.id.iv_glass_table);
             ImageView ivVase = findViewById(R.id.iv_vase);
             ImageView ivFalseGlass = findViewById(R.id.iv_false_glass);
@@ -220,6 +229,24 @@ public class GamingActivity extends AppCompatActivity {
                         ivBublle2.setVisibility(View.VISIBLE);
                         tvScore.setVisibility(View.INVISIBLE);
 
+                        userSingleton.setIntXp(userSingleton.getIntLevel()+mXp);
+                        user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+
+                                    String key = userdataSnapshot.getKey().toString();
+                                    user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
                     }
 
                     break;
@@ -310,7 +337,7 @@ public class GamingActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: mettre l'experience dans Singleton et Firebase
+
 
     }
 }
