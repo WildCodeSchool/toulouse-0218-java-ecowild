@@ -283,6 +283,9 @@ public class ConnectionActivity extends AppCompatActivity {
                                 } else {
                                     /**Partie Firebase envoit avec photo*/
 
+                                    //image de chargement en attendant
+                                    Glide.with(ConnectionActivity.this).load(R.drawable.loading_photo).into(ivPhoto);
+
                                     //stockage dans firebase avec Uri
                                     mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -307,7 +310,6 @@ public class ConnectionActivity extends AppCompatActivity {
 
                                             /**Partie Singleton*/
                                             userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
-
 
                                             ConnectionActivity.this.startActivity(intentMap);
                                         }
