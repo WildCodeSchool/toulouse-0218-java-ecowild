@@ -177,34 +177,34 @@
             android:id="@+id/tv_parameter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="41dp"
             android:text="@string/param_tres"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tv_useful_information"
-            map:layout_constraintStart_toEndOf="@+id/imageButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/iv_information"
+            map:layout_constraintStart_toEndOf="@+id/imageButton" />
 
         <TextView
             android:id="@+id/tv_move"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="34dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="31dp"
             android:text="@string/unlock_button"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:textStyle="bold"
-            map:layout_constraintStart_toEndOf="@+id/iv_move"
-            map:layout_constraintTop_toBottomOf="@+id/tv_parameter" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_jeu"
+            map:layout_constraintStart_toEndOf="@+id/iv_move" />
 
         <TextView
             android:id="@+id/tv_useful_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="72dp"
             android:text="@string/informations_utiles"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
@@ -243,8 +243,8 @@
             android:id="@+id/imageButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/parametres"
             app:layout_constraintTop_toBottomOf="@+id/iv_information"
             app:srcCompat="@drawable/parametres"
@@ -308,12 +308,12 @@
             android:id="@+id/iv_move"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/move"
+            app:layout_constraintTop_toBottomOf="@+id/iv_jeu"
             app:srcCompat="@drawable/move"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/imageButton" />
+            map:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_level"
@@ -329,6 +329,29 @@
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/img_profil"
             app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+
+        <ImageView
+            android:id="@+id/iv_jeu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_videogame_asset_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
+        <TextView
+            android:id="@+id/tv_jeu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="42dp"
+            android:text="@string/ecogame"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_jeu"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     </android.support.constraint.ConstraintLayout>
 

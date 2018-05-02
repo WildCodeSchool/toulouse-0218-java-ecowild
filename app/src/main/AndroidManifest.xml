@@ -66,6 +66,7 @@
         <activity android:name=".UsefulInformationActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".GamingActivity"/>
+
     </application>
 
 </manifest>
