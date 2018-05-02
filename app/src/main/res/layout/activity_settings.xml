@@ -298,8 +298,8 @@
                 android:id="@+id/button_back"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/retour"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
