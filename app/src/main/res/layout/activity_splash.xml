@@ -32,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/nom_createurs"
-        android:textColor="@color/colorEcoWild2"
+        android:textColor="@color/colorEcoWild"
         android:textSize="8sp"
         android:layout_margin="6dp"
         android:textAllCaps="true"
