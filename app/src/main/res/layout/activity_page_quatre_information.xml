@@ -25,7 +25,7 @@
         android:layout_height="113dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="76dp"
-        android:text="Ton apprentissage tu dois commencer, \n\nY parvenir            tu peux !"
+        android:text="@string/go_game_apprenti"
         android:textColor="@color/colorBlack"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_bulle"
