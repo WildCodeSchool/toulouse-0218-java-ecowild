@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 public class GamingActivity extends AppCompatActivity {
     public static int mEndGame = 0;
@@ -56,6 +60,10 @@ public class GamingActivity extends AppCompatActivity {
             TextView tvInfosGame = findViewById(R.id.tv_infos);
             TextView tvInfosGame2 = findViewById(R.id.tv_infos2);
             TextView tvScore = findViewById(R.id.tv_score);
+
+            Animation fadeOutAnimation = AnimationUtils.loadAnimation(GamingActivity.this, R.anim.fade_out_animation);
+            tvInfosGame.startAnimation(fadeOutAnimation);
+            Glide.with(GamingActivity.this).load(R.drawable.loading_screen).into(gifArrow);
 
             final ConstraintLayout llBac = findViewById(R.id.linear_layout_bac);
             final ConstraintLayout cWaste = findViewById(R.id.constraintlayout_waste);
@@ -254,8 +262,8 @@ public class GamingActivity extends AppCompatActivity {
         final Button btnNo = findViewById(R.id.button_no);
         Button btnBack = findViewById(R.id.button_back);
 
-        //TODO: mettre en place gif de la fleche
-        //Glide.with(GamingActivity.this).load(R.drawable.arrow_animated).into(gifArrow);
+
+
 
         ivVerre.setOnTouchListener(onTouchListener);
         ivVase.setOnTouchListener(onTouchListener);
