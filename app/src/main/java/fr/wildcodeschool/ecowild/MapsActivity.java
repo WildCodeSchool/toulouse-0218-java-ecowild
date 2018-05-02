@@ -52,7 +52,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,6 +64,8 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
+import org.w3c.dom.Text;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -504,9 +505,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+        TextView tvJeu = findViewById(R.id.tv_jeu);
+        ImageView ivJeu = findViewById(R.id.iv_jeu);
         final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
         final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-        final Intent account = new Intent(MapsActivity.this, ConnectionActivity.class);
+        final Intent intentAccount = new Intent(MapsActivity.this, ConnectionActivity.class);
+        final Intent intentJeu = new Intent(MapsActivity.this, GamingActivity.class);
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -519,6 +524,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 startActivity(intentParameter);
+            }
+        });
+
+        tvJeu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(intentJeu);
+            }
+        });
+
+        ivJeu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intentJeu);
             }
         });
 
@@ -540,17 +560,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-
-                startActivity(account);
+                startActivity(intentAccount);
             }
         });
 
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                startActivity(account);
+                startActivity(intentAccount);
             }
         });
 
