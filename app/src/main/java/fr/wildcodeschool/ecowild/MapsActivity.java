@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.LruCache;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -67,6 +69,8 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
@@ -84,11 +88,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation = null;
     float dX;
     float dY;
+    int mButtonPositionX;
+    int mButtonPositionY;
+    int mStratAngle = 180;
+    int mEndAngle = 270;
+    FloatingActionMenu mActionMenu;
+    ArrayList<FloatingActionMenu.Item> subActionItems;
+    int mScreenSizeX;
+    int mScreenSizeY;
     int lastAction;
     private ClusterManager<ClusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
-    LruCache<String, Bitmap> mMemoryCache;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -96,6 +107,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+        final ImageView buttonLeft = findViewById(R.id.iv_left);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        mScreenSizeX = size.x;
+        mScreenSizeY = size.y;
 
         final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
         final String username = sharedPrefProfil.getString(CACHE_USERNAME, "");
@@ -135,10 +155,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
+
         //Creation bouton sous menu
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
+        mActionMenu = new FloatingActionMenu.Builder(MapsActivity.this)
                 .addSubActionView(sabGlass)
                 .addSubActionView(sabPaper)
+                .setStartAngle(mStratAngle)
+                .setEndAngle(mEndAngle)
                 .attachTo(actionButton)
                 .build();
 
@@ -311,6 +334,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     view.setY(event.getRawY() + dY);
                                     view.setX(event.getRawX() + dX);
                                     lastAction = MotionEvent.ACTION_MOVE;
+
                                     break;
 
                                 case ACTION_UP:
@@ -466,6 +490,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     break;
 
                                 case ACTION_UP:
+                                    mButtonPositionX = Math.round(view.getX());
+                                    mButtonPositionY = Math.round(view.getY());
+
+                                    //cas de position et ouverture
+                                    if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
+                                        mStratAngle = 0;
+                                        mEndAngle = 90;
+
+
+                                    }
+
+                                    if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
+                                        mStratAngle = 90;
+                                        mEndAngle = 180;
+
+                                    }
+
+                                    if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
+                                        mStratAngle = 0;
+                                        mEndAngle = 90;
+
+                                    }
+
+                                    if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
+                                        mStratAngle = 180;
+                                        mEndAngle = 270;
+
+                                    }
 
                                     break;
 
@@ -572,7 +624,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
-        final ImageView buttonLeft = findViewById(R.id.iv_left);
 
         if (ConnectionActivity.CONNECTED || !username.isEmpty()) {
             pseudo.setText(userSingleton.getTextName());
