@@ -1,5 +1,15 @@
 package fr.wildcodeschool.ecowild;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.util.TypedValue;
+
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
+import java.util.HashMap;
 
 public class UserSingleton {
     public static UserSingleton sInstance = null;
@@ -9,6 +19,7 @@ public class UserSingleton {
     public String mRankSaved = "";
     public int mXp = 0;
     public int mLevel = 1;
+    private HashMap<Integer, BitmapDescriptor> bitmaps = new HashMap<>();
 
     public UserSingleton() {
     }
@@ -19,6 +30,21 @@ public class UserSingleton {
         }
         return sInstance;
 
+    }
+
+    public BitmapDescriptor getBitmapFromDrawable(Context context, int drawable, int widthPx, int heightPx) {
+
+        if (!bitmaps.containsKey(drawable)) {
+            Resources ressource = context.getResources();
+            int widthDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthPx, ressource.getDisplayMetrics());
+            int heightDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightPx, ressource.getDisplayMetrics());
+
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) context.getResources().getDrawable(drawable);
+            Bitmap bitmap = Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), widthDp, heightDp, false);
+
+            bitmaps.put(drawable, BitmapDescriptorFactory.fromBitmap(bitmap));
+        }
+        return bitmaps.get(drawable);
     }
 
     public String getTextName() {
