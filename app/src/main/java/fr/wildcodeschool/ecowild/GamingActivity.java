@@ -345,9 +345,9 @@ public class GamingActivity extends AppCompatActivity {
         String stringDay1 = day.format(dateDay);
         String stringMonth1 = month.format(dateDay);
         int month1 = Integer.parseInt(stringDay1);
-        int day1 =Integer.parseInt(stringMonth1);
+        int day1 = Integer.parseInt(stringMonth1);
 
-        if (monthInit == month1 && dayInit == day1){
+        if (monthInit == month1 && dayInit == day1) {
             tvInfosGame.setText(R.string.dejajoue);
             btnNo.setVisibility(View.GONE);
             btnYes.setVisibility(View.GONE);

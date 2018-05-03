@@ -150,8 +150,6 @@ public class Settings extends AppCompatActivity {
                         });
 
 
-
-
                     }
                 });
                 popup.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -535,8 +533,8 @@ public class Settings extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(Settings.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
         }
-        if(resultCode!=RESULT_OK){
-           return;
+        if (resultCode != RESULT_OK) {
+            return;
         }
 
     }

@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
@@ -24,7 +23,6 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.LruCache;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -66,9 +64,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
@@ -497,22 +493,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     mButtonPositionY = Math.round(view.getY());
 
                                     //cas de position et ouverture
-                                    if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
+                                    if ((mButtonPositionX < (mScreenSizeX / 2)) && (mButtonPositionY < (mScreenSizeY / 2))) {
                                         mStratAngle = 0;
                                         mEndAngle = 90;
                                     }
 
-                                    if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
+                                    if ((mButtonPositionX < (mScreenSizeX / 2)) && (mButtonPositionY > (mScreenSizeY / 2))) {
                                         mStratAngle = 90;
                                         mEndAngle = 180;
                                     }
 
-                                    if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
+                                    if ((mButtonPositionX > (mScreenSizeX / 2)) && (mButtonPositionY < (mScreenSizeY / 2))) {
                                         mStratAngle = 0;
                                         mEndAngle = 90;
                                     }
 
-                                    if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
+                                    if ((mButtonPositionX > (mScreenSizeX / 2)) && (mButtonPositionY > (mScreenSizeY / 2))) {
                                         mStratAngle = 180;
                                         mEndAngle = 270;
                                     }
@@ -627,7 +623,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(intentAccount);
             }
         });
-
 
 
         if (ConnectionActivity.CONNECTED || !username.isEmpty()) {
