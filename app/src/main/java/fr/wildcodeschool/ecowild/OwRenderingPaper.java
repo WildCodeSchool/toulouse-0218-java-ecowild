@@ -1,8 +1,10 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.TypedValue;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -10,9 +12,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-/**
- * Created by wilder on 19/04/18.
- **/
 
 public class OwRenderingPaper extends DefaultClusterRenderer<ClusterModel> {
 
@@ -36,13 +35,15 @@ public class OwRenderingPaper extends DefaultClusterRenderer<ClusterModel> {
             markerOptions.snippet(item.getType());
             markerOptions.title(item.getAddress());
 
+            //Bitmap retaille
+            Resources ressource = mContext.getResources();
+            int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, ressource.getDisplayMetrics());
 
-            //Bitmap config pour la taille du marqueur
-            int height = 150;
-            int width = 150;
+            //on recup le bitmap
             BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
             Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap2 = Bitmap.createScaledBitmap(glass, width, height, false);
+            bitmap2 = Bitmap.createScaledBitmap(glass, (valuePx - 15), valuePx, false);
+
             //Mise en place du marqueur.
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap2));
         }

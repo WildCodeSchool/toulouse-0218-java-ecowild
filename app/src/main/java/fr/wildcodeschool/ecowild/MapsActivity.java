@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -21,11 +23,15 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.LruCache;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -46,23 +52,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
 
 import br.com.bloder.magic.view.MagicButton;
 
@@ -73,7 +76,6 @@ import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 6786;
     private static int SPLASH_TIME_OUT = 100;
-    LatLngBounds mScreenBoundarys;
     public boolean NOT_MOVE = true;
     DrawerLayout mDrawerLayout;
     boolean mGlassFilter = true;
@@ -86,6 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ClusterManager<ClusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
+    LruCache<String, Bitmap> mMemoryCache;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -100,13 +103,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /**initi singleton*/
         final UserSingleton userSingleton = UserSingleton.getInstance();
-
         final ImageView accountImgCreation = findViewById(R.id.img_profil);
 
 
         /** Partie menu Circle**/
         //Image bouton Menu
-        ImageView iconMenu = new ImageView(this); // Create an icon
+        ImageView iconMenu = new ImageView(this);
         iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
 
         //creation bouton Menu
@@ -124,9 +126,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final ImageView paperFilterGlass = new ImageView(this); // Create an icon
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
-        SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
+        final SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
+        Resources ressource = getResources();
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, ressource.getDisplayMetrics());
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(valuePx, valuePx);
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
@@ -143,8 +148,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final TextView level = findViewById(R.id.tv_level);
         final TextView xp = findViewById(R.id.tv_xp);
         rank.setText(userSingleton.getTextRank());
-
-
         final MagicButton mbXp = findViewById(R.id.magic_button);
         final int intGainExperience = 1;
 
@@ -246,7 +249,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
@@ -382,8 +384,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     });
 
                 }
-
-
             }
         });
 
@@ -505,9 +505,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+        TextView tvJeu = findViewById(R.id.tv_jeu);
+        ImageView ivJeu = findViewById(R.id.iv_jeu);
         final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
         final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
-        final Intent account = new Intent(MapsActivity.this, ConnectionActivity.class);
+        final Intent intentAccount = new Intent(MapsActivity.this, ConnectionActivity.class);
+        final Intent intentJeu = new Intent(MapsActivity.this, GamingActivity.class);
         tvParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -520,6 +524,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 startActivity(intentParameter);
+            }
+        });
+
+        tvJeu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(intentJeu);
+            }
+        });
+
+        ivJeu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intentJeu);
             }
         });
 
@@ -541,17 +560,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-
-                startActivity(account);
+                startActivity(intentAccount);
             }
         });
 
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                startActivity(account);
+                startActivity(intentAccount);
             }
         });
 
@@ -564,6 +580,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
+            pbXpImg.setProgress(userSingleton.getIntXp() % 10);
             rank.setText(userSingleton.getTextRank());
             level.setVisibility(View.VISIBLE);
             xp.setVisibility(View.VISIBLE);
@@ -572,32 +589,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
 
             accountImgCreation.setBackground(null);
-            if (userSingleton.getTextAvatar() == null){
+            if (userSingleton.getTextAvatar() == null) {
                 accountImgCreation.setBackgroundResource(R.drawable.icon_avatar);
 
             }
-        }
-
-        if (!ConnectionActivity.CONNECTED && username.isEmpty())  {
-            Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-
-            View snackBarView = snackbar.getView();
-            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
-            textView.setMaxLines(3);
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            snackbar.setDuration(3500);
-            snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
-            snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
-            snackbar.show();
         }
 
         /**Map**/
@@ -605,10 +600,101 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        /** Drawer **/
+
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
+
+            }
+        });
+
+        /** on ecoute le drawer (sil ouvert ou pas)
+         * A chaque changement, on affiche ou non le bouton
+         *
+         * On anime l'apparition ou non du bouton, et ce avec une animation
+         *
+         * On met l'animation sur ecoute pour que le changement d'etat se fasse de maniere smooth
+         *
+         */
+
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(final View drawerView) {
+
+                Animation fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_animation);
+                buttonLeft.startAnimation(fadeOutAnimation);
+                actionButton.startAnimation(fadeOutAnimation);
+                sabPaper.startAnimation(fadeOutAnimation);
+                sabGlass.startAnimation(fadeOutAnimation);
+                fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        actionButton.setVisibility(View.VISIBLE);
+                        buttonLeft.setVisibility(View.VISIBLE);
+                        sabGlass.setVisibility(View.VISIBLE);
+                        sabPaper.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        actionButton.setVisibility(View.GONE);
+                        buttonLeft.setVisibility(View.GONE);
+                        sabGlass.setVisibility(View.GONE);
+                        sabPaper.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                actionButton.setClickable(false);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+                Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
+                buttonLeft.startAnimation(fadeInAnimation);
+                actionButton.startAnimation(fadeInAnimation);
+                sabGlass.startAnimation(fadeInAnimation);
+                sabPaper.startAnimation(fadeInAnimation);
+                fadeInAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        actionButton.setVisibility(View.VISIBLE);
+                        buttonLeft.setVisibility(View.VISIBLE);
+                        sabPaper.setVisibility(View.VISIBLE);
+                        sabGlass.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                actionButton.setClickable(true);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
 
             }
         });
@@ -689,6 +775,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -700,6 +787,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     // il a accepté, charger la position de la personne
                     getLocation();
+
+                    Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    View snackBarView = snackbar.getView();
+                    TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+                    textView.setMaxLines(3);
+                    textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    snackbar.setDuration(6000);
+                    snackbar.setActionTextColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild2));
+                    snackBarView.setBackgroundColor(ContextCompat.getColor(MapsActivity.this, R.color.colorEcoWild));
+                    snackbar.show();
 
                 } else {
 

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+tools:context="fr.wildcodeschool.ecowild.GamingActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="38dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorWhite">
+
+            <Button
+                android:id="@+id/button_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/retour"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_yes"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="72dp"
+                android:background="@drawable/button"
+                android:text="@string/yes"
+                app:layout_constraintStart_toStartOf="@+id/tv_infos"
+                app:layout_constraintTop_toTopOf="@+id/tv_infos" />
+
+            <Button
+                android:id="@+id/button_no"
+                android:layout_width="58dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="72dp"
+                android:background="@drawable/button"
+                android:text="@string/no"
+                app:layout_constraintEnd_toEndOf="@+id/tv_infos"
+                app:layout_constraintHorizontal_bias="0.428"
+                app:layout_constraintStart_toEndOf="@+id/button_yes"
+                app:layout_constraintTop_toTopOf="@+id/tv_infos" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/jeux"
+                android:textColor="#FFB35950"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_bulle"
+                android:layout_width="272dp"
+                android:layout_height="173dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="68dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title"
+                app:srcCompat="@drawable/bulle2" />
+
+            <ImageView
+                android:id="@+id/iv_bulle2"
+                android:layout_width="246dp"
+                android:layout_height="187dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="184dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title"
+                app:srcCompat="@drawable/bulle2" />
+
+            <ImageView
+                android:id="@+id/iv_jedi"
+                android:layout_width="147dp"
+                android:layout_height="141dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:srcCompat="@drawable/jedi" />
+
+            <ImageView
+                android:id="@+id/iv_jedi2"
+                android:layout_width="230dp"
+                android:layout_height="255dp"
+                android:layout_marginBottom="200dp"
+                android:layout_marginTop="100dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.103"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/jedi" />
+
+            <TextView
+                android:id="@+id/tv_infos"
+                android:layout_width="197dp"
+                android:layout_height="96dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="@string/recycling"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="@+id/iv_bulle"
+                app:layout_constraintHorizontal_bias="0.769"
+                app:layout_constraintStart_toStartOf="@+id/iv_bulle"
+                app:layout_constraintTop_toTopOf="@+id/iv_bulle" />
+
+            <TextView
+                android:id="@+id/tv_infos2"
+                android:layout_width="173dp"
+                android:layout_height="96dp"
+                android:layout_marginBottom="44dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_bulle2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linear_layout_bac"
+                android:layout_width="366dp"
+                android:layout_height="105dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_bulle">
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_paper"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/linear_layout_normal"
+                    app:layout_constraintStart_toEndOf="@+id/linear_layout_glass"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_bav_paper"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/poubellepapier" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_glass"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_bac_glass"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/poubelleverre" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_normal"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/linear_layout_paper"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_bac_normal"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:srcCompat="@drawable/poubellenormal" />
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintlayout_waste"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_arrow">
+
+
+                <ImageView
+                    android:id="@+id/iv_glass"
+                    android:layout_width="35dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/iv_paper"
+                    app:srcCompat="@drawable/bouteille" />
+
+                <ImageView
+                    android:id="@+id/iv_jar"
+                    android:layout_width="23dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/bocal" />
+
+                <ImageView
+                    android:id="@+id/iv_cardboard"
+                    android:layout_width="89dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/carton" />
+
+                <ImageView
+                    android:id="@+id/iv_vase"
+                    android:layout_width="70dp"
+                    android:layout_height="83dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_cardboard"
+                    app:srcCompat="@drawable/vase" />
+
+                <ImageView
+                    android:id="@+id/iv_false_glass"
+                    android:layout_width="33dp"
+                    android:layout_height="74dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/iv_jar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/verreplein" />
+
+                <ImageView
+                    android:id="@+id/iv_glass_table"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="88dp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintStart_toEndOf="@+id/iv_false_glass"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/verretable" />
+
+                <ImageView
+                    android:id="@+id/iv_tacos"
+                    android:layout_width="56dp"
+                    android:layout_height="58dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_glass_table"
+                    app:srcCompat="@drawable/tacos"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <ImageView
+                    android:id="@+id/iv_paper"
+                    android:layout_width="80dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_vase"
+                    app:srcCompat="@drawable/journaux" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/score_0"
+                android:textColor="@color/colorEcoWild"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintlayout_waste" />
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="73dp"
+                android:layout_height="105dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout_bac"
+                app:srcCompat="@drawable/arrow_animated" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

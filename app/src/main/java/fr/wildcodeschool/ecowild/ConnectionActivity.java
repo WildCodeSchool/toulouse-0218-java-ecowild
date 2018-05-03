@@ -42,6 +42,7 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class ConnectionActivity extends AppCompatActivity {
 
     public static final int PASSWORD_HIDDEN = 1;
@@ -57,7 +58,6 @@ public class ConnectionActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
 
 
-    //TODO mot de passe en crypter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +158,17 @@ public class ConnectionActivity extends AppCompatActivity {
                     myRef.orderByChild("name").equalTo(editProfil).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getChildrenCount() == 0) {
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast,
+                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                textToast.setText(R.string.password_false);
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(layout);
+                                toast.show();
+                            }
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 UserModel userModel = snapshot.getValue(UserModel.class);
                                 String passwordRecup = userModel.getPassword();
@@ -177,8 +188,17 @@ public class ConnectionActivity extends AppCompatActivity {
                                     userModelSingleton(name, passwordRecup, avatar, rank, xp, level);
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
-                                    Toast.makeText(ConnectionActivity.this, R.string.error_identification, Toast.LENGTH_SHORT).show();
+                                    LayoutInflater inflater = getLayoutInflater();
+                                    View layout = inflater.inflate(R.layout.toast,
+                                            (ViewGroup) findViewById(R.id.custom_toast_container));
+                                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                    textToast.setText(R.string.error_identification);
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setView(layout);
+                                    toast.show();
                                 }
+
                             }
 
                         }
@@ -263,7 +283,10 @@ public class ConnectionActivity extends AppCompatActivity {
                                 } else {
                                     /**Partie Firebase envoit avec photo*/
 
-                                    //sockage dans firebase avec Uri
+                                    //image de chargement en attendant
+                                    Glide.with(ConnectionActivity.this).load(R.drawable.loading_photo).into(ivPhoto);
+
+                                    //stockage dans firebase avec Uri
                                     mStorageRef = FirebaseStorage.getInstance().getReference();
 
                                     StorageReference photoRef = mStorageRef.child("images/" + mPhotoUri.getLastPathSegment());
@@ -288,7 +311,6 @@ public class ConnectionActivity extends AppCompatActivity {
                                             /**Partie Singleton*/
                                             userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
 
-
                                             ConnectionActivity.this.startActivity(intentMap);
                                         }
                                     });
@@ -303,7 +325,15 @@ public class ConnectionActivity extends AppCompatActivity {
                                 String name = userModel.getName();
 
                                 if (name.equals(editProfil)) {
-                                    Toast.makeText(ConnectionActivity.this, R.string.repeat, Toast.LENGTH_LONG).show();
+                                    LayoutInflater inflater = getLayoutInflater();
+                                    View layout = inflater.inflate(R.layout.toast,
+                                            (ViewGroup) findViewById(R.id.custom_toast_container));
+                                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                    textToast.setText(R.string.repeat);
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setView(layout);
+                                    toast.show();
                                 }
 
                             }

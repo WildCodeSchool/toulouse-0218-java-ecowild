@@ -1,28 +1,30 @@
 package fr.wildcodeschool.ecowild;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
-import java.util.ArrayList;
 
 public class ListLocationActivity extends AppCompatActivity {
 
     boolean mGlassFilter = true;
     boolean mPaperfilter = true;
-    ArrayList<ClusterModel> mlistData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class ListLocationActivity extends AppCompatActivity {
         ListView locationList = findViewById(R.id.location_list);
 
         Switch goMap = findViewById(R.id.go_Map);
+
+        final TextView backgroundFilter = findViewById(R.id.filter_shape);
 
 
         LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
@@ -49,7 +53,7 @@ public class ListLocationActivity extends AppCompatActivity {
         /** Partie menu Circle**/
 
         //Image bouton Menu
-        ImageView iconMenu = new ImageView(this); // Create an icon
+        ImageView iconMenu = new ImageView(this);
         iconMenu.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.entonnoir));
 
         //creation bouton Menu
@@ -69,7 +73,10 @@ public class ListLocationActivity extends AppCompatActivity {
         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papier));
         SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
-        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(200, 200);
+        Resources ressource = getResources();
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, ressource.getDisplayMetrics());
+
+        DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(valuePx, valuePx);
         sabPaper.setLayoutParams(layoutParam);
         sabGlass.setLayoutParams(layoutParam);
 
@@ -80,6 +87,52 @@ public class ListLocationActivity extends AppCompatActivity {
                 .attachTo(actionButton)
                 .build();
 
+        //Animation for the white background.
+        actionMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+            @Override
+            public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
+                Animation fadeInAnimtion = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
+                backgroundFilter.startAnimation(fadeInAnimtion);
+                fadeInAnimtion.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        backgroundFilter.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        backgroundFilter.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onMenuClosed(FloatingActionMenu floatingActionMenu) {
+                Animation fadeOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out_animation);
+                backgroundFilter.startAnimation(fadeOutAnimation);
+                fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        backgroundFilter.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        backgroundFilter.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+        });
 
         sabPaper.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +143,7 @@ public class ListLocationActivity extends AppCompatActivity {
                         glassFilterImg.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.verre));
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                         adapter.filterList("Verre");
-                        mGlassFilter= true;
+                        mGlassFilter = true;
                     } else {
                         paperFilterGlass.setImageDrawable(ContextCompat.getDrawable(getApplication(), R.drawable.papiersansfond));
                         adapter.filterList("Verre");

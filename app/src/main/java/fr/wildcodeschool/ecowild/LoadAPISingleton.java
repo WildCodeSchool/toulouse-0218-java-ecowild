@@ -16,9 +16,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by bastienwcs on 26/04/18.
- */
 
 public class LoadAPISingleton {
 
@@ -46,7 +43,9 @@ public class LoadAPISingleton {
         // Crée une file d'attente pour les requêtes vers l'API
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
+
         String urlGlass = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-verre&refine.commune=TOULOUSE&rows=1600";
+
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestGlass = new JsonObjectRequest(
@@ -104,7 +103,9 @@ public class LoadAPISingleton {
         /** Partie Json Papier/plastique**/
         // Crée une file d'attente pour les requêtes vers l'API
 
+
         String urlPaper = "https://data.toulouse-metropole.fr/api/records/1.0/search/?dataset=recup-emballage&refine.commune=TOULOUSE&rows=300";
+
 
         // Création de la requête vers l'API, ajout des écouteurs pour les réponses et erreurs possibles
         JsonObjectRequest jsonObjectRequestPaper = new JsonObjectRequest(
