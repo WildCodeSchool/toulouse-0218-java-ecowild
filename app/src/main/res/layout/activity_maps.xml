@@ -103,7 +103,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="49dp"
-            android:background="@drawable/toggle_button"
+            android:background="@drawable/go_list_button"
             android:gravity="center_horizontal"
             android:textOff=""
             android:textOn=""
