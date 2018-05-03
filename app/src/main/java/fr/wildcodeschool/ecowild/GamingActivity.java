@@ -121,7 +121,7 @@ public class GamingActivity extends AppCompatActivity {
 
                         tvScore.setText(getString(R.string.score) + " " + Integer.valueOf(mXp).toString());
 
-                    } else if ((view.getId() == R.id.iv_game_burger || view.getId() == R.id.iv_game_tacos || view.getId() == R.id.iv_game_glass || view.getId() == R.id.iv_game_vase) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_normal)) {
+                    } else if ((view.getId() == R.id.iv_game_burger || view.getId() == R.id.iv_game_tacos || view.getId() == R.id.iv_game_glass || view.getId() == R.id.iv_game_vase) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_glass)) {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_burger) {
                             ivBurgerGame.setVisibility(View.INVISIBLE);
