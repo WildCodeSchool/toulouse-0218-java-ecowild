@@ -32,14 +32,15 @@ public class UserSingleton {
 
     }
 
-    public BitmapDescriptor getBitmapFromDrawable(Context context, int drawable, int px) {
+    public BitmapDescriptor getBitmapFromDrawable(Context context, int drawable, int widthPx, int heightPx) {
 
         if (!bitmaps.containsKey(drawable)) {
             Resources ressource = context.getResources();
-            int dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, ressource.getDisplayMetrics());
+            int widthDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthPx, ressource.getDisplayMetrics());
+            int heightDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightPx, ressource.getDisplayMetrics());
 
             BitmapDrawable bitmapDrawable = (BitmapDrawable) context.getResources().getDrawable(drawable);
-            Bitmap bitmap = Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), dp, dp, false);
+            Bitmap bitmap = Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), widthDp, heightDp, false);
 
             bitmaps.put(drawable, BitmapDescriptorFactory.fromBitmap(bitmap));
         }

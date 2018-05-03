@@ -33,16 +33,14 @@ public class OwRendering extends DefaultClusterRenderer<ClusterModel> {
 
         BitmapDescriptor bitmapDescriptor;
         UserSingleton singleton = UserSingleton.getInstance();
-        // create bitpma ici au lieu de le generer à chaque fois.
+
         if (item.getType().equals("Verre")) {
-            bitmapDescriptor = singleton.getBitmapFromDrawable(mContext, R.drawable.pointeur_verre, 38);
+            bitmapDescriptor = singleton.getBitmapFromDrawable(mContext, R.drawable.pointeur_verre, 29, 38);
         } else {
-            bitmapDescriptor = singleton.getBitmapFromDrawable(mContext, R.drawable.pointeur_papier, 38);
+            bitmapDescriptor = singleton.getBitmapFromDrawable(mContext, R.drawable.pointeur_papier, 29, 38);
         }
 
         markerOptions.icon(bitmapDescriptor);
-
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
         super.onBeforeClusterItemRendered(item, markerOptions);
 
