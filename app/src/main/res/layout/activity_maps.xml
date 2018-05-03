@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="19dp"
             android:layout_marginStart="19dp"
+            android:visibility="gone"
             app:button_icon="@drawable/jeter"
             app:button_icon_height="43dp"
             app:button_icon_width="40dp"
