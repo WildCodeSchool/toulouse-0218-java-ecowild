@@ -91,7 +91,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int mStratAngle = 180;
     int mEndAngle = 270;
     FloatingActionMenu mActionMenu;
-    ArrayList<FloatingActionMenu.Item> subActionItems;
     int mScreenSizeX;
     int mScreenSizeY;
     int lastAction;
@@ -171,6 +170,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rank.setText(userSingleton.getTextRank());
         final MagicButton mbXp = findViewById(R.id.magic_button);
         final int intGainExperience = 1;
+        final ImageView imgRang = findViewById(R.id.img_rang);
 
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
@@ -194,18 +194,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (userSingleton.getIntLevel() >= 10) {
                     rank.setText(R.string.rang5);
                     userSingleton.setTextRank("EcoGod");
+                    Glide.with(MapsActivity.this).load(R.drawable.ecogod_cercle).into(imgRang);
                 } else if (userSingleton.getIntLevel() >= 7) {
                     rank.setText(R.string.rang4);
                     userSingleton.setTextRank("EcoWild");
+                    Glide.with(MapsActivity.this).load(R.drawable.ecowild_cercle).into(imgRang);
                 } else if (userSingleton.getIntLevel() >= 5) {
                     rank.setText(R.string.rang3);
                     userSingleton.setTextRank("EcoFan");
+                    Glide.with(MapsActivity.this).load(R.drawable.ecofan_cercle).into(imgRang);
                 } else if (userSingleton.getIntLevel() >= 3) {
                     rank.setText(R.string.rang2);
                     userSingleton.setTextRank("EcoCool");
+                    Glide.with(MapsActivity.this).load(R.drawable.ecocool_cercle).into(imgRang);
                 } else if (userSingleton.getIntLevel() >= 1) {
                     rank.setText(R.string.rang1);
                     userSingleton.setTextRank("EcoNoob");
+                    Glide.with(MapsActivity.this).load(R.drawable.econoob_cercle).into(imgRang);
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -495,30 +500,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
                                         mStratAngle = 0;
                                         mEndAngle = 90;
-
-
                                     }
 
                                     if ((mButtonPositionX < (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
                                         mStratAngle = 90;
                                         mEndAngle = 180;
-
                                     }
 
                                     if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY < (mScreenSizeY/2))) {
                                         mStratAngle = 0;
                                         mEndAngle = 90;
-
                                     }
 
                                     if ((mButtonPositionX > (mScreenSizeX/2)) && (mButtonPositionY > (mScreenSizeY/2))) {
                                         mStratAngle = 180;
                                         mEndAngle = 270;
-
                                     }
 
                                     break;
-
 
                                 default:
                                     return true;
@@ -552,7 +551,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     });
 
                 }
-
             }
         });
 
