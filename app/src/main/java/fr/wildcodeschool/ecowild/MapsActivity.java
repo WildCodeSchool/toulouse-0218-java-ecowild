@@ -64,9 +64,9 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
+import org.w3c.dom.Text;
+import java.util.ArrayList;
 import br.com.bloder.magic.view.MagicButton;
-
 import static android.view.MotionEvent.ACTION_UP;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 
@@ -82,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation = null;
     float dX;
     float dY;
+    LatLng mUserPosition;
     int mButtonPositionX;
     int mButtonPositionY;
     int mStratAngle = 180;
@@ -90,6 +91,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int mScreenSizeX;
     int mScreenSizeY;
     int lastAction;
+    Location mLocationUser;
+    private ArrayList<ClusterModel> mDistance = new ArrayList<>();
     private ClusterManager<ClusterModel> mClusterManager;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
@@ -246,31 +249,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         });
-
-        /** Partie Popup**/
-        Button popup = findViewById(R.id.button_popup);
-        popup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
-                popup.setTitle(R.string.alerte);
-                popup.setMessage(R.string.alert_message);
-                popup.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mbXp.setVisibility(View.VISIBLE);
-                    }
-                });
-                popup.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mbXp.setVisibility(View.GONE);
-                    }
-                });
-                popup.show();
-            }
-        });
-
 
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
@@ -866,16 +844,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // il a accepté, charger la position de la personne
+
                     getLocation();
+
 
                     Snackbar snackbar = Snackbar.make(this.findViewById(R.id.map), R.string.snack, Snackbar.LENGTH_INDEFINITE).setDuration(9000).setAction("Connexion", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
                             startActivity(intent);
-
                         }
                     });
+
+                    //updateMarker();
 
                     View snackBarView = snackbar.getView();
                     TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
@@ -906,6 +887,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
 
+
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
             }
@@ -923,7 +905,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
                 // mettre à jour la position de l'utilisateur
                 moveCameraOnUser(location);
-
+                mLocationUser = location;
+                updateMarker(location);
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -938,7 +921,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Si l'utilisateur à permis l'utilisation de la localisation
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
 
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -964,6 +946,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
+
 
         if (mIsWaitingForGoogleMap) {
             moveCameraOnUser(mLastLocation);
@@ -1001,5 +984,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(goList);
             }
         });
+    }
+
+    public void updateMarker(Location location) {
+
+        float distance = -1;
+        mUserPosition = new LatLng(location.getLatitude(), location.getLongitude());
+        LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
+
+        final MagicButton mbXp = findViewById(R.id.magic_button);
+
+        for (int i = 0; i < loadAPISingleton.getClusterList().size(); i++) {
+            Location loc1 = new Location("");
+            loc1.setLatitude(mUserPosition.latitude);
+            loc1.setLongitude(mUserPosition.longitude);
+
+            Location loc2 = new Location("");
+            loc2.setLatitude(loadAPISingleton.getClusterList().get(i).getPosition().latitude);
+            loc2.setLongitude(loadAPISingleton.getClusterList().get(i).getPosition().longitude);
+
+            distance = loc1.distanceTo(loc2);
+        }
+
+        if (distance != -1 && distance < 30000) {
+            AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
+            popup.setTitle(R.string.alerte);
+            popup.setMessage(R.string.alert_message);
+            popup.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mbXp.setVisibility(View.VISIBLE);
+                }
+            });
+            popup.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mbXp.setVisibility(View.GONE);
+                }
+            });
+            popup.show();
+        } else {
+            mbXp.setVisibility(View.GONE);
+        }
     }
 }
