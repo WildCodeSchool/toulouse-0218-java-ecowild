@@ -24,6 +24,9 @@ public class UserSingleton {
     public UserSingleton() {
     }
 
+    public void removeInstance(){
+        sInstance = null;
+    }
     public static UserSingleton getInstance() {
         if (sInstance == null) {
             sInstance = new UserSingleton();

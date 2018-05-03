@@ -69,7 +69,7 @@
         <activity android:name=".ListLocationActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".UsefulInformationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="landscape"/>
         <activity android:name=".Settings"
             android:screenOrientation="portrait"/>
         <activity android:name=".GamingActivity"
