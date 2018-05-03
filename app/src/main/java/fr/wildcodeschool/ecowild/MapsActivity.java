@@ -1022,13 +1022,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void updateMarker(Location location) {
 
-        float distance = -1;
+        float distance;
+        float minDistance=1000;
+
+
         mUserPosition = new LatLng(location.getLatitude(), location.getLongitude());
         LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
 
         final MagicButton mbXp = findViewById(R.id.magic_button);
 
         for (int i = 0; i < loadAPISingleton.getClusterList().size(); i++) {
+
             Location loc1 = new Location("");
             loc1.setLatitude(mUserPosition.latitude);
             loc1.setLongitude(mUserPosition.longitude);
@@ -1038,9 +1042,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             loc2.setLongitude(loadAPISingleton.getClusterList().get(i).getPosition().longitude);
 
             distance = loc1.distanceTo(loc2);
+            if ( Math.round(minDistance) != 0 && Math.round(minDistance) > Math.round(distance)){
+                minDistance = distance;
+            }
         }
 
-        if (distance != -1 && distance < 30000) {
+         if ( Math.round(minDistance) < 2 ) {
+
             AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
             popup.setTitle(R.string.alerte);
             popup.setMessage(R.string.alert_message);
@@ -1057,6 +1065,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
             popup.show();
+
         } else {
             mbXp.setVisibility(View.GONE);
         }
