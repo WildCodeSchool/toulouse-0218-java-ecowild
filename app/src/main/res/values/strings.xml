@@ -81,7 +81,7 @@
     <string name="ou">OU</string>
     <string name="recycling">Devenir le roi du recyclage  veux tu?</string>
     <string name="score_0">Score : 0</string>
-    <string name="nom_createurs">Claire Bertrand Valentin Destruel Francois Nys</string>
+    <string name="nom_createurs">Claire Bertrand, Valentin Destruel et Francois Nys</string>
     <string name="apprenti">Mon apprenti un jour tu seras</string>
     <string name="go_game">Jetter dans le bons conteneurs les dechets tu devras. De l\'experience tu gagneras mais te tromper tu ne devras pas !</string>
     <string name="positive_xp">+1xp</string>
@@ -104,6 +104,8 @@
     <string name="lose">Perdu </string>
     <string name="lose2">XP tu as   .Demain, t\'entrainer tu devras</string>
     <string name="jeux">JEUX</string>
-    <string name="go_game_apprenti">Ton apprentissage tu dois commencer,   Y parvenir tu peux !</string>
+    <string name="go_game_apprenti">Ton apprentissage tu dois commencer.Y parvenir tu peux :</string>
     <string name="ecogame">EcoGame</string>
+    <string name="delete_compte">Êtes-vous sûr de vouloir supprimer votre compte?</string>
+    <string name="delete">Votre compte a été supprimé</string>
 </resources>

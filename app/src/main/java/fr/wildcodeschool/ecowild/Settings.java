@@ -1,5 +1,7 @@
 package fr.wildcodeschool.ecowild;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -90,7 +92,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        ivProfil.setBackgroundResource(R.drawable.icon_avatar);
+
         final UserSingleton userSingleton = UserSingleton.getInstance();
         if (userSingleton.getTextAvatar() != null) {
             Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
@@ -100,6 +102,68 @@ public class Settings extends AppCompatActivity {
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+        ImageView ivDelete = findViewById(R.id.iv_delete);
+        ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder popup = new AlertDialog.Builder(Settings.this);
+                popup.setTitle(R.string.alerte);
+                popup.setMessage(R.string.delete_compte);
+                popup.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final DatabaseReference user = database.getReference("utilisateurs");
+
+                        user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
+
+                                    String key = userdataSnapshot.getKey().toString();
+                                    user.child(key).removeValue();
+                                    LayoutInflater inflater = getLayoutInflater();
+                                    View layout = inflater.inflate(R.layout.toast,
+                                            (ViewGroup) findViewById(R.id.custom_toast_container));
+                                    TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                    textToast.setText(R.string.delete);
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setView(layout);
+                                    toast.show();
+
+                                    UserSingleton.getInstance().removeInstance();
+
+                                    Intent intent = new Intent(Settings.this, ConnectionActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+
+
+
+                    }
+                });
+                popup.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                popup.show();
+            }
+        });
+
 
         ivPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -471,6 +535,10 @@ public class Settings extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(Settings.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
         }
+        if(resultCode!=RESULT_OK){
+           return;
+        }
+
     }
 
 

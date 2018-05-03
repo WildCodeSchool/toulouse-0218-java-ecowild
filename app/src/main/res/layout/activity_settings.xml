@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -232,7 +232,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_text_new_profil" />
-              />
+            />
 
             <!--Partie avatar-->
 
@@ -245,7 +245,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_setting" />
+                app:layout_constraintTop_toBottomOf="@+id/text_view_setting"
+                app:srcCompat="@drawable/icon_avatar" />
 
             <ImageView
                 android:id="@+id/image_view_avatar"
@@ -296,13 +297,33 @@
 
             <Button
                 android:id="@+id/button_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
                 android:background="@drawable/retour"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_avatar" />
+
+            <ImageView
+                android:id="@+id/iv_cross"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="@+id/iv_delete"
+                app:layout_constraintTop_toTopOf="@+id/iv_delete"
+                app:srcCompat="@drawable/cross" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
