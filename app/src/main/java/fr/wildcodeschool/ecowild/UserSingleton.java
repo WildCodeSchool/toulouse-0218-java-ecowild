@@ -1,5 +1,16 @@
 package fr.wildcodeschool.ecowild;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.util.TypedValue;
+
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
+import java.util.HashMap;
+
 public class UserSingleton {
     public static UserSingleton sInstance = null;
     public String mNameSaved = "";
@@ -8,6 +19,7 @@ public class UserSingleton {
     public String mRankSaved = "";
     public int mXp = 0;
     public int mLevel = 1;
+    private HashMap<Integer, BitmapDescriptor> bitmaps = new HashMap<>();
 
     public UserSingleton() {
     }
@@ -18,6 +30,20 @@ public class UserSingleton {
         }
         return sInstance;
 
+    }
+
+    public BitmapDescriptor getBitmapFromDrawable(Context context, int drawable, int px) {
+
+        if (!bitmaps.containsKey(drawable)) {
+            Resources ressource = context.getResources();
+            int dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, ressource.getDisplayMetrics());
+
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) context.getResources().getDrawable(drawable);
+            Bitmap bitmap = Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), dp, dp, false);
+
+            bitmaps.put(drawable, BitmapDescriptorFactory.fromBitmap(bitmap));
+        }
+        return bitmaps.get(drawable);
     }
 
     public String getTextName() {
@@ -40,7 +66,7 @@ public class UserSingleton {
         return mRankSaved;
     }
 
-    public void setTextRank (String textRank) {
+    public void setTextRank(String textRank) {
         mRankSaved = textRank;
     }
 
