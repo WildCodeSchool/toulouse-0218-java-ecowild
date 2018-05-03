@@ -66,11 +66,9 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
