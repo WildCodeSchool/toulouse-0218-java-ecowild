@@ -1,8 +1,10 @@
 package fr.wildcodeschool.ecowild;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -43,6 +45,8 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_PASSWORD;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_HIDDEN;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.PASSWORD_VISIBLE;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.REQUEST_TAKE_PHOTO;
@@ -104,6 +108,7 @@ public class Settings extends AppCompatActivity {
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final SharedPreferences sharedPrefProfil = this.getSharedPreferences("ECOWILD", Context.MODE_PRIVATE);
 
 
         ImageView ivDelete = findViewById(R.id.iv_delete);
@@ -111,7 +116,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder popup = new AlertDialog.Builder(Settings.this);
-                popup.setTitle(R.string.alerte);
+                popup.setTitle(R.string.arlete);
                 popup.setMessage(R.string.delete_compte);
                 popup.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
@@ -138,8 +143,14 @@ public class Settings extends AppCompatActivity {
                                     toast.show();
 
                                     UserSingleton.getInstance().removeInstance();
+                                    ConnectionActivity.CONNECTED = false;
 
-                                    Intent intent = new Intent(Settings.this, ConnectionActivity.class);
+                                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                                    editorProfil.putString(CACHE_USERNAME, "");
+                                    editorProfil.putString(CACHE_PASSWORD, "");
+                                    editorProfil.commit();
+
+                                    Intent intent = new Intent(Settings.this, MapsActivity.class);
                                     startActivity(intent);
                                 }
                             }

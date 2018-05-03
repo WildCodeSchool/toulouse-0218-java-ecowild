@@ -64,10 +64,12 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+
 import br.com.bloder.magic.view.MagicButton;
 import static android.view.MotionEvent.ACTION_UP;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_PASSWORD;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 
 
@@ -249,6 +251,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         });
+
+        /** Partie Popup**/
+        Button popup = findViewById(R.id.button_popup);
+        popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
+                popup.setTitle(R.string.alerte);
+                popup.setMessage(R.string.alert_message);
+                popup.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mbXp.setVisibility(View.VISIBLE);
+                    }
+                });
+                popup.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mbXp.setVisibility(View.GONE);
+                    }
+                });
+                popup.show();
+            }
+        });
+
 
         /** Partie GPS **/
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MapsActivity.this);
@@ -591,7 +618,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                startActivity(intentAccount);
+                SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                editorProfil.putString(CACHE_USERNAME, "");
+                editorProfil.putString(CACHE_PASSWORD, "");
+                editorProfil.commit();
+                UserSingleton.getInstance().removeInstance();
+                ConnectionActivity.CONNECTED = false;
+                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
             }
         });
 
@@ -921,6 +954,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Si l'utilisateur à permis l'utilisation de la localisation
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
 
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
