@@ -31,18 +31,6 @@
             tools:context="fr.wildcodeschool.ecowild.MapsActivity"
             />
 
-        <Switch
-            android:id="@+id/go_list"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            map:layout_constraintBottom_toBottomOf="parent"
-            map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintHorizontal_bias="0.398"
-            map:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/test_position"
             android:layout_width="wrap_content"
@@ -82,14 +70,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="19dp"
             android:layout_marginStart="19dp"
-            android:visibility="gone"
             app:button_icon="@drawable/jeter"
             app:button_icon_height="43dp"
             app:button_icon_width="40dp"
             app:expandable_area_color="@color/colorEcoWild2"
             app:hide_text="@string/je_viens_de_recycler"
             app:hide_text_color="@color/colorBlack"
-            app:hide_text_size="7sp"
+            app:hide_text_size="8sp"
             app:icon_button_color="@color/colorEcoWild"
             app:magic_button_size="60dp"
             map:layout_constraintBottom_toBottomOf="parent"
@@ -106,6 +93,25 @@
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="@+id/map" />
+
+        <ToggleButton
+            android:id="@+id/go_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="49dp"
+            android:background="@drawable/toggle_button"
+            android:gravity="center_horizontal"
+            android:textOff=""
+            android:textOn=""
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="0.398"
+            map:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
