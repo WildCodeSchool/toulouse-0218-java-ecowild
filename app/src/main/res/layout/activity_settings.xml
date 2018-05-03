@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/move_profil"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp"
@@ -51,7 +51,7 @@
                 android:id="@+id/radio_group"
                 android:layout_width="338dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="34dp"
+                android:layout_marginStart="39dp"
                 android:layout_marginTop="18dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
 
                 <RadioButton
                     android:id="@+id/radio_button_avatar"
-                    android:layout_width="40dp"
+                    android:layout_width="44dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/avatar"
@@ -67,7 +67,7 @@
 
                 <RadioButton
                     android:id="@+id/radio_button_name"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/name"
@@ -299,8 +299,8 @@
                 android:id="@+id/button_back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/retour"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -309,8 +309,8 @@
                 android:id="@+id/iv_delete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/icon_avatar" />
