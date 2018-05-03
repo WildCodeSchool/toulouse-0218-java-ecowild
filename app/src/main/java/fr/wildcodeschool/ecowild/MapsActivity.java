@@ -956,7 +956,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void updateMarker(Location location) {
 
-        float distance = 1000000;
+        float distance = -1;
         mUserPosition = new LatLng(location.getLatitude(), location.getLongitude());
         LoadAPISingleton loadAPISingleton = LoadAPISingleton.getInstance();
 
@@ -974,7 +974,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             distance = loc1.distanceTo(loc2);
         }
 
-        if (distance < 30000) {
+        if (distance != -1 && distance < 30000) {
             AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
             popup.setTitle(R.string.alerte);
             popup.setMessage(R.string.alert_message);
