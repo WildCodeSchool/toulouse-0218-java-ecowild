@@ -1,5 +1,6 @@
 package fr.wildcodeschool.ecowild;
 
+
 public class UserModel {
     String name;
     String password;
