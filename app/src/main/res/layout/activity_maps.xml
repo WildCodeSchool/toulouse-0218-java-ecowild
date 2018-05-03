@@ -75,7 +75,6 @@
             map:layout_constraintTop_toTopOf="parent" />
 
 
-
         <br.com.bloder.magic.view.MagicButton
             android:id="@+id/magic_button"
             android:layout_width="wrap_content"
@@ -89,7 +88,7 @@
             app:expandable_area_color="@color/colorEcoWild2"
             app:hide_text="@string/je_viens_de_recycler"
             app:hide_text_color="@color/colorBlack"
-            app:hide_text_size="7sp"
+            app:hide_text_size="8sp"
             app:icon_button_color="@color/colorEcoWild"
             app:magic_button_size="60dp"
             map:layout_constraintBottom_toBottomOf="parent"
