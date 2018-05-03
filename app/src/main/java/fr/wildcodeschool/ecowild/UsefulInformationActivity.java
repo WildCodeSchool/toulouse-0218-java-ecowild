@@ -24,7 +24,7 @@ public class UsefulInformationActivity extends FragmentActivity {
         List fragments = new Vector();
 
         // Ajout des Fragments dans la liste
-        fragments.add(Fragment.instantiate(this,PageZeroInformation.class.getName()));
+        fragments.add(Fragment.instantiate(this, PageZeroInformation.class.getName()));
         fragments.add(Fragment.instantiate(this, PageUneInformation.class.getName()));
         fragments.add(Fragment.instantiate(this, PageDeuxInformation.class.getName()));
         fragments.add(Fragment.instantiate(this, PageTroisInformation.class.getName()));
