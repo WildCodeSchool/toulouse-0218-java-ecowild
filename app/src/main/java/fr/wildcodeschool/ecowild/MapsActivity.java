@@ -556,6 +556,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         TextView tvJeu = findViewById(R.id.tv_jeu);
         ImageView ivJeu = findViewById(R.id.iv_jeu);
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        TextView textToast = (TextView) layout.findViewById(R.id.text);
+        textToast.setText(R.string.coonected);
+        final Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+
         final Intent intentParameter = new Intent(MapsActivity.this, Settings.class);
         final Intent intentUsefulInformation = new Intent(MapsActivity.this, UsefulInformationActivity.class);
         final Intent intentAccount = new Intent(MapsActivity.this, ConnectionActivity.class);
@@ -564,14 +573,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                startActivity(intentParameter);
+                toast.show();
             }
         });
 
         ivParameter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentParameter);
+                toast.show();
             }
         });
 
@@ -579,14 +588,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                startActivity(intentJeu);
+                toast.show();
             }
         });
 
         ivJeu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentJeu);
+                toast.show();
             }
         });
 
@@ -634,8 +643,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             btnCreateAccount.setVisibility(View.GONE);
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(accountImgCreation);
             Glide.with(MapsActivity.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(buttonLeft);
-
             accountImgCreation.setBackground(null);
+
+            tvParameter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(intentParameter);
+                }
+            });
+
+            ivParameter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(intentParameter);
+                }
+            });
+
+            tvJeu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(intentJeu);
+                }
+            });
+
+            ivJeu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(intentJeu);
+                }
+            });
             if (userSingleton.getTextAvatar() == null) {
                 accountImgCreation.setBackgroundResource(R.drawable.icon_avatar);
 
