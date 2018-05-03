@@ -26,6 +26,7 @@ public class UsefulInformationActivity extends FragmentActivity {
         fragments.add(Fragment.instantiate(this, PageUneInformation.class.getName()));
         fragments.add(Fragment.instantiate(this, PageDeuxInformation.class.getName()));
         fragments.add(Fragment.instantiate(this, PageTroisInformation.class.getName()));
+        fragments.add(Fragment.instantiate(this, PageQuatreInformation.class.getName()));
 
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
         // Fragments
@@ -34,5 +35,6 @@ public class UsefulInformationActivity extends FragmentActivity {
         ViewPager pager = (ViewPager) super.findViewById(R.id.viewpager);
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);
+
     }
 }

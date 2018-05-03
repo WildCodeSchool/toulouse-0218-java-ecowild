@@ -362,7 +362,8 @@ public class Settings extends AppCompatActivity {
                     buttonValidate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ivProfil.setBackground(null);
+
+                            Glide.with(Settings.this).load(R.drawable.loading_photo).into(ivProfil);
 
                             final DatabaseReference user = database.getReference("utilisateurs");
                             user.orderByChild("name").limitToFirst(1).equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -394,7 +395,7 @@ public class Settings extends AppCompatActivity {
 
                                             }
                                             Glide.with(Settings.this).load(userSingleton.getTextAvatar()).apply(RequestOptions.circleCropTransform()).into(ivProfil);
-
+                                            Glide.with(Settings.this).load(R.drawable.appareil_photo).into(ivAvatar);
                                         }
 
 
@@ -469,8 +470,6 @@ public class Settings extends AppCompatActivity {
         ImageView mImageView = findViewById(R.id.image_view_avatar);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Glide.with(Settings.this).load(mPhotoUri).apply(RequestOptions.circleCropTransform()).into(mImageView);
-
-
         }
     }
 
