@@ -1,7 +1,9 @@
 package fr.wildcodeschool.ecowild;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class GamingActivity extends AppCompatActivity {
     public static int mEndGame = 0;
@@ -34,7 +39,6 @@ public class GamingActivity extends AppCompatActivity {
     //pour laisser une ombre en deplacant l'objet
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
-
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             ClipData data = ClipData.newPlainText("", "");
@@ -42,9 +46,8 @@ public class GamingActivity extends AppCompatActivity {
             v.startDrag(data, myShadowBuilder, v, 0);
             return true;
         }
-
-
     };
+
     //interaction lorsqu'on lache les objets
     View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
@@ -56,14 +59,11 @@ public class GamingActivity extends AppCompatActivity {
             ImageView ivGlassGame = findViewById(R.id.iv_game_glass);
             ImageView ivPlasticBottleGame = findViewById(R.id.iv_game_plastic_bottle);
             ImageView ivNewspaperGame = findViewById(R.id.iv_game_newspaper);
-            ImageView ivPaperGame = findViewById(R.id.iv_game_paper);
             ImageView ivTacosGame = findViewById(R.id.iv_game_tacos);
             ImageView ivVaseGame = findViewById(R.id.iv_game_vase);
             ImageView ivCocaGame = findViewById(R.id.iv_game_coca);
             ImageView ivBagGame = findViewById(R.id.iv_game_bag);
-            ImageView ivJamGame = findViewById(R.id.iv_game_jam);
             ImageView ivBurgerGame = findViewById(R.id.iv_game_burger);
-            ImageView ivCardboardGame = findViewById(R.id.iv_game_cardboard);
             ImageView ivBottleGame = findViewById(R.id.iv_game_bottle);
 
             ImageView ivJedi = findViewById(R.id.iv_jedi);
@@ -150,32 +150,22 @@ public class GamingActivity extends AppCompatActivity {
                     }
 
                     //dechets verre
-                    if ((view.getId() == R.id.iv_game_bottle || view.getId() == R.id.iv_game_jam) && v.getId() == R.id.linear_layout_glass) {
+                    if ((view.getId() == R.id.iv_game_bottle) && v.getId() == R.id.linear_layout_glass) {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_bottle) {
                             ivBottleGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive5);
                             mEndGame += 1;
                             mXp += 1;
-                        } else if (view.getId() == R.id.iv_game_jam) {
-                            ivJamGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.positive6);
-                            mEndGame += 1;
-                            mXp += 1;
                         }
 
                         tvScore.setText(getString(R.string.score) + " " + Integer.valueOf(mXp).toString());
 
-                    } else if ((view.getId() == R.id.iv_game_bottle || view.getId() == R.id.iv_game_jam) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_normal)) {
+                    } else if ((view.getId() == R.id.iv_game_bottle) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_normal)) {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_bottle) {
                             ivBottleGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative5);
-                            mEndGame += 1;
-                            mXp -= 1;
-                        } else if (view.getId() == R.id.iv_game_jam) {
-                            ivJamGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative6);
                             mEndGame += 1;
                             mXp -= 1;
                         }
@@ -185,7 +175,7 @@ public class GamingActivity extends AppCompatActivity {
                     }
 
                     //dechet papier
-                    if ((view.getId() == R.id.iv_game_newspaper || view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_paper || view.getId() == R.id.iv_game_coca || view.getId() == R.id.iv_game_cardboard || view.getId() == R.id.iv_game_plastic_bottle) && v.getId() == R.id.linear_layout_paper) {
+                    if ((view.getId() == R.id.iv_game_newspaper || view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_coca || view.getId() == R.id.iv_game_plastic_bottle) && v.getId() == R.id.linear_layout_paper) {
                         Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_newspaper) {
                             ivNewspaperGame.setVisibility(View.INVISIBLE);
@@ -197,19 +187,9 @@ public class GamingActivity extends AppCompatActivity {
                             tvInfosGame.setText(R.string.positive2);
                             mEndGame += 1;
                             mXp += 1;
-                        } else if (view.getId() == R.id.iv_game_paper) {
-                            ivPaperGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.positive3);
-                            mEndGame += 1;
-                            mXp += 1;
                         } else if (view.getId() == R.id.iv_game_coca) {
                             ivCocaGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive4);
-                            mEndGame += 1;
-                            mXp += 1;
-                        } else if (view.getId() == R.id.iv_game_cardboard) {
-                            ivCardboardGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.positive5);
                             mEndGame += 1;
                             mXp += 1;
                         } else if (view.getId() == R.id.iv_game_plastic_bottle) {
@@ -221,7 +201,7 @@ public class GamingActivity extends AppCompatActivity {
 
                         tvScore.setText(getString(R.string.score) + " " + Integer.valueOf(mXp).toString());
 
-                    } else if ((view.getId() == R.id.iv_game_newspaper || view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_paper || view.getId() == R.id.iv_game_coca || view.getId() == R.id.iv_game_cardboard || view.getId() == R.id.iv_game_plastic_bottle) && (v.getId() == R.id.linear_layout_glass || v.getId() == R.id.linear_layout_normal)) {
+                    } else if ((view.getId() == R.id.iv_game_newspaper || view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_coca || view.getId() == R.id.iv_game_plastic_bottle) && (v.getId() == R.id.linear_layout_glass || v.getId() == R.id.linear_layout_normal)) {
                         Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
                         if (view.getId() == R.id.iv_game_newspaper) {
                             ivNewspaperGame.setVisibility(View.INVISIBLE);
@@ -233,19 +213,9 @@ public class GamingActivity extends AppCompatActivity {
                             tvInfosGame.setText(R.string.negative2);
                             mEndGame += 1;
                             mXp -= 1;
-                        } else if (view.getId() == R.id.iv_game_paper) {
-                            ivPaperGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative3);
-                            mEndGame += 1;
-                            mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_coca) {
                             ivCocaGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative4);
-                            mEndGame += 1;
-                            mXp -= 1;
-                        } else if (view.getId() == R.id.iv_game_cardboard) {
-                            ivCardboardGame.setVisibility(View.INVISIBLE);
-                            tvInfosGame.setText(R.string.negative5);
                             mEndGame += 1;
                             mXp -= 1;
                         } else if (view.getId() == R.id.iv_game_plastic_bottle) {
@@ -259,7 +229,12 @@ public class GamingActivity extends AppCompatActivity {
 
                     }
 
-                    if (mEndGame == 12) {
+                    if (mEndGame == 9) {
+                        mEndGame = 0;
+
+                        Animation zoomAnimation = AnimationUtils.loadAnimation(GamingActivity.this, R.anim.zoom);
+                        ivJedi2.startAnimation(zoomAnimation);
+
                         if (mXp > 0) {
                             tvInfosGame2.setText(getString(R.string.gain_game) + " " + Integer.valueOf(mXp).toString() + " " + getString(R.string.gain2));
 
@@ -300,8 +275,15 @@ public class GamingActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
 
-                                    String key = userdataSnapshot.getKey().toString();
-                                    user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                    if (userSingleton.getIntXp() % 10 + mXp >= 10) {
+                                        String key = userdataSnapshot.getKey().toString();
+                                        user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                        userSingleton.setIntLevel(userSingleton.getIntLevel() + 1);
+
+                                    } else {
+                                        String key = userdataSnapshot.getKey().toString();
+                                        user.child(key).child("xp").setValue(userSingleton.getIntXp());
+                                    }
                                 }
                             }
 
@@ -328,18 +310,14 @@ public class GamingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gaming);
 
-
         ImageView ivGlassGame = findViewById(R.id.iv_game_glass);
         ImageView ivPlasticBottleGame = findViewById(R.id.iv_game_plastic_bottle);
         ImageView ivNewspaperGame = findViewById(R.id.iv_game_newspaper);
-        ImageView ivPaperGame = findViewById(R.id.iv_game_paper);
         ImageView ivTacosGame = findViewById(R.id.iv_game_tacos);
         ImageView ivVaseGame = findViewById(R.id.iv_game_vase);
         ImageView ivCocaGame = findViewById(R.id.iv_game_coca);
         ImageView ivBagGame = findViewById(R.id.iv_game_bag);
-        ImageView ivJamGame = findViewById(R.id.iv_game_jam);
         ImageView ivBurgerGame = findViewById(R.id.iv_game_burger);
-        ImageView ivCardboardGame = findViewById(R.id.iv_game_cardboard);
         ImageView ivBottleGame = findViewById(R.id.iv_game_bottle);
         final ImageView gifArrow = findViewById(R.id.iv_arrow);
 
@@ -356,20 +334,48 @@ public class GamingActivity extends AppCompatActivity {
         final Button btnNo = findViewById(R.id.button_no);
         Button btnBack = findViewById(R.id.button_back);
 
+        Date dateDay = new Date();
+        SimpleDateFormat day = new SimpleDateFormat("dd");
+        SimpleDateFormat month = new SimpleDateFormat("MM");
 
-        ivGlassGame.setOnTouchListener(onTouchListener);
-        ivPlasticBottleGame.setOnTouchListener(onTouchListener);
-        ivNewspaperGame.setOnTouchListener(onTouchListener);
-        ivPaperGame.setOnTouchListener(onTouchListener);
-        ivTacosGame.setOnTouchListener(onTouchListener);
-        ivVaseGame.setOnTouchListener(onTouchListener);
-        ivCocaGame.setOnTouchListener(onTouchListener);
-        ivBagGame.setOnTouchListener(onTouchListener);
-        ivJamGame.setOnTouchListener(onTouchListener);
-        ivBurgerGame.setOnTouchListener(onTouchListener);
-        ivCardboardGame.setOnTouchListener(onTouchListener);
-        ivBottleGame.setOnTouchListener(onTouchListener);
+        SharedPreferences dateSharedPreferences = getSharedPreferences("Date", Activity.MODE_PRIVATE);
+        int dayInit = dateSharedPreferences.getInt("Day", 0);
+        int monthInit = dateSharedPreferences.getInt("Month", 0);
 
+        String stringDay1 = day.format(dateDay);
+        String stringMonth1 = month.format(dateDay);
+        int month1 = Integer.parseInt(stringDay1);
+        int day1 =Integer.parseInt(stringMonth1);
+
+        if (monthInit == month1 && dayInit == day1){
+            tvInfosGame.setText(R.string.dejajoue);
+            btnNo.setVisibility(View.GONE);
+            btnYes.setVisibility(View.GONE);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(GamingActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }
+            }, SPLASH_DISPLAY_LENGTH);
+
+        } else {
+            ivGlassGame.setOnTouchListener(onTouchListener);
+            ivPlasticBottleGame.setOnTouchListener(onTouchListener);
+            ivNewspaperGame.setOnTouchListener(onTouchListener);
+            ivTacosGame.setOnTouchListener(onTouchListener);
+            ivVaseGame.setOnTouchListener(onTouchListener);
+            ivCocaGame.setOnTouchListener(onTouchListener);
+            ivBagGame.setOnTouchListener(onTouchListener);
+            ivBurgerGame.setOnTouchListener(onTouchListener);
+            ivBottleGame.setOnTouchListener(onTouchListener);
+
+            SharedPreferences.Editor editorPreferences = dateSharedPreferences.edit();
+            editorPreferences.putInt("Day", day1);
+            editorPreferences.putInt("Month", month1);
+            editorPreferences.commit();
+        }
 
         linearLayout.setOnDragListener(dragListener);
         linearLayoutPaper.setOnDragListener(dragListener);

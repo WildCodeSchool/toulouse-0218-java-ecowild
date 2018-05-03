@@ -189,7 +189,7 @@
         <TextView
             android:id="@+id/tv_move"
             android:layout_width="200dp"
-            android:layout_height="46dp"
+            android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="31dp"
             android:text="@string/unlock_button"

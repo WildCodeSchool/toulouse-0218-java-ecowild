@@ -260,32 +260,19 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="96dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="28dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/game_newspaper" />
 
                 <ImageView
-                    android:id="@+id/iv_game_paper"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="96dp"
-                    android:layout_marginEnd="188dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/game_paper" />
-
-                <ImageView
                     android:id="@+id/iv_game_tacos"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginBottom="144dp"
                     android:layout_marginEnd="300dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_game_coca"
-                    app:layout_constraintVertical_bias="0.564"
                     app:srcCompat="@drawable/game_tacos" />
 
                 <ImageView
@@ -293,7 +280,7 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="96dp"
-                    android:layout_marginEnd="104dp"
+                    android:layout_marginEnd="140dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -305,8 +292,8 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                     android:id="@+id/iv_game_coca"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="140dp"
+                    android:layout_marginTop="32dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/game_coca" />
@@ -322,43 +309,20 @@ tools:context="fr.wildcodeschool.ecowild.GamingActivity">
                     app:srcCompat="@drawable/game_bag" />
 
                 <ImageView
-                    android:id="@+id/iv_game_jam"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="36dp"
-                    app:layout_constraintStart_toEndOf="@+id/iv_game_coca"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/game_jam" />
-
-                <ImageView
                     android:id="@+id/iv_game_burger"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="80dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toEndOf="@+id/iv_game_jam"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/game_burguer" />
-
-                <ImageView
-                    android:id="@+id/iv_game_cardboard"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.611"
-                    app:layout_constraintStart_toEndOf="@+id/iv_game_burger"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/game_cardboard" />
 
                 <ImageView
                     android:id="@+id/iv_game_bottle"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="24dp"
                     app:layout_constraintStart_toEndOf="@+id/iv_game_bag"
                     app:layout_constraintTop_toBottomOf="@+id/iv_game_vase"
                     app:srcCompat="@drawable/game_bottle" />
