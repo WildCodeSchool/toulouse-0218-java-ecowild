@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -33,7 +34,7 @@ public class ListLocationActivity extends AppCompatActivity {
 
         ListView locationList = findViewById(R.id.location_list);
 
-        Switch goMap = findViewById(R.id.go_Map);
+        ToggleButton goMap = findViewById(R.id.go_map);
 
         final TextView backgroundFilter = findViewById(R.id.filter_shape);
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 
 public class PageQuatreInformation extends Fragment {
+
     private static int SPLASH_TIME_OUT = 2000;
 
     @Override
@@ -53,6 +54,7 @@ public class PageQuatreInformation extends Fragment {
         btnHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (ConnectionActivity.CONNECTED) {
                     Intent intent = new Intent(getContext(), GamingActivity.class);
                     startActivity(intent);
@@ -76,7 +78,6 @@ public class PageQuatreInformation extends Fragment {
                     }, SPLASH_TIME_OUT);
 
                 }
-
             }
         });
 

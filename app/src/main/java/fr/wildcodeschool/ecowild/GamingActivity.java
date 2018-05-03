@@ -9,8 +9,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.DragEvent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -96,7 +99,21 @@ public class GamingActivity extends AppCompatActivity {
 
                     //Dechets classiques
                     if ((view.getId() == R.id.iv_game_burger || view.getId() == R.id.iv_game_tacos || view.getId() == R.id.iv_game_glass || view.getId() == R.id.iv_game_vase) && v.getId() == R.id.linear_layout_normal) {
-                        Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                        textToast.setText(R.string.positive_xp);
+
+                        Toast toast = new Toast(GamingActivity.this);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                         if (view.getId() == R.id.iv_game_burger) {
                             ivBurgerGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive1);
@@ -122,7 +139,21 @@ public class GamingActivity extends AppCompatActivity {
                         tvScore.setText(getString(R.string.score) + " " + Integer.valueOf(mXp).toString());
 
                     } else if ((view.getId() == R.id.iv_game_burger || view.getId() == R.id.iv_game_tacos || view.getId() == R.id.iv_game_glass || view.getId() == R.id.iv_game_vase) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_glass)) {
-                        Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                        textToast.setText(R.string.negative_xp);
+
+                        Toast toast = new Toast(GamingActivity.this);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                         if (view.getId() == R.id.iv_game_burger) {
                             ivBurgerGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative1);
@@ -151,7 +182,21 @@ public class GamingActivity extends AppCompatActivity {
 
                     //dechets verre
                     if ((view.getId() == R.id.iv_game_bottle) && v.getId() == R.id.linear_layout_glass) {
-                        Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                        textToast.setText(R.string.positive_xp);
+
+                        Toast toast = new Toast(GamingActivity.this);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                         if (view.getId() == R.id.iv_game_bottle) {
                             ivBottleGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive5);
@@ -162,7 +207,21 @@ public class GamingActivity extends AppCompatActivity {
                         tvScore.setText(getString(R.string.score) + " " + Integer.valueOf(mXp).toString());
 
                     } else if ((view.getId() == R.id.iv_game_bottle) && (v.getId() == R.id.linear_layout_paper || v.getId() == R.id.linear_layout_normal)) {
-                        Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                        textToast.setText(R.string.negative_xp);
+
+                        Toast toast = new Toast(GamingActivity.this);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                         if (view.getId() == R.id.iv_game_bottle) {
                             ivBottleGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative5);
@@ -176,7 +235,21 @@ public class GamingActivity extends AppCompatActivity {
 
                     //dechet papier
                     if ((view.getId() == R.id.iv_game_newspaper || view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_coca || view.getId() == R.id.iv_game_plastic_bottle) && v.getId() == R.id.linear_layout_paper) {
-                        Toast.makeText(GamingActivity.this, R.string.positive_xp, Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                        textToast.setText(R.string.positive_xp);
+
+                        Toast toast = new Toast(GamingActivity.this);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                         if (view.getId() == R.id.iv_game_newspaper) {
                             ivNewspaperGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.positive1);
@@ -202,7 +275,21 @@ public class GamingActivity extends AppCompatActivity {
                         tvScore.setText(getString(R.string.score) + " " + Integer.valueOf(mXp).toString());
 
                     } else if ((view.getId() == R.id.iv_game_newspaper || view.getId() == R.id.iv_game_bag || view.getId() == R.id.iv_game_coca || view.getId() == R.id.iv_game_plastic_bottle) && (v.getId() == R.id.linear_layout_glass || v.getId() == R.id.linear_layout_normal)) {
-                        Toast.makeText(GamingActivity.this, R.string.negative_xp, Toast.LENGTH_SHORT).show();
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                        TextView textToast = (TextView) layout.findViewById(R.id.text);
+                        textToast.setText(R.string.negative_xp);
+
+                        Toast toast = new Toast(GamingActivity.this);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+
                         if (view.getId() == R.id.iv_game_newspaper) {
                             ivNewspaperGame.setVisibility(View.INVISIBLE);
                             tvInfosGame.setText(R.string.negative1);
