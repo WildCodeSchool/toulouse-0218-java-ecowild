@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.TypedValue;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
@@ -27,25 +28,15 @@ public class OwRenderingPaper extends DefaultClusterRenderer<ClusterModel> {
     }
 
     protected void onBeforeClusterItemRendered(ClusterModel item, MarkerOptions markerOptions) {
+        markerOptions.snippet(item.getType());
+        markerOptions.title(item.getAddress());
 
-        Bitmap bitmap2;
+        BitmapDescriptor bitmapDescriptor;
+        UserSingleton singleton = UserSingleton.getInstance();
 
-        // Filtre où le marqueur est créé si du bon type, sinon rien.
         if (item.getType().equals("Verre")) {
-            markerOptions.snippet(item.getType());
-            markerOptions.title(item.getAddress());
-
-            //Bitmap retaille
-            Resources ressource = mContext.getResources();
-            int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, ressource.getDisplayMetrics());
-
-            //on recup le bitmap
-            BitmapDrawable bitmapDrawableGlass = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.pointeur_verre);
-            Bitmap glass = bitmapDrawableGlass.getBitmap();
-            bitmap2 = Bitmap.createScaledBitmap(glass, (valuePx - 15), valuePx, false);
-
-            //Mise en place du marqueur.
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap2));
+            bitmapDescriptor = singleton.getBitmapFromDrawable(mContext, R.drawable.pointeur_verre, 29, 38);
+            markerOptions.icon(bitmapDescriptor);
         }
 
         if (item.getType().equals("Papier/Plastique")) {
