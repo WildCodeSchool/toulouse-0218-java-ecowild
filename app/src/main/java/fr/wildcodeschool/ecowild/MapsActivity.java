@@ -65,9 +65,12 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import java.util.Map;
+
 import br.com.bloder.magic.view.MagicButton;
 
 import static android.view.MotionEvent.ACTION_UP;
+import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_PASSWORD;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
 
 
@@ -613,7 +616,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                startActivity(intentAccount);
+                SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                editorProfil.putString(CACHE_USERNAME, "");
+                editorProfil.putString(CACHE_PASSWORD, "");
+                editorProfil.commit();
+                UserSingleton.getInstance().removeInstance();
+                ConnectionActivity.CONNECTED = false;
+                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
             }
         });
 

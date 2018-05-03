@@ -186,6 +186,10 @@ public class ConnectionActivity extends AppCompatActivity {
                                     Intent intentMap = new Intent(ConnectionActivity.this, MapsActivity.class);
                                     /** partie Singleton*/
                                     userModelSingleton(name, passwordRecup, avatar, rank, xp, level);
+                                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                                    editorProfil.putString(CACHE_USERNAME, name);
+                                    editorProfil.putString(CACHE_PASSWORD, passwordRecup);
+                                    editorProfil.commit();
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     LayoutInflater inflater = getLayoutInflater();
@@ -278,7 +282,10 @@ public class ConnectionActivity extends AppCompatActivity {
 
                                     /**Partie Singleton*/
                                     userModelSingleton(editProfil, hashCode.toString(), null, "EcoNoob", 0, 1);
-
+                                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                                    editorProfil.putString(CACHE_USERNAME, editProfil);
+                                    editorProfil.putString(CACHE_PASSWORD, editPassword);
+                                    editorProfil.commit();
                                     ConnectionActivity.this.startActivity(intentMap);
                                 } else {
                                     /**Partie Firebase envoit avec photo*/
@@ -310,7 +317,10 @@ public class ConnectionActivity extends AppCompatActivity {
 
                                             /**Partie Singleton*/
                                             userModelSingleton(editProfil, hashCode.toString(), downloadUrl.toString(), "EcoNoob", 0, 1);
-
+                                            SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
+                                            editorProfil.putString(CACHE_USERNAME, editProfil);
+                                            editorProfil.putString(CACHE_PASSWORD, editPassword);
+                                            editorProfil.commit();
                                             ConnectionActivity.this.startActivity(intentMap);
                                         }
                                     });
@@ -347,10 +357,6 @@ public class ConnectionActivity extends AppCompatActivity {
                         }
                     });
 
-                    SharedPreferences.Editor editorProfil = sharedPrefProfil.edit();
-                    editorProfil.putString(CACHE_USERNAME, editProfil);
-                    editorProfil.putString(CACHE_PASSWORD, editPassword);
-                    editorProfil.commit();
                 }
 
 
