@@ -103,6 +103,8 @@ public class Settings extends AppCompatActivity {
             name.setText(userSingleton.getTextName());
             ivProfil.setBackground(null);
         }
+        else{name.setText(userSingleton.getTextName());}
+
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

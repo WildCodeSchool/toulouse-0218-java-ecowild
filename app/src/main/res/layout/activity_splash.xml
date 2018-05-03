@@ -31,11 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="6dp"
         android:text="@string/nom_createurs"
         android:textColor="@color/colorEcoWild"
-        android:textSize="9sp"
-        android:layout_margin="6dp"
-        android:textAllCaps="true"
+        android:textSize="14sp"
+
         />
 
 </RelativeLayout>

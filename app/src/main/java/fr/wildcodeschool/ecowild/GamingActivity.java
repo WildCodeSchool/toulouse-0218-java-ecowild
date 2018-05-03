@@ -70,14 +70,14 @@ public class GamingActivity extends AppCompatActivity {
             ImageView ivBottleGame = findViewById(R.id.iv_game_bottle);
 
             ImageView ivJedi = findViewById(R.id.iv_jedi);
-            ImageView ivJedi2 = findViewById(R.id.iv_jedi2);
+            final ImageView ivJedi2 = findViewById(R.id.iv_jedi2);
             ImageView ivBublle = findViewById(R.id.iv_bulle);
-            ImageView ivBublle2 = findViewById(R.id.iv_bulle2);
+            final ImageView ivBublle2 = findViewById(R.id.iv_bulle2);
 
 
             ImageView gifArrow = findViewById(R.id.iv_arrow);
             TextView tvInfosGame = findViewById(R.id.tv_infos);
-            TextView tvInfosGame2 = findViewById(R.id.tv_infos2);
+            final TextView tvInfosGame2 = findViewById(R.id.tv_infos2);
             TextView tvScore = findViewById(R.id.tv_score);
 
             Animation fadeOutAnimation = AnimationUtils.loadAnimation(GamingActivity.this, R.anim.fade_out_animation);
@@ -321,6 +321,14 @@ public class GamingActivity extends AppCompatActivity {
 
                         Animation zoomAnimation = AnimationUtils.loadAnimation(GamingActivity.this, R.anim.zoom);
                         ivJedi2.startAnimation(zoomAnimation);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ivBublle2.setVisibility(View.VISIBLE);
+                                tvInfosGame2.setVisibility(View.VISIBLE);
+
+                            }
+                        }, SPLASH_TIME_OUT);
 
                         if (mXp > 0) {
                             tvInfosGame2.setText(getString(R.string.gain_game) + " " + Integer.valueOf(mXp).toString() + " " + getString(R.string.gain2));
@@ -345,15 +353,14 @@ public class GamingActivity extends AppCompatActivity {
                             }, SPLASH_DISPLAY_LENGTH);
                         }
 
+
+                        ivJedi2.setVisibility(View.VISIBLE);
                         llBac.setVisibility(View.INVISIBLE);
                         cWaste.setVisibility(View.INVISIBLE);
                         gifArrow.setVisibility(View.INVISIBLE);
                         tvInfosGame.setVisibility(View.INVISIBLE);
                         ivJedi.setVisibility(View.INVISIBLE);
                         ivBublle.setVisibility(View.INVISIBLE);
-                        ivJedi2.setVisibility(View.VISIBLE);
-                        tvInfosGame2.setVisibility(View.VISIBLE);
-                        ivBublle2.setVisibility(View.VISIBLE);
                         tvScore.setVisibility(View.INVISIBLE);
 
                         userSingleton.setIntXp(userSingleton.getIntLevel() + mXp);

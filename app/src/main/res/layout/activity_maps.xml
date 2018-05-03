@@ -63,7 +63,6 @@
             map:layout_constraintTop_toTopOf="parent" />
 
 
-
         <br.com.bloder.magic.view.MagicButton
             android:id="@+id/magic_button"
             android:layout_width="wrap_content"
