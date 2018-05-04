@@ -125,6 +125,8 @@
         android:background="#ffffff"
         android:orientation="vertical">
 
+        <!--  -->
+
         <TextView
             android:id="@+id/tv_background"
             android:layout_width="270dp"
@@ -163,10 +165,10 @@
 
         <ImageView
             android:id="@+id/img_rang"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="9dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/icon_avatar"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
             map:layout_constraintTop_toTopOf="parent" />
