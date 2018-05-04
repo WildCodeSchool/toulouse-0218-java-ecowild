@@ -184,7 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (userSingleton.getIntXp() % 10 == 0) {
                     pbXpImg.setProgress(0);
                     userSingleton.setIntLevel(userSingleton.getIntLevel() + 1);
-                    level.setText(String.format(getString(R.string.lvl), userSingleton.getIntLevel()));
+                    level.setText(getString(R.string.lvl) + " " +  userSingleton.getIntLevel());
                     xp.setText(R.string.xppp);
                 }
 
@@ -638,7 +638,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (ConnectionActivity.CONNECTED || !username.isEmpty()) {
             pseudo.setText(userSingleton.getTextName());
-            level.setText(getString(R.string.xp_connection) + Integer.valueOf(userSingleton.getIntLevel()).toString());
+            level.setText(getString(R.string.xp_connection)+ " " + Integer.valueOf(userSingleton.getIntLevel()).toString());
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
