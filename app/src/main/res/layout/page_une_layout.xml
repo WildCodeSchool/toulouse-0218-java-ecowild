@@ -9,26 +9,25 @@
 
     <ImageView
         android:id="@+id/iv_round"
-        android:layout_width="242dp"
-        android:layout_height="223dp"
+        android:layout_width="314dp"
+        android:layout_height="306dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/rond"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_title"
+        app:layout_constraintVertical_bias="0.348" />
 
     <ImageView
         android:id="@+id/iv_title"
-        android:layout_width="287dp"
-        android:layout_height="96dp"
+        android:layout_width="329dp"
+        android:layout_height="131dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/utiletitre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
