@@ -44,7 +44,7 @@
     <string name="pseudo">Pseudo</string>
     <string name="geoloc_refused">Tu as refusé la géolocalisation.</string>
     <string name="geoloc_off">Géolocalisation désactivée</string>
-    <string name="je_viens_de_recycler">Je viens de recycler</string>
+    <string name="je_viens_de_recycler">J\'ai trié</string>
     <string name="yes">OUI</string>
     <string name="no">NON</string>
     <string name="lock_buttons">Verrouiller la\nposition des îcones</string>

@@ -253,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         /** Partie Popup**/
-        Button popup = findViewById(R.id.button_popup);
+        ImageView popup = findViewById(R.id.button_popup);
         popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
