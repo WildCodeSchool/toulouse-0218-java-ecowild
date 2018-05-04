@@ -34,7 +34,7 @@
     <string name="new_compte2">Valide ton nom de compte</string>
     <string name="move_compte">Modifier ton nom de Compte</string>
     <string name="avatar">Avatar</string>
-    <string name="name">P</string>
+    <string name="name">Pseudo</string>
     <string name="password2">Mot de passe</string>
     <string name="alerte">Alerte proximité</string>
     <string name="alert_message">Tu es à moins de 2 mètres d\'un lieu de collecte. Veux-tu recycler?</string>
