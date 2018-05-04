@@ -91,12 +91,36 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getChildrenCount() == 0) {
-                                Toast.makeText(ForgottenPasswordActivity.this, R.string.password_false, Toast.LENGTH_SHORT).show();
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast,
+                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                textToast.setText(R.string.password_false);
+
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(layout);
+                                toast.show();
                             }
                             for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
                                 String key = userdataSnapshot.getKey().toString();
                                 user.child(key).child("password").setValue(hashCode.toString());
-                                Toast.makeText(ForgottenPasswordActivity.this, R.string.move_password, Toast.LENGTH_SHORT).show();
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast,
+                                        (ViewGroup) findViewById(R.id.custom_toast_container));
+
+                                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                                textToast.setText(R.string.move_password);
+
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setView(layout);
+                                toast.show();
                                 Intent intentPassword = new Intent(ForgottenPasswordActivity.this, ConnectionActivity.class);
                                 startActivity(intentPassword);
                             }
