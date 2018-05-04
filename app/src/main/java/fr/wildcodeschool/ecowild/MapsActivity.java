@@ -628,6 +628,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 editorProfil.commit();
                 UserSingleton.getInstance().removeInstance();
                 ConnectionActivity.CONNECTED = false;
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast,
+                        (ViewGroup) findViewById(R.id.custom_toast_container));
+                TextView textToast = (TextView) layout.findViewById(R.id.text);
+                textToast.setText(R.string.deconnected);
+                Toast toast = new Toast(MapsActivity.this);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+
+
+
                 startActivity(new Intent(MapsActivity.this, MapsActivity.class));
             }
         });
