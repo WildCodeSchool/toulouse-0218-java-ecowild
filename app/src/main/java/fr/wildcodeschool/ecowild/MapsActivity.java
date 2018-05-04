@@ -232,6 +232,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 toast.setView(layout);
                 toast.show();
 
+                mbXp.setVisibility(View.GONE);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference user = database.getReference("utilisateurs");
                 user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
