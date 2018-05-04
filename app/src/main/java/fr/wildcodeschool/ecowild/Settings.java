@@ -426,10 +426,11 @@ public class Settings extends AppCompatActivity {
 
                 if (rbAvatar.isChecked()) {
                     ivAvatar.setVisibility(View.VISIBLE);
-                    buttonValidate.setVisibility(View.VISIBLE);
+
                     ivAvatar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            buttonValidate.setVisibility(View.VISIBLE);
                             //qd click sur avatar lance toutes les methodes
                             dispatchTakePictureIntent();
                         }

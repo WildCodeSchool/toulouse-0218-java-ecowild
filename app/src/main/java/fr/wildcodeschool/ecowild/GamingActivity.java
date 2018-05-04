@@ -108,8 +108,6 @@ public class GamingActivity extends AppCompatActivity {
                         textToast.setText(R.string.positive_xp);
 
                         Toast toast = new Toast(GamingActivity.this);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
                         toast.show();
@@ -148,8 +146,6 @@ public class GamingActivity extends AppCompatActivity {
                         textToast.setText(R.string.negative_xp);
 
                         Toast toast = new Toast(GamingActivity.this);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
                         toast.show();
@@ -191,8 +187,6 @@ public class GamingActivity extends AppCompatActivity {
                         textToast.setText(R.string.positive_xp);
 
                         Toast toast = new Toast(GamingActivity.this);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
                         toast.show();
@@ -214,10 +208,7 @@ public class GamingActivity extends AppCompatActivity {
 
                         TextView textToast = (TextView) layout.findViewById(R.id.text);
                         textToast.setText(R.string.negative_xp);
-
                         Toast toast = new Toast(GamingActivity.this);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
                         toast.show();
@@ -244,8 +235,6 @@ public class GamingActivity extends AppCompatActivity {
                         textToast.setText(R.string.positive_xp);
 
                         Toast toast = new Toast(GamingActivity.this);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
                         toast.show();
@@ -284,8 +273,6 @@ public class GamingActivity extends AppCompatActivity {
                         textToast.setText(R.string.negative_xp);
 
                         Toast toast = new Toast(GamingActivity.this);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.setDuration(Toast.LENGTH_LONG);
                         toast.setView(layout);
                         toast.show();
