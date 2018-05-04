@@ -184,17 +184,12 @@
 
             <ImageView
                 android:id="@+id/iv_appareil_photo"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="133dp"
-                android:layout_marginTop="213dp"
+                android:layout_width="61dp"
+                android:layout_height="43dp"
                 android:src="@drawable/appareil_photo"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.411"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
+                app:layout_constraintEnd_toEndOf="@+id/iv_photo" />
 
             <ImageView
                 android:id="@+id/image_view_ligne"

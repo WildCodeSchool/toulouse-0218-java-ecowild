@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context="fr.wildcodeschool.ecowild.PageZeroInformation">
 
     <ScrollView
@@ -20,21 +20,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/informations_utiles"
                 android:textColor="@color/colorEcoWild"
-                android:textSize="38sp"
+                android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_info"
-                android:layout_width="507dp"
+                android:layout_width="313dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:text="@string/page_zéro"
                 android:textColor="@android:color/black"
@@ -45,12 +45,12 @@
 
             <TextView
                 android:id="@+id/tv_tri"
-                android:layout_width="542dp"
+                android:layout_width="308dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:text="@string/go_guide"
                 android:textColor="@color/colorEcoWild"

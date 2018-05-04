@@ -73,7 +73,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsefulInformationActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Settings"
             android:screenOrientation="portrait" />
