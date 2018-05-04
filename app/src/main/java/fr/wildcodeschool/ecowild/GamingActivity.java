@@ -363,20 +363,25 @@ public class GamingActivity extends AppCompatActivity {
                         ivBublle.setVisibility(View.INVISIBLE);
                         tvScore.setVisibility(View.INVISIBLE);
 
-                        userSingleton.setIntXp(userSingleton.getIntXp() + mXp);
-                        user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
+
+                        user.orderByChild("name").equalTo(userSingleton.getTextName()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot userdataSnapshot : dataSnapshot.getChildren()) {
 
-                                    if (userSingleton.getIntXp() % 10 + mXp >= 10) {
+                                    if ((userSingleton.getIntXp() % 10) +mXp >= 10) {
+                                        userSingleton.setIntXp(userSingleton.getIntXp() + mXp);
+                                        userSingleton.setIntLevel(userSingleton.getIntLevel() + 1);
                                         String key = userdataSnapshot.getKey().toString();
                                         user.child(key).child("xp").setValue(userSingleton.getIntXp());
-                                        userSingleton.setIntLevel(userSingleton.getIntLevel() + 1);
+                                        user.child(key).child("level").setValue(userSingleton.getIntLevel());
+
 
                                     } else {
                                         String key = userdataSnapshot.getKey().toString();
+                                        userSingleton.setIntXp(userSingleton.getIntXp() + mXp);
                                         user.child(key).child("xp").setValue(userSingleton.getIntXp());
+
                                     }
                                 }
                             }
