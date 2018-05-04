@@ -1070,4 +1070,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mbXp.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(MapsActivity.this,MapsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
