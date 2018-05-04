@@ -68,6 +68,7 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import java.util.ArrayList;
 
 import br.com.bloder.magic.view.MagicButton;
+
 import static android.view.MotionEvent.ACTION_UP;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_PASSWORD;
 import static fr.wildcodeschool.ecowild.ConnectionActivity.CACHE_USERNAME;
@@ -173,6 +174,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final int intGainExperience = 1;
         final ImageView imgRang = findViewById(R.id.img_rang);
 
+        if (ConnectionActivity.CONNECTED) {
+            imgRang.setVisibility(View.VISIBLE);
+            if (userSingleton.getIntLevel() >= 10) {
+                rank.setText(R.string.rang5);
+                userSingleton.setTextRank("EcoGod");
+                Glide.with(MapsActivity.this).load(R.drawable.ecogod_cercle).into(imgRang);
+            } else if (userSingleton.getIntLevel() >= 7) {
+                rank.setText(R.string.rang4);
+                userSingleton.setTextRank("EcoWild");
+                Glide.with(MapsActivity.this).load(R.drawable.ecowild_cercle).into(imgRang);
+            } else if (userSingleton.getIntLevel() >= 5) {
+                rank.setText(R.string.rang3);
+                userSingleton.setTextRank("EcoFan");
+                Glide.with(MapsActivity.this).load(R.drawable.ecofan_cercle).into(imgRang);
+            } else if (userSingleton.getIntLevel() >= 3) {
+                rank.setText(R.string.rang2);
+                userSingleton.setTextRank("EcoCool");
+                Glide.with(MapsActivity.this).load(R.drawable.ecocool_cercle).into(imgRang);
+            } else if (userSingleton.getIntLevel() >= 1) {
+                rank.setText(R.string.rang1);
+                userSingleton.setTextRank("EcoNoob");
+                Glide.with(MapsActivity.this).load(R.drawable.econoob_cercle).into(imgRang);
+            }
+        }
+
         mbXp.setMagicButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,34 +210,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (userSingleton.getIntXp() % 10 == 0) {
                     pbXpImg.setProgress(0);
                     userSingleton.setIntLevel(userSingleton.getIntLevel() + 1);
-                    level.setText(getString(R.string.lvl) + " " +  userSingleton.getIntLevel());
+                    level.setText(getString(R.string.lvl) + " " + userSingleton.getIntLevel());
                     xp.setText(R.string.xppp);
                 }
 
                 if (userSingleton.getIntXp() % 10 != 0) {
                     xp.setText(String.format(getString(R.string.xp_progress), userSingleton.getIntXp() % 10));
-                }
-
-                if (userSingleton.getIntLevel() >= 10) {
-                    rank.setText(R.string.rang5);
-                    userSingleton.setTextRank("EcoGod");
-                    Glide.with(MapsActivity.this).load(R.drawable.ecogod_cercle).into(imgRang);
-                } else if (userSingleton.getIntLevel() >= 7) {
-                    rank.setText(R.string.rang4);
-                    userSingleton.setTextRank("EcoWild");
-                    Glide.with(MapsActivity.this).load(R.drawable.ecowild_cercle).into(imgRang);
-                } else if (userSingleton.getIntLevel() >= 5) {
-                    rank.setText(R.string.rang3);
-                    userSingleton.setTextRank("EcoFan");
-                    Glide.with(MapsActivity.this).load(R.drawable.ecofan_cercle).into(imgRang);
-                } else if (userSingleton.getIntLevel() >= 3) {
-                    rank.setText(R.string.rang2);
-                    userSingleton.setTextRank("EcoCool");
-                    Glide.with(MapsActivity.this).load(R.drawable.ecocool_cercle).into(imgRang);
-                } else if (userSingleton.getIntLevel() >= 1) {
-                    rank.setText(R.string.rang1);
-                    userSingleton.setTextRank("EcoNoob");
-                    Glide.with(MapsActivity.this).load(R.drawable.econoob_cercle).into(imgRang);
                 }
 
                 LayoutInflater inflater = getLayoutInflater();
@@ -638,7 +642,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (ConnectionActivity.CONNECTED || !username.isEmpty()) {
             pseudo.setText(userSingleton.getTextName());
-            level.setText(getString(R.string.xp_connection)+ " " + Integer.valueOf(userSingleton.getIntLevel()).toString());
+            level.setText(getString(R.string.xp_connection) + " " + Integer.valueOf(userSingleton.getIntLevel()).toString());
             xp.setText(Integer.valueOf(userSingleton.getIntXp() % 10).toString() + getString(R.string.xp_ooo));
             pseudo.setVisibility(View.VISIBLE);
             rank.setVisibility(View.VISIBLE);
@@ -1023,7 +1027,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void updateMarker(Location location) {
 
         float distance;
-        float minDistance=1000;
+        float minDistance = 1000;
 
 
         mUserPosition = new LatLng(location.getLatitude(), location.getLongitude());
@@ -1042,12 +1046,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             loc2.setLongitude(loadAPISingleton.getClusterList().get(i).getPosition().longitude);
 
             distance = loc1.distanceTo(loc2);
-            if ( Math.round(minDistance) != 0 && Math.round(minDistance) > Math.round(distance)){
+            if (Math.round(minDistance) != 0 && Math.round(minDistance) > Math.round(distance)) {
                 minDistance = distance;
             }
         }
 
-         if ( Math.round(minDistance) < 2 ) {
+        if (Math.round(minDistance) < 2) {
 
             AlertDialog.Builder popup = new AlertDialog.Builder(MapsActivity.this);
             popup.setTitle(R.string.alerte);
@@ -1073,7 +1077,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onBackPressed() {
-        Intent intent=new Intent(MapsActivity.this,MapsActivity.class);
+        Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
         startActivity(intent);
         finish();
     }

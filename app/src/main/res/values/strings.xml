@@ -105,5 +105,5 @@
     <string name="go_guide">En allant sur la droite, tu peux accèder au guide du tri de l\'agglomération de Toulouse.</string>
     <string name="coonected">Pour accèder à toutes les fonctionnalités, tu dois te connecter</string>
     <string name="page_zéro">EcoWild est une application mobile qui permet de repérer les points de recyclagles de l’agglomération de Toulouse. Elle affiche une première page composée d\'une carte et de marqueurs.\n\nEn cliquant sur un switch, tu es redirigé vers une autre page représentant les lieux de collecte sous forme de liste. L\'application permet aussi de filtrer en fonction de tes besoins, de te géolocaliser et permet aussi de tracer un itinéraire jusqu\'à un lieu de collecte.\n\nPlus tu recycles, plus tu gagnes des points expériences. Ils te permettent de gagner des rangs.\n\n\nCréateurs : Claire Bertrand, Valentin Destruel et François Nys</string>
-    <string name="arlete">Alerte : Attention !</string>
+    <string name="arlete">Attention !</string>
 </resources>
