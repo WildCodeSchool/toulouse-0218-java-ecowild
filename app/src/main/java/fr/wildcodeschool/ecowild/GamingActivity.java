@@ -363,7 +363,7 @@ public class GamingActivity extends AppCompatActivity {
                         ivBublle.setVisibility(View.INVISIBLE);
                         tvScore.setVisibility(View.INVISIBLE);
 
-                        userSingleton.setIntXp(userSingleton.getIntLevel() + mXp);
+                        userSingleton.setIntXp(userSingleton.getIntXp() + mXp);
                         user.orderByChild("name").equalTo(userSingleton.getTextName()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
