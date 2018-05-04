@@ -75,7 +75,7 @@ public class ListLocationActivity extends AppCompatActivity {
         SubActionButton sabPaper = listeBuilder.setContentView(paperFilterGlass).build();
 
         Resources ressource = getResources();
-        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 75, ressource.getDisplayMetrics());
+        int valuePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85, ressource.getDisplayMetrics());
 
         DrawerLayout.LayoutParams layoutParam = new DrawerLayout.LayoutParams(valuePx, valuePx);
         sabPaper.setLayoutParams(layoutParam);

@@ -257,7 +257,6 @@ public class ConnectionActivity extends AppCompatActivity {
 
                     TextView textToast = (TextView) layout.findViewById(R.id.text);
                     textToast.setText(R.string.error);
-
                     Toast toast = new Toast(getApplicationContext());
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setView(layout);

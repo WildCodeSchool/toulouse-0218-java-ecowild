@@ -187,7 +187,7 @@
                 android:layout_width="61dp"
                 android:layout_height="43dp"
                 android:src="@drawable/appareil_photo"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_photo"
                 app:layout_constraintEnd_toEndOf="@+id/iv_photo" />
 
