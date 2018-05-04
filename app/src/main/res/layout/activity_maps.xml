@@ -28,8 +28,7 @@
             map:layout_constraintStart_toEndOf="@+id/iv_left"
             map:layout_constraintTop_toTopOf="parent"
             map:layout_constraintVertical_bias="0.0"
-            tools:context="fr.wildcodeschool.ecowild.MapsActivity"
-            />
+            tools:context="fr.wildcodeschool.ecowild.MapsActivity" />
 
         <TextView
             android:id="@+id/test_position"
@@ -67,8 +66,9 @@
             android:id="@+id/magic_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="19dp"
-            android:layout_marginStart="19dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
             app:button_icon="@drawable/jeter"
             app:button_icon_height="43dp"
             app:button_icon_width="40dp"
@@ -77,18 +77,19 @@
             app:hide_text_color="@color/colorBlack"
             app:hide_text_size="8sp"
             app:icon_button_color="@color/colorEcoWild"
+            app:layout_constraintTop_toBottomOf="@+id/iv_left"
+            app:layout_constraintVertical_bias="0.004"
             app:magic_button_size="60dp"
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <ImageView
             android:id="@+id/button_popup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/popup"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="@+id/map" />
@@ -165,10 +166,10 @@
 
         <ImageView
             android:id="@+id/img_rang"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="9dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/icon_avatar"
             map:layout_constraintStart_toStartOf="@+id/tv_background"
             map:layout_constraintTop_toTopOf="parent" />
@@ -339,9 +340,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginTop="8dp"
-            android:textColor="#f8dc81"
             android:shadowColor="@color/colorBlack"
             android:shadowRadius="20"
+            android:textColor="#f8dc81"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone"
