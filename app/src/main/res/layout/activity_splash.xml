@@ -27,15 +27,16 @@
         />
 
     <TextView
+        android:id="@+id/tv_creators"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="6dp"
+        android:gravity="center"
         android:text="@string/nom_createurs"
-        android:textColor="@color/colorEcoWild"
-        android:textSize="14sp"
 
-        />
+        android:textColor="@color/colorEcoWild"
+        android:textSize="14sp" />
 
 </RelativeLayout>

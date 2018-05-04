@@ -4,108 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_bac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/f"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.726" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_title"
-        android:layout_width="202dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/a"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_title1"
-        android:layout_width="91dp"
-        android:layout_height="18dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/b"
-        app:layout_constraintBottom_toTopOf="@+id/iv_glass"
-        app:layout_constraintEnd_toEndOf="@+id/iv_glass"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="@+id/iv_glass"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+            <ImageView
+                android:id="@+id/iv_bac"
+                android:layout_width="300dp"
+                android:layout_height="226dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/f"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/iv_equals"
+                app:layout_constraintTop_toBottomOf="@+id/iv_equals"
+                app:layout_constraintTop_toTopOf="@+id/iv_equals" />
 
-    <ImageView
-        android:id="@+id/iv_glass"
-        android:layout_width="85dp"
-        android:layout_height="74dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="32dp"
-        android:background="@drawable/c"
-        app:layout_constraintBottom_toTopOf="@+id/iv_memo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_pot" />
+            <ImageView
+                android:id="@+id/iv_title"
+                android:layout_width="245dp"
+                android:layout_height="96dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/a"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_title2"
-        android:layout_width="65dp"
-        android:layout_height="19dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/d"
-        app:layout_constraintBottom_toTopOf="@+id/iv_pot"
-        app:layout_constraintEnd_toEndOf="@+id/iv_pot"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/iv_pot"
-        app:layout_constraintTop_toBottomOf="@+id/iv_title"
-        app:layout_constraintVertical_bias="1.0" />
+            <ImageView
+                android:id="@+id/iv_glass"
+                android:layout_width="120dp"
+                android:layout_height="93dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/c"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_memo" />
 
-    <ImageView
-        android:id="@+id/iv_pot"
-        android:layout_width="77dp"
-        android:layout_height="53dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/e"
-        app:layout_constraintEnd_toStartOf="@+id/iv_memo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/iv_equals"
-        app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+            <ImageView
+                android:id="@+id/iv_pot"
+                android:layout_width="126dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/e"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_memo" />
 
-    <ImageView
-        android:id="@+id/iv_equals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/neuf"
-        app:layout_constraintStart_toEndOf="@+id/iv_bac"
-        app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+            <ImageView
+                android:id="@+id/iv_equals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/neuf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_title1" />
 
-    <ImageView
-        android:id="@+id/iv_memo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/g"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <ImageView
+                android:id="@+id/iv_memo"
+                android:layout_width="271dp"
+                android:layout_height="258dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/g"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_title" />
+
+            <ImageView
+                android:id="@+id/iv_title1"
+                android:layout_width="139dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/b"
+                app:layout_constraintEnd_toEndOf="@+id/iv_glass"
+                app:layout_constraintStart_toStartOf="@+id/iv_glass"
+                app:layout_constraintTop_toBottomOf="@+id/iv_glass" />
+
+            <ImageView
+                android:id="@+id/iv_title2"
+                android:layout_width="94dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/d"
+                app:layout_constraintEnd_toEndOf="@+id/iv_pot"
+                app:layout_constraintStart_toStartOf="@+id/iv_pot"
+                app:layout_constraintTop_toBottomOf="@+id/iv_pot" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+
 </android.support.constraint.ConstraintLayout>
 
